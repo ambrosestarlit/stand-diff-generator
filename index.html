@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>立ち絵の差分ジェネレーター</title>
+  <style>
+    :root {
+      --bg: #f7fbf8;
+      --panel: #ffffff;
+      --mint: #d8eee8;
+      --mint-dark: #92c9ba;
+      --mint-deep: #3d7f70;
+      --line: #d7e6e1;
+      --text: #263633;
+      --muted: #6a7f79;
+      --danger: #d66b6b;
+      --shadow: 0 10px 30px rgba(60, 100, 90, 0.12);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(216, 238, 232, 0.9), transparent 32rem),
+        linear-gradient(135deg, #ffffff 0%, var(--bg) 50%, #eef8f5 100%);
+      color: var(--text);
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      background: var(--mint-dark);
+      color: #fff;
+      padding: 0.55rem 0.9rem;
+      cursor: pointer;
+      transition: 0.16s ease;
+      white-space: nowrap;
+    }
+
+    button:hover {
+      filter: brightness(0.96);
+      transform: translateY(-1px);
+    }
+
+    button.secondary {
+      background: #eff8f5;
+      color: var(--mint-deep);
+      border: 1px solid var(--line);
+    }
+
+    button.danger {
+      background: #fff0f0;
+      color: #b84b4b;
+      border: 1px solid #f2c6c6;
+    }
+
+    button.small {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.85rem;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--text);
+      padding: 0.5rem 0.75rem;
+      outline: none;
+      min-width: 0;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      border-color: var(--mint-dark);
+      box-shadow: 0 0 0 3px rgba(146, 201, 186, 0.22);
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    label {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .app {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.8fr) minmax(560px, 1.4fr);
+  gap: 1rem;
+  padding: 1rem;
+  height: 100vh;
+}
+
+    .panel {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(215, 230, 225, 0.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .left,
+    .right {
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      padding: 1rem 1.1rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(216, 238, 232, 0.34);
+    }
+
+    .title {
+      font-weight: 800;
+      font-size: 1.18rem;
+      letter-spacing: 0.03em;
+    }
+
+    .subtitle {
+      margin-top: 0.25rem;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      align-items: center;
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .toolbar.grouped {
+      align-items: end;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.25rem;
+      min-width: 140px;
+    }
+
+    .field.wide {
+      flex: 1;
+      min-width: 210px;
+    }
+
+    .content-scroll {
+      overflow: auto;
+      padding: 1rem;
+      min-height: 0;
+    }
+
+    .layer-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.92);
+      margin-bottom: 0.8rem;
+      overflow: hidden;
+    }
+
+    .layer-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 0.85rem;
+      background: linear-gradient(90deg, rgba(216, 238, 232, 0.85), rgba(255, 255, 255, 0.8));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .layer-name {
+      font-weight: 700;
+    }
+
+    .layer-note {
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-top: 0.1rem;
+    }
+
+    .part-list {
+      display: grid;
+      gap: 0.4rem;
+      padding: 0.65rem;
+    }
+
+    .empty {
+      color: var(--muted);
+      font-size: 0.88rem;
+      padding: 0.55rem 0.65rem;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      background: #fbfefd;
+    }
+
+    .part-row {
+      display: grid;
+      grid-template-columns: auto 48px 1fr auto;
+      gap: 0.55rem;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 0.45rem;
+      cursor: pointer;
+    }
+
+    .part-row:hover {
+      background: #f8fffc;
+    }
+
+    .part-row.active {
+      border-color: var(--mint-dark);
+      background: #f1fbf8;
+    }
+
+    .part-row input[type="checkbox"] {
+      width: 1.05rem;
+      height: 1.05rem;
+      accent-color: var(--mint-deep);
+    }
+
+    .thumb {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(45deg, #e6eee9 25%, transparent 25%),
+        linear-gradient(-45deg, #e6eee9 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #e6eee9 75%),
+        linear-gradient(-45deg, transparent 75%, #e6eee9 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+    }
+
+    .part-meta {
+      min-width: 0;
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .part-meta input {
+      width: 100%;
+      border-radius: 12px;
+      padding: 0.38rem 0.5rem;
+    }
+
+    .part-size {
+      color: var(--muted);
+      font-size: 0.74rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .preview-wrap {
+      padding: 1rem;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      flex: 1;
+    }
+
+    .preview-stage {
+      position: relative;
+      flex: 1;
+      min-height: 320px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: auto;
+      display: grid;
+      place-items: center;
+      background-color: #fff;
+    }
+
+    .preview-stage.bg-transparent {
+      background-color: transparent;
+      background-image:
+        linear-gradient(45deg, #dfe9e5 25%, transparent 25%),
+        linear-gradient(-45deg, #dfe9e5 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #dfe9e5 75%),
+        linear-gradient(-45deg, transparent 75%, #dfe9e5 75%);
+      background-size: 22px 22px;
+      background-position: 0 0, 0 11px, 11px -11px, -11px 0;
+    }
+
+    .preview-stage.bg-white {
+      background: #fff;
+    }
+
+    .preview-stage.bg-mint {
+      background: #e4f3ee;
+    }
+
+    #previewCanvas {
+      max-width: 86%;
+      max-height: 86%;
+      object-fit: contain;
+      transform-origin: center center;
+      transition: transform 0.05s linear;
+      image-rendering: auto;
+    }
+
+    .preview-info {
+      position: absolute;
+      top: 0.7rem;
+      left: 0.7rem;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.78rem;
+      pointer-events: none;
+    }
+
+    .slider-grid {
+      display: grid;
+      gap: 0.6rem;
+      padding: 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.86);
+    }
+
+    .slider-row {
+      display: grid;
+      grid-template-columns: 86px 1fr 70px;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--mint-deep);
+    }
+
+    .value {
+      text-align: right;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      font-size: 0.85rem;
+    }
+
+    .save-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+
+    .status {
+      color: var(--muted);
+      font-size: 0.82rem;
+      min-height: 1.2em;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+
+    .danger-text {
+      color: var(--danger);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .part-row.diff-mode {
+      grid-template-columns: 48px 1fr auto;
+    }
+
+    @media (max-width: 980px) {
+      .app {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      .right {
+        min-height: 720px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="panel left">
+      <div class="header">
+        <div class="title">立ち絵の差分ジェネレーター</div>
+        <div class="subtitle">カテゴリごとに画像を登録し、チェックしたパーツを重ねて透過PNGを書き出します。</div>
+      </div>
+
+      <div class="toolbar grouped">
+        <div class="field wide">
+          <label>左パネル表示</label>
+          <select id="leftModeSelect">
+            <option value="parts">パーツ組みモード</option>
+            <option value="diff">差分切り替えモード</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="toolbar grouped">
+        <div class="field wide">
+          <label>キャラクター</label>
+          <select id="characterSelect"></select>
+        </div>
+        <div class="field wide">
+          <label>キャラクター名</label>
+          <input id="characterNameInput" type="text" placeholder="キャラクター名" />
+        </div>
+        <button id="addCharacterBtn">追加</button>
+        <button id="renameCharacterBtn" class="secondary">名前変更</button>
+        <button id="deleteCharacterBtn" class="danger">削除</button>
+      </div>
+
+      <div id="presetToolbar" class="toolbar grouped">
+        <div class="field wide">
+          <label>プリセット</label>
+          <select id="presetSelect"></select>
+        </div>
+        <div class="field wide">
+          <label>プリセット名</label>
+          <input id="presetNameInput" type="text" placeholder="例：通常笑顔 / 照れ / 怒り" />
+        </div>
+        <button id="savePresetBtn">現在の組み合わせを保存</button>
+        <button id="applyPresetBtn" class="secondary">適用</button>
+        <button id="deletePresetBtn" class="danger">削除</button>
+      </div>
+
+      <div id="layersRoot" class="content-scroll"></div>
+    </section>
+
+    <section class="panel right">
+      <div class="header">
+        <div class="title">プレビュー / 書き出し</div>
+        <div class="subtitle">スケール・X移動・Y移動は確認用です。PNG書き出しには反映されません。</div>
+      </div>
+
+      <div class="toolbar grouped">
+        <div class="field">
+          <label>プレビュー背景</label>
+          <select id="previewBgSelect">
+            <option value="transparent">透明確認</option>
+            <option value="white">白</option>
+            <option value="mint">くすみミント</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>書き出し縦幅(px)</label>
+          <input id="exportHeightInput" type="number" min="1" step="1" value="1200" />
+        </div>
+
+        <div class="field">
+          <label>サイズ</label>
+          <select id="exportOriginalSelect">
+            <option value="original">原寸</option>
+            <option value="height">縦幅指定</option>
+          </select>
+        </div>
+
+        <button id="exportPngBtn">透過PNG書き出し</button>
+      </div>
+
+      <div class="toolbar">
+        <button id="downloadJsonBtn">JSON保存</button>
+        <button id="importJsonBtn" class="secondary">JSON読込</button>
+        <button id="saveCacheBtn">キャッシュ保存</button>
+        <button id="loadCacheBtn" class="secondary">キャッシュ読込</button>
+        <button id="clearCacheBtn" class="danger">キャッシュ削除</button>
+        <input id="jsonFileInput" type="file" accept="application/json,.json" />
+      </div>
+
+      <div class="preview-wrap">
+        <div id="previewStage" class="preview-stage bg-transparent">
+          <div id="previewInfo" class="preview-info">0 × 0</div>
+          <canvas id="previewCanvas"></canvas>
+        </div>
+
+        <div class="slider-grid">
+          <div class="slider-row">
+            <label for="previewScale">スケール</label>
+            <input id="previewScale" type="range" min="0.2" max="3" step="0.01" value="1" />
+            <div id="previewScaleValue" class="value">1.00</div>
+          </div>
+
+          <div class="slider-row">
+            <label for="previewX">X移動</label>
+            <input id="previewX" type="range" min="-500" max="500" step="1" value="0" />
+            <div id="previewXValue" class="value">0px</div>
+          </div>
+
+          <div class="slider-row">
+            <label for="previewY">Y移動</label>
+            <input id="previewY" type="range" min="-500" max="500" step="1" value="0" />
+            <div id="previewYValue" class="value">0px</div>
+          </div>
+        </div>
+
+        <div id="status" class="status"></div>
+        <div class="hint">
+          重ね順は画面上のカテゴリ順を最前面として扱います。書き出し時は奥側から順に描画されるため、透明PNGのパーツ画像は同じキャンバスサイズで作ると綺麗に合成できます。
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const LAYERS = [
+      { id: "armFront", name: "腕(手前)" },
+      { id: "itemFront", name: "アイテム(手前)" },
+      { id: "hairFront", name: "髪の毛(手前)" },
+      { id: "eyes", name: "目元" },
+      { id: "brows", name: "眉毛" },
+      { id: "mouth", name: "口" },
+      { id: "effect", name: "表情効果" },
+      { id: "armBack", name: "腕(奥)" },
+      { id: "itemMiddle", name: "アイテム(中)" },
+      { id: "base", name: "ベース" },
+      { id: "itemBack", name: "アイテム(奥)" },
+      { id: "hairBack", name: "髪の毛(奥)" }
+    ];
+
+    const DIFF_LAYERS = [
+      { id: "diffBase", name: "ベース" }
+    ];
+
+    const DB_NAME = "stand-diff-generator-db";
+    const DB_VERSION = 1;
+    const STORE_NAME = "projects";
+    const CACHE_KEY = "current-project";
+
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+    const uid = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+
+    const imageCache = new Map();
+    let previewRenderToken = 0;
+
+    let state = createDefaultState();
+
+    function createDefaultState() {
+      const firstChar = createCharacter("新規キャラクター");
+      return {
+        version: 1,
+        activeCharacterId: firstChar.id,
+        characters: [firstChar],
+        settings: {
+          leftMode: "parts",
+          previewBg: "transparent",
+          previewScale: 1,
+          previewX: 0,
+          previewY: 0,
+          exportMode: "original",
+          exportHeight: 1200
+        }
+      };
+    }
+
+    function createCharacter(name) {
+      const layers = {};
+      const diffLayers = {};
+
+      for (const layer of LAYERS) layers[layer.id] = [];
+      for (const layer of DIFF_LAYERS) diffLayers[layer.id] = [];
+
+      return {
+        id: uid(),
+        name,
+        layers,
+        diffLayers,
+        presets: []
+      };
+    }
+
+    function normalizePartList(parts) {
+      if (!Array.isArray(parts)) return [];
+
+      return parts.map((part) => ({
+        id: part.id || uid(),
+        name: part.name || "名称未設定",
+        dataUrl: part.dataUrl || part.dataURL || "",
+        width: Number(part.width || part.w || 0),
+        height: Number(part.height || part.h || 0),
+        selected: Boolean(part.selected)
+      })).filter((part) => part.dataUrl);
+    }
+
+    function getActiveMode() {
+      return state.settings?.leftMode === "diff" ? "diff" : "parts";
+    }
+
+    function getActiveLayers() {
+      return getActiveMode() === "diff" ? DIFF_LAYERS : LAYERS;
+    }
+
+    function getLayerStore(character = activeCharacter()) {
+      return getActiveMode() === "diff" ? character.diffLayers : character.layers;
+    }
+
+    function normalizeState(project) {
+      const normalized = project && typeof project === "object" ? project : createDefaultState();
+
+      if (!Array.isArray(normalized.characters) || normalized.characters.length === 0) {
+        normalized.characters = [createCharacter("新規キャラクター")];
+      }
+
+      for (const character of normalized.characters) {
+        if (!character.id) character.id = uid();
+        if (!character.name) character.name = "名称未設定";
+        if (!character.layers || typeof character.layers !== "object") character.layers = {};
+        if (!character.diffLayers || typeof character.diffLayers !== "object") character.diffLayers = {};
+        if (!Array.isArray(character.presets)) character.presets = [];
+
+        for (const layer of LAYERS) {
+          character.layers[layer.id] = normalizePartList(character.layers[layer.id]);
+        }
+
+        for (const layer of DIFF_LAYERS) {
+          character.diffLayers[layer.id] = normalizePartList(character.diffLayers[layer.id]);
+
+          const selectedParts = character.diffLayers[layer.id].filter((part) => part.selected);
+          if (selectedParts.length > 1) {
+            character.diffLayers[layer.id].forEach((part, index) => {
+              part.selected = index === character.diffLayers[layer.id].findIndex((item) => item.selected);
+            });
+          }
+        }
+
+        character.presets = character.presets.map((preset) => ({
+          id: preset.id || uid(),
+          name: preset.name || "名称未設定",
+          selection: preset.selection && typeof preset.selection === "object" ? preset.selection : {}
+        }));
+      }
+
+      if (!normalized.activeCharacterId || !normalized.characters.some((c) => c.id === normalized.activeCharacterId)) {
+        normalized.activeCharacterId = normalized.characters[0].id;
+      }
+
+      normalized.settings = {
+        leftMode: normalized.settings?.leftMode === "diff" ? "diff" : "parts",
+        previewBg: normalized.settings?.previewBg || "transparent",
+        previewScale: Number(normalized.settings?.previewScale ?? 1),
+        previewX: Number(normalized.settings?.previewX ?? 0),
+        previewY: Number(normalized.settings?.previewY ?? 0),
+        exportMode: normalized.settings?.exportMode || "original",
+        exportHeight: Number(normalized.settings?.exportHeight ?? 1200)
+      };
+
+      return normalized;
+    }
+
+    function activeCharacter() {
+      return state.characters.find((character) => character.id === state.activeCharacterId) || state.characters[0];
+    }
+
+    function selectedParts(character = activeCharacter()) {
+      const result = {};
+      const layers = getActiveLayers();
+      const store = getLayerStore(character);
+
+      for (const layer of layers) {
+        result[layer.id] = store[layer.id].filter((part) => part.selected);
+      }
+
+      return result;
+    }
+
+    function getCanvasBaseSize(character = activeCharacter()) {
+      let width = 0;
+      let height = 0;
+      const layers = getActiveLayers();
+      const store = getLayerStore(character);
+
+      for (const layer of layers) {
+        for (const part of store[layer.id]) {
+          if (part.selected || width === 0 || height === 0) {
+            width = Math.max(width, Number(part.width || 0));
+            height = Math.max(height, Number(part.height || 0));
+          }
+        }
+      }
+
+      if (!width || !height) {
+        width = 1200;
+        height = 1200;
+      }
+
+      return { width, height };
+    }
+
+    function setStatus(text, isDanger = false) {
+      const status = $("#status");
+      status.textContent = text;
+      status.classList.toggle("danger-text", isDanger);
+    }
+
+    function renderAll() {
+      renderCharacterControls();
+      renderPresetControls();
+      renderLayers();
+      syncSettingsControls();
+      updatePreviewTransform();
+      renderPreview();
+    }
+
+    function renderCharacterControls() {
+      const select = $("#characterSelect");
+      select.innerHTML = "";
+
+      for (const character of state.characters) {
+        const option = document.createElement("option");
+        option.value = character.id;
+        option.textContent = character.name;
+        option.selected = character.id === state.activeCharacterId;
+        select.appendChild(option);
+      }
+
+      $("#characterNameInput").value = activeCharacter().name;
+    }
+
+    function renderPresetControls() {
+      const toolbar = $("#presetToolbar");
+      if (toolbar) toolbar.classList.toggle("hidden", getActiveMode() === "diff");
+
+      const character = activeCharacter();
+      const select = $("#presetSelect");
+      select.innerHTML = "";
+
+      const emptyOption = document.createElement("option");
+      emptyOption.value = "";
+      emptyOption.textContent = "プリセットを選択";
+      select.appendChild(emptyOption);
+
+      for (const preset of character.presets) {
+        const option = document.createElement("option");
+        option.value = preset.id;
+        option.textContent = preset.name;
+        select.appendChild(option);
+      }
+    }
+
+    function renderLayers() {
+      const root = $("#layersRoot");
+      root.innerHTML = "";
+
+      const character = activeCharacter();
+      const mode = getActiveMode();
+      const layers = getActiveLayers();
+      const store = getLayerStore(character);
+
+      for (const layer of layers) {
+        const card = document.createElement("section");
+        card.className = "layer-card";
+
+        const head = document.createElement("div");
+        head.className = "layer-head";
+
+        const titleWrap = document.createElement("div");
+        const name = document.createElement("div");
+        name.className = "layer-name";
+        name.textContent = layer.name;
+
+        const note = document.createElement("div");
+        note.className = "layer-note";
+        note.textContent = mode === "diff"
+          ? "完成済み差分をクリックで切り替え。複数選択はできません。"
+          : "複数チェックで同カテゴリ内の重ね合わせが可能";
+
+        titleWrap.append(name, note);
+
+        const uploadBtn = document.createElement("button");
+        uploadBtn.className = "small";
+        uploadBtn.textContent = "画像登録";
+
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = "image/png,image/jpeg,image/webp";
+        fileInput.multiple = true;
+
+        uploadBtn.addEventListener("click", () => fileInput.click());
+        fileInput.addEventListener("change", async (event) => {
+          await addImagesToLayer(layer.id, Array.from(event.target.files || []));
+          fileInput.value = "";
+        });
+
+        head.append(titleWrap, uploadBtn, fileInput);
+
+        const list = document.createElement("div");
+        list.className = "part-list";
+
+        const parts = store[layer.id];
+
+        if (parts.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "empty";
+          empty.textContent = mode === "diff"
+            ? "完成済み差分画像を登録してください。"
+            : "まだ画像が登録されていません。";
+          list.appendChild(empty);
+        } else {
+          for (const part of parts) {
+            const row = document.createElement("div");
+            row.className = `part-row${part.selected ? " active" : ""}${mode === "diff" ? " diff-mode" : ""}`;
+
+            const img = document.createElement("img");
+            img.className = "thumb";
+            img.src = part.dataUrl;
+            img.alt = part.name;
+
+            const meta = document.createElement("div");
+            meta.className = "part-meta";
+
+            const nameInput = document.createElement("input");
+            nameInput.type = "text";
+            nameInput.value = part.name;
+            nameInput.placeholder = "パーツ名";
+            nameInput.addEventListener("input", () => {
+              part.name = nameInput.value.trim() || "名称未設定";
+            });
+
+            const size = document.createElement("div");
+            size.className = "part-size";
+            size.textContent = `${part.width || "-"} × ${part.height || "-"} px${part.selected ? " / 表示中" : ""}`;
+
+            meta.append(nameInput, size);
+
+            const removeBtn = document.createElement("button");
+            removeBtn.className = "small danger";
+            removeBtn.textContent = "削除";
+
+            if (mode === "parts") {
+              const checkbox = document.createElement("input");
+              checkbox.type = "checkbox";
+              checkbox.checked = part.selected;
+              checkbox.title = "表示適用";
+
+              const toggle = () => {
+                part.selected = !part.selected;
+                renderLayers();
+                renderPreview();
+              };
+
+              row.addEventListener("click", (event) => {
+                const tag = event.target.tagName.toLowerCase();
+                if (tag === "input" || tag === "button") return;
+                toggle();
+              });
+
+              checkbox.addEventListener("change", () => {
+                part.selected = checkbox.checked;
+                renderLayers();
+                renderPreview();
+              });
+
+              row.append(checkbox, img, meta, removeBtn);
+            } else {
+              row.addEventListener("click", (event) => {
+                const tag = event.target.tagName.toLowerCase();
+                if (tag === "input" || tag === "button") return;
+
+                for (const item of parts) item.selected = false;
+                part.selected = true;
+
+                renderLayers();
+                renderPreview();
+              });
+
+              row.append(img, meta, removeBtn);
+            }
+
+            removeBtn.addEventListener("click", () => {
+              store[layer.id] = store[layer.id].filter((item) => item.id !== part.id);
+              imageCache.delete(part.dataUrl);
+              renderLayers();
+              renderPreview();
+            });
+
+            list.appendChild(row);
+          }
+        }
+
+        card.append(head, list);
+        root.appendChild(card);
+      }
+    }
+
+    function syncSettingsControls() {
+      $("#leftModeSelect").value = getActiveMode();
+      $("#previewBgSelect").value = state.settings.previewBg;
+      $("#previewScale").value = state.settings.previewScale;
+      $("#previewX").value = state.settings.previewX;
+      $("#previewY").value = state.settings.previewY;
+      $("#exportOriginalSelect").value = state.settings.exportMode;
+      $("#exportHeightInput").value = state.settings.exportHeight;
+    }
+
+    function updatePreviewTransform() {
+      const scale = Number(state.settings.previewScale || 1);
+      const x = Number(state.settings.previewX || 0);
+      const y = Number(state.settings.previewY || 0);
+
+      $("#previewCanvas").style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+      $("#previewScaleValue").textContent = scale.toFixed(2);
+      $("#previewXValue").textContent = `${x}px`;
+      $("#previewYValue").textContent = `${y}px`;
+
+      const stage = $("#previewStage");
+      stage.classList.remove("bg-transparent", "bg-white", "bg-mint");
+      stage.classList.add(`bg-${state.settings.previewBg}`);
+    }
+
+    async function addImagesToLayer(layerId, files) {
+      if (!files.length) return;
+
+      const character = activeCharacter();
+      const mode = getActiveMode();
+      const store = getLayerStore(character);
+      let addedCount = 0;
+
+      for (const file of files) {
+        if (!file.type.startsWith("image/")) continue;
+
+        const dataUrl = await fileToDataUrl(file);
+        const size = await getImageSize(dataUrl);
+        const shouldSelect = mode === "diff" && store[layerId].length === 0 && addedCount === 0;
+
+        store[layerId].push({
+          id: uid(),
+          name: file.name.replace(/\.[^.]+$/, ""),
+          dataUrl,
+          width: size.width,
+          height: size.height,
+          selected: shouldSelect
+        });
+
+        addedCount++;
+      }
+
+      renderLayers();
+      renderPreview();
+      setStatus(`${addedCount}件の画像を登録しました。`);
+    }
+
+    function fileToDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result));
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function getImageSize(dataUrl) {
+      return loadImage(dataUrl).then((img) => ({
+        width: img.naturalWidth,
+        height: img.naturalHeight
+      }));
+    }
+
+    function loadImage(dataUrl) {
+      if (imageCache.has(dataUrl)) return Promise.resolve(imageCache.get(dataUrl));
+
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          imageCache.set(dataUrl, img);
+          resolve(img);
+        };
+        img.onerror = reject;
+        img.src = dataUrl;
+      });
+    }
+
+    async function renderPreview() {
+      const token = ++previewRenderToken;
+      const character = activeCharacter();
+      const { width, height } = getCanvasBaseSize(character);
+      const canvas = $("#previewCanvas");
+
+      canvas.width = width;
+      canvas.height = height;
+
+      await drawComposite(canvas, width, height, character);
+
+      if (token !== previewRenderToken) return;
+
+      $("#previewInfo").textContent = `${width} × ${height}`;
+    }
+
+    async function drawComposite(canvas, width, height, character = activeCharacter()) {
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, width, height);
+
+      const drawLayers = [...getActiveLayers()].reverse();
+      const store = getLayerStore(character);
+
+      for (const layer of drawLayers) {
+        const parts = store[layer.id].filter((part) => part.selected);
+        for (const part of parts) {
+          const img = await loadImage(part.dataUrl);
+          ctx.drawImage(img, 0, 0, width, height);
+        }
+      }
+    }
+
+    function createSelectionSnapshot(character = activeCharacter()) {
+      const selection = {};
+
+      for (const layer of LAYERS) {
+        selection[layer.id] = character.layers[layer.id]
+          .filter((part) => part.selected)
+          .map((part) => part.id);
+      }
+
+      return selection;
+    }
+
+    function applySelectionSnapshot(selection, character = activeCharacter()) {
+      for (const layer of LAYERS) {
+        const selectedIds = new Set(Array.isArray(selection?.[layer.id]) ? selection[layer.id] : []);
+        for (const part of character.layers[layer.id]) {
+          part.selected = selectedIds.has(part.id);
+        }
+      }
+    }
+
+    async function exportPng() {
+      const character = activeCharacter();
+      const base = getCanvasBaseSize(character);
+
+      let outWidth = base.width;
+      let outHeight = base.height;
+
+      if (state.settings.exportMode === "height") {
+        const desiredHeight = Math.max(1, Math.floor(Number(state.settings.exportHeight || base.height)));
+        const ratio = desiredHeight / base.height;
+        outHeight = desiredHeight;
+        outWidth = Math.max(1, Math.round(base.width * ratio));
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = outWidth;
+      canvas.height = outHeight;
+
+      await drawComposite(canvas, outWidth, outHeight, character);
+
+      const link = document.createElement("a");
+      const safeName = sanitizeFileName(character.name || "character");
+      link.download = `${safeName}_${formatDateForFile()}_${outWidth}x${outHeight}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+
+      setStatus(`PNGを書き出しました。${outWidth} × ${outHeight}px`);
+    }
+
+    function sanitizeFileName(name) {
+      return String(name)
+        .replace(/[\\/:*?"<>|]/g, "_")
+        .replace(/\s+/g, "_")
+        .slice(0, 80) || "character";
+    }
+
+    function formatDateForFile() {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      const h = String(d.getHours()).padStart(2, "0");
+      const min = String(d.getMinutes()).padStart(2, "0");
+      return `${y}${m}${day}_${h}${min}`;
+    }
+
+    function downloadJson() {
+      const json = JSON.stringify(state, null, 2);
+      const blob = new Blob([json], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.download = `stand_diff_project_${formatDateForFile()}.json`;
+      link.href = url;
+      link.click();
+
+      URL.revokeObjectURL(url);
+      setStatus("JSONを保存しました。");
+    }
+
+    async function importJsonFile(file) {
+      try {
+        const text = await file.text();
+        const project = JSON.parse(text);
+        state = normalizeState(project);
+        imageCache.clear();
+        renderAll();
+        setStatus("JSONを読み込みました。");
+      } catch (error) {
+        console.error(error);
+        setStatus("JSONの読み込みに失敗しました。", true);
+      }
+    }
+
+    function openDb() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+        request.onupgradeneeded = () => {
+          const db = request.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME, { keyPath: "key" });
+          }
+        };
+
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    async function saveToCache() {
+      const db = await openDb();
+
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, "readwrite");
+        tx.objectStore(STORE_NAME).put({
+          key: CACHE_KEY,
+          updatedAt: new Date().toISOString(),
+          project: state
+        });
+
+        tx.oncomplete = () => {
+          db.close();
+          resolve();
+        };
+        tx.onerror = () => {
+          db.close();
+          reject(tx.error);
+        };
+      });
+    }
+
+    async function loadFromCache() {
+      const db = await openDb();
+
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, "readonly");
+        const request = tx.objectStore(STORE_NAME).get(CACHE_KEY);
+
+        request.onsuccess = () => {
+          db.close();
+          resolve(request.result?.project || null);
+        };
+
+        request.onerror = () => {
+          db.close();
+          reject(request.error);
+        };
+      });
+    }
+
+    async function clearCache() {
+      const db = await openDb();
+
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, "readwrite");
+        tx.objectStore(STORE_NAME).delete(CACHE_KEY);
+
+        tx.oncomplete = () => {
+          db.close();
+          resolve();
+        };
+        tx.onerror = () => {
+          db.close();
+          reject(tx.error);
+        };
+      });
+    }
+
+    function bindEvents() {
+      $("#leftModeSelect").addEventListener("change", (event) => {
+        state.settings.leftMode = event.target.value === "diff" ? "diff" : "parts";
+        renderAll();
+        setStatus(state.settings.leftMode === "diff" ? "差分切り替えモードに変更しました。" : "パーツ組みモードに変更しました。");
+      });
+
+      $("#characterSelect").addEventListener("change", (event) => {
+        state.activeCharacterId = event.target.value;
+        renderAll();
+      });
+
+      $("#addCharacterBtn").addEventListener("click", () => {
+        const input = $("#characterNameInput");
+        const name = input.value.trim() || `キャラクター${state.characters.length + 1}`;
+        const character = createCharacter(name);
+        state.characters.push(character);
+        state.activeCharacterId = character.id;
+        renderAll();
+        setStatus(`「${name}」を追加しました。`);
+      });
+
+      $("#renameCharacterBtn").addEventListener("click", () => {
+        const character = activeCharacter();
+        const name = $("#characterNameInput").value.trim();
+
+        if (!name) {
+          setStatus("キャラクター名を入力してください。", true);
+          return;
+        }
+
+        character.name = name;
+        renderCharacterControls();
+        setStatus("キャラクター名を変更しました。");
+      });
+
+      $("#deleteCharacterBtn").addEventListener("click", () => {
+        if (state.characters.length <= 1) {
+          setStatus("キャラクターは最低1人必要です。", true);
+          return;
+        }
+
+        const character = activeCharacter();
+        const ok = confirm(`「${character.name}」を削除しますか？`);
+        if (!ok) return;
+
+        state.characters = state.characters.filter((item) => item.id !== character.id);
+        state.activeCharacterId = state.characters[0].id;
+        renderAll();
+        setStatus("キャラクターを削除しました。");
+      });
+
+      $("#savePresetBtn").addEventListener("click", () => {
+        const character = activeCharacter();
+        const name = $("#presetNameInput").value.trim();
+
+        if (!name) {
+          setStatus("プリセット名を入力してください。", true);
+          return;
+        }
+
+        const existing = character.presets.find((preset) => preset.name === name);
+        const snapshot = createSelectionSnapshot(character);
+
+        if (existing) {
+          existing.selection = snapshot;
+          setStatus(`プリセット「${name}」を上書きしました。`);
+        } else {
+          character.presets.push({
+            id: uid(),
+            name,
+            selection: snapshot
+          });
+          setStatus(`プリセット「${name}」を保存しました。`);
+        }
+
+        $("#presetNameInput").value = "";
+        renderPresetControls();
+      });
+
+      $("#applyPresetBtn").addEventListener("click", () => {
+        applySelectedPreset();
+      });
+
+      $("#presetSelect").addEventListener("change", () => {
+        applySelectedPreset();
+      });
+
+      $("#deletePresetBtn").addEventListener("click", () => {
+        const character = activeCharacter();
+        const presetId = $("#presetSelect").value;
+
+        if (!presetId) {
+          setStatus("削除するプリセットを選択してください。", true);
+          return;
+        }
+
+        character.presets = character.presets.filter((preset) => preset.id !== presetId);
+        renderPresetControls();
+        setStatus("プリセットを削除しました。");
+      });
+
+      $("#previewBgSelect").addEventListener("change", (event) => {
+        state.settings.previewBg = event.target.value;
+        updatePreviewTransform();
+      });
+
+      $("#previewScale").addEventListener("input", (event) => {
+        state.settings.previewScale = Number(event.target.value);
+        updatePreviewTransform();
+      });
+
+      $("#previewX").addEventListener("input", (event) => {
+        state.settings.previewX = Number(event.target.value);
+        updatePreviewTransform();
+      });
+
+      $("#previewY").addEventListener("input", (event) => {
+        state.settings.previewY = Number(event.target.value);
+        updatePreviewTransform();
+      });
+
+      $("#exportOriginalSelect").addEventListener("change", (event) => {
+        state.settings.exportMode = event.target.value;
+      });
+
+      $("#exportHeightInput").addEventListener("input", (event) => {
+        state.settings.exportHeight = Number(event.target.value || 1200);
+      });
+
+      $("#exportPngBtn").addEventListener("click", () => {
+        exportPng().catch((error) => {
+          console.error(error);
+          setStatus("PNG書き出しに失敗しました。", true);
+        });
+      });
+
+      $("#downloadJsonBtn").addEventListener("click", downloadJson);
+
+      $("#importJsonBtn").addEventListener("click", () => {
+        $("#jsonFileInput").click();
+      });
+
+      $("#jsonFileInput").addEventListener("change", async (event) => {
+        const file = event.target.files?.[0];
+        if (file) await importJsonFile(file);
+        event.target.value = "";
+      });
+
+      $("#saveCacheBtn").addEventListener("click", async () => {
+        try {
+          await saveToCache();
+          setStatus("ブラウザキャッシュに保存しました。");
+        } catch (error) {
+          console.error(error);
+          setStatus("キャッシュ保存に失敗しました。", true);
+        }
+      });
+
+      $("#loadCacheBtn").addEventListener("click", async () => {
+        try {
+          const cached = await loadFromCache();
+
+          if (!cached) {
+            setStatus("保存済みキャッシュがありません。", true);
+            return;
+          }
+
+          state = normalizeState(cached);
+          imageCache.clear();
+          renderAll();
+          setStatus("キャッシュから読み込みました。");
+        } catch (error) {
+          console.error(error);
+          setStatus("キャッシュ読込に失敗しました。", true);
+        }
+      });
+
+      $("#clearCacheBtn").addEventListener("click", async () => {
+        const ok = confirm("ブラウザに保存したキャッシュを削除しますか？");
+        if (!ok) return;
+
+        try {
+          await clearCache();
+          setStatus("キャッシュを削除しました。");
+        } catch (error) {
+          console.error(error);
+          setStatus("キャッシュ削除に失敗しました。", true);
+        }
+      });
+    }
+
+    function applySelectedPreset() {
+      const character = activeCharacter();
+      const presetId = $("#presetSelect").value;
+
+      if (!presetId) return;
+
+      const preset = character.presets.find((item) => item.id === presetId);
+      if (!preset) return;
+
+      applySelectionSnapshot(preset.selection, character);
+      renderLayers();
+      renderPreview();
+      setStatus(`プリセット「${preset.name}」を適用しました。`);
+    }
+
+    async function tryAutoLoadCache() {
+      try {
+        const cached = await loadFromCache();
+
+        if (cached) {
+          state = normalizeState(cached);
+          imageCache.clear();
+          renderAll();
+          setStatus("保存済みキャッシュを自動読込しました。");
+        }
+      } catch (error) {
+        console.warn("cache auto load skipped:", error);
+      }
+    }
+
+    bindEvents();
+    state = normalizeState(state);
+    renderAll();
+    tryAutoLoadCache();
+  </script>
+</body>
+</html>
+
