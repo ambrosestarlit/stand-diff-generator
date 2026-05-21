@@ -19,9 +19,7 @@
       --radius: 18px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -33,11 +31,7 @@
       font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
     }
 
-    button,
-    input,
-    select {
-      font: inherit;
-    }
+    button, input, select { font: inherit; }
 
     button {
       border: 0;
@@ -72,9 +66,7 @@
       font-size: 0.85rem;
     }
 
-    input[type="text"],
-    input[type="number"],
-    select {
+    input[type="text"], input[type="number"], select {
       border: 1px solid var(--line);
       border-radius: 999px;
       background: #fff;
@@ -84,16 +76,12 @@
       min-width: 0;
     }
 
-    input[type="text"]:focus,
-    input[type="number"]:focus,
-    select:focus {
+    input[type="text"]:focus, input[type="number"]:focus, select:focus {
       border-color: var(--mint-dark);
       box-shadow: 0 0 0 3px rgba(146, 201, 186, 0.22);
     }
 
-    input[type="file"] {
-      display: none;
-    }
+    input[type="file"] { display: none; }
 
     label {
       color: var(--muted);
@@ -101,12 +89,12 @@
     }
 
     .app {
-  display: grid;
-  grid-template-columns: minmax(360px, 0.8fr) minmax(560px, 1.4fr);
-  gap: 1rem;
-  padding: 1rem;
-  height: 100vh;
-}
+      display: grid;
+      grid-template-columns: minmax(360px, 0.8fr) minmax(560px, 1.4fr);
+      gap: 1rem;
+      padding: 1rem;
+      height: 100vh;
+    }
 
     .panel {
       background: rgba(255, 255, 255, 0.88);
@@ -117,8 +105,7 @@
       backdrop-filter: blur(12px);
     }
 
-    .left,
-    .right {
+    .left, .right {
       min-height: 0;
       display: flex;
       flex-direction: column;
@@ -140,6 +127,7 @@
       margin-top: 0.25rem;
       color: var(--muted);
       font-size: 0.86rem;
+      line-height: 1.45;
     }
 
     .toolbar {
@@ -152,9 +140,7 @@
       background: rgba(255, 255, 255, 0.72);
     }
 
-    .toolbar.grouped {
-      align-items: end;
-    }
+    .toolbar.grouped { align-items: end; }
 
     .field {
       display: grid;
@@ -191,14 +177,13 @@
       border-bottom: 1px solid var(--line);
     }
 
-    .layer-name {
-      font-weight: 700;
-    }
+    .layer-name { font-weight: 700; }
 
     .layer-note {
       color: var(--muted);
       font-size: 0.78rem;
       margin-top: 0.1rem;
+      line-height: 1.4;
     }
 
     .part-list {
@@ -228,9 +213,7 @@
       cursor: pointer;
     }
 
-    .part-row:hover {
-      background: #f8fffc;
-    }
+    .part-row:hover { background: #f8fffc; }
 
     .part-row.active {
       border-color: var(--mint-dark);
@@ -242,6 +225,8 @@
       height: 1.05rem;
       accent-color: var(--mint-deep);
     }
+
+    .part-row.diff-mode { grid-template-columns: 48px 1fr auto; }
 
     .thumb {
       width: 48px;
@@ -310,13 +295,8 @@
       background-position: 0 0, 0 11px, 11px -11px, -11px 0;
     }
 
-    .preview-stage.bg-white {
-      background: #fff;
-    }
-
-    .preview-stage.bg-mint {
-      background: #e4f3ee;
-    }
+    .preview-stage.bg-white { background: #fff; }
+    .preview-stage.bg-mint { background: #e4f3ee; }
 
     #previewCanvas {
       max-width: 86%;
@@ -368,12 +348,6 @@
       font-size: 0.85rem;
     }
 
-    .save-row {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.55rem;
-    }
-
     .status {
       color: var(--muted);
       font-size: 0.82rem;
@@ -386,27 +360,15 @@
       line-height: 1.5;
     }
 
-    .danger-text {
-      color: var(--danger);
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .part-row.diff-mode {
-      grid-template-columns: 48px 1fr auto;
-    }
+    .danger-text { color: var(--danger); }
+    .hidden { display: none !important; }
 
     @media (max-width: 980px) {
       .app {
         grid-template-columns: 1fr;
         height: auto;
       }
-
-      .right {
-        min-height: 720px;
-      }
+      .right { min-height: 720px; }
     }
   </style>
 </head>
@@ -414,46 +376,54 @@
   <main class="app">
     <section class="panel left">
       <div class="header">
-        <div class="title">立ち絵の差分ジェネレーター</div>
-        <div class="subtitle">カテゴリごとに画像を登録し、チェックしたパーツを重ねて透過PNGを書き出します。</div>
+        <div class="title" data-i18n="appTitle">立ち絵の差分ジェネレーター</div>
+        <div class="subtitle" data-i18n="appSubtitle">カテゴリごとに画像を登録し、チェックしたパーツを重ねて透過PNGを書き出します。</div>
       </div>
 
       <div class="toolbar grouped">
+        <div class="field">
+          <label for="languageSelect" data-i18n="languageLabel">Language</label>
+          <select id="languageSelect">
+            <option value="ja">日本語</option>
+            <option value="en">English</option>
+            <option value="ko">한국어</option>
+          </select>
+        </div>
         <div class="field wide">
-          <label>左パネル表示</label>
+          <label for="leftModeSelect" data-i18n="leftPanelLabel">左パネル表示</label>
           <select id="leftModeSelect">
-            <option value="parts">パーツ組みモード</option>
-            <option value="diff">差分切り替えモード</option>
+            <option value="parts" data-i18n="modeParts">パーツ組みモード</option>
+            <option value="diff" data-i18n="modeDiff">差分切り替えモード</option>
           </select>
         </div>
       </div>
 
       <div class="toolbar grouped">
         <div class="field wide">
-          <label>キャラクター</label>
+          <label for="characterSelect" data-i18n="characterLabel">キャラクター</label>
           <select id="characterSelect"></select>
         </div>
         <div class="field wide">
-          <label>キャラクター名</label>
-          <input id="characterNameInput" type="text" placeholder="キャラクター名" />
+          <label for="characterNameInput" data-i18n="characterNameLabel">キャラクター名</label>
+          <input id="characterNameInput" type="text" placeholder="キャラクター名" data-i18n-placeholder="characterNamePlaceholder" />
         </div>
-        <button id="addCharacterBtn">追加</button>
-        <button id="renameCharacterBtn" class="secondary">名前変更</button>
-        <button id="deleteCharacterBtn" class="danger">削除</button>
+        <button id="addCharacterBtn" data-i18n="addButton">追加</button>
+        <button id="renameCharacterBtn" class="secondary" data-i18n="renameButton">名前変更</button>
+        <button id="deleteCharacterBtn" class="danger" data-i18n="deleteButton">削除</button>
       </div>
 
       <div id="presetToolbar" class="toolbar grouped">
         <div class="field wide">
-          <label>プリセット</label>
+          <label for="presetSelect" data-i18n="presetLabel">プリセット</label>
           <select id="presetSelect"></select>
         </div>
         <div class="field wide">
-          <label>プリセット名</label>
-          <input id="presetNameInput" type="text" placeholder="例：通常笑顔 / 照れ / 怒り" />
+          <label for="presetNameInput" data-i18n="presetNameLabel">プリセット名</label>
+          <input id="presetNameInput" type="text" placeholder="例：通常笑顔 / 照れ / 怒り" data-i18n-placeholder="presetNamePlaceholder" />
         </div>
-        <button id="savePresetBtn">現在の組み合わせを保存</button>
-        <button id="applyPresetBtn" class="secondary">適用</button>
-        <button id="deletePresetBtn" class="danger">削除</button>
+        <button id="savePresetBtn" data-i18n="savePresetButton">現在の組み合わせを保存</button>
+        <button id="applyPresetBtn" class="secondary" data-i18n="applyButton">適用</button>
+        <button id="deletePresetBtn" class="danger" data-i18n="deleteButton">削除</button>
       </div>
 
       <div id="layersRoot" class="content-scroll"></div>
@@ -461,42 +431,42 @@
 
     <section class="panel right">
       <div class="header">
-        <div class="title">プレビュー / 書き出し</div>
-        <div class="subtitle">スケール・X移動・Y移動は確認用です。PNG書き出しには反映されません。</div>
+        <div class="title" data-i18n="previewTitle">プレビュー / 書き出し</div>
+        <div class="subtitle" data-i18n="previewSubtitle">スケール・X移動・Y移動は確認用です。PNG書き出しには反映されません。</div>
       </div>
 
       <div class="toolbar grouped">
         <div class="field">
-          <label>プレビュー背景</label>
+          <label for="previewBgSelect" data-i18n="previewBgLabel">プレビュー背景</label>
           <select id="previewBgSelect">
-            <option value="transparent">透明確認</option>
-            <option value="white">白</option>
-            <option value="mint">くすみミント</option>
+            <option value="transparent" data-i18n="bgTransparent">透明確認</option>
+            <option value="white" data-i18n="bgWhite">白</option>
+            <option value="mint" data-i18n="bgMint">くすみミント</option>
           </select>
         </div>
 
         <div class="field">
-          <label>書き出し縦幅(px)</label>
+          <label for="exportHeightInput" data-i18n="exportHeightLabel">書き出し縦幅(px)</label>
           <input id="exportHeightInput" type="number" min="1" step="1" value="1200" />
         </div>
 
         <div class="field">
-          <label>サイズ</label>
+          <label for="exportOriginalSelect" data-i18n="sizeLabel">サイズ</label>
           <select id="exportOriginalSelect">
-            <option value="original">原寸</option>
-            <option value="height">縦幅指定</option>
+            <option value="original" data-i18n="sizeOriginal">原寸</option>
+            <option value="height" data-i18n="sizeHeight">縦幅指定</option>
           </select>
         </div>
 
-        <button id="exportPngBtn">透過PNG書き出し</button>
+        <button id="exportPngBtn" data-i18n="exportPngButton">透過PNG書き出し</button>
       </div>
 
       <div class="toolbar">
-        <button id="downloadJsonBtn">JSON保存</button>
-        <button id="importJsonBtn" class="secondary">JSON読込</button>
-        <button id="saveCacheBtn">キャッシュ保存</button>
-        <button id="loadCacheBtn" class="secondary">キャッシュ読込</button>
-        <button id="clearCacheBtn" class="danger">キャッシュ削除</button>
+        <button id="downloadJsonBtn" data-i18n="jsonSaveButton">JSON保存</button>
+        <button id="importJsonBtn" class="secondary" data-i18n="jsonLoadButton">JSON読込</button>
+        <button id="saveCacheBtn" data-i18n="cacheSaveButton">キャッシュ保存</button>
+        <button id="loadCacheBtn" class="secondary" data-i18n="cacheLoadButton">キャッシュ読込</button>
+        <button id="clearCacheBtn" class="danger" data-i18n="cacheDeleteButton">キャッシュ削除</button>
         <input id="jsonFileInput" type="file" accept="application/json,.json" />
       </div>
 
@@ -508,73 +478,386 @@
 
         <div class="slider-grid">
           <div class="slider-row">
-            <label for="previewScale">スケール</label>
+            <label for="previewScale" data-i18n="scaleLabel">スケール</label>
             <input id="previewScale" type="range" min="0.2" max="3" step="0.01" value="1" />
             <div id="previewScaleValue" class="value">1.00</div>
           </div>
 
           <div class="slider-row">
-            <label for="previewX">X移動</label>
+            <label for="previewX" data-i18n="xMoveLabel">X移動</label>
             <input id="previewX" type="range" min="-500" max="500" step="1" value="0" />
             <div id="previewXValue" class="value">0px</div>
           </div>
 
           <div class="slider-row">
-            <label for="previewY">Y移動</label>
+            <label for="previewY" data-i18n="yMoveLabel">Y移動</label>
             <input id="previewY" type="range" min="-500" max="500" step="1" value="0" />
             <div id="previewYValue" class="value">0px</div>
           </div>
         </div>
 
         <div id="status" class="status"></div>
-        <div class="hint">
-          重ね順は画面上のカテゴリ順を最前面として扱います。書き出し時は奥側から順に描画されるため、透明PNGのパーツ画像は同じキャンバスサイズで作ると綺麗に合成できます。
-        </div>
+        <div class="hint" data-i18n="hintText">重ね順は画面上のカテゴリ順を最前面として扱います。書き出し時は奥側から順に描画されるため、透明PNGのパーツ画像は同じキャンバスサイズで作ると綺麗に合成できます。</div>
       </div>
     </section>
   </main>
 
   <script>
+    const I18N = {
+      ja: {
+        appTitle: "立ち絵の差分ジェネレーター",
+        appSubtitle: "カテゴリごとに画像を登録し、チェックしたパーツを重ねて透過PNGを書き出します。",
+        languageLabel: "Language",
+        leftPanelLabel: "左パネル表示",
+        modeParts: "パーツ組みモード",
+        modeDiff: "差分切り替えモード",
+        characterLabel: "キャラクター",
+        characterNameLabel: "キャラクター名",
+        characterNamePlaceholder: "キャラクター名",
+        addButton: "追加",
+        renameButton: "名前変更",
+        deleteButton: "削除",
+        presetLabel: "プリセット",
+        presetNameLabel: "プリセット名",
+        presetNamePlaceholder: "例：通常笑顔 / 照れ / 怒り",
+        savePresetButton: "現在の組み合わせを保存",
+        applyButton: "適用",
+        previewTitle: "プレビュー / 書き出し",
+        previewSubtitle: "スケール・X移動・Y移動は確認用です。PNG書き出しには反映されません。",
+        previewBgLabel: "プレビュー背景",
+        bgTransparent: "透明確認",
+        bgWhite: "白",
+        bgMint: "くすみミント",
+        exportHeightLabel: "書き出し縦幅(px)",
+        sizeLabel: "サイズ",
+        sizeOriginal: "原寸",
+        sizeHeight: "縦幅指定",
+        exportPngButton: "透過PNG書き出し",
+        jsonSaveButton: "JSON保存",
+        jsonLoadButton: "JSON読込",
+        cacheSaveButton: "キャッシュ保存",
+        cacheLoadButton: "キャッシュ読込",
+        cacheDeleteButton: "キャッシュ削除",
+        scaleLabel: "スケール",
+        xMoveLabel: "X移動",
+        yMoveLabel: "Y移動",
+        hintText: "重ね順は画面上のカテゴリ順を最前面として扱います。書き出し時は奥側から順に描画されるため、透明PNGのパーツ画像は同じキャンバスサイズで作ると綺麗に合成できます。",
+        layer_armFront: "腕(手前)",
+        layer_itemFront: "アイテム(手前)",
+        layer_hairFront: "髪の毛(手前)",
+        layer_eyes: "目元",
+        layer_brows: "眉毛",
+        layer_mouth: "口",
+        layer_effect: "表情効果",
+        layer_armBack: "腕(奥)",
+        layer_itemMiddle: "アイテム(中)",
+        layer_base: "ベース",
+        layer_itemBack: "アイテム(奥)",
+        layer_hairBack: "髪の毛(奥)",
+        layer_diffBase: "ベース",
+        noteParts: "複数チェックで同カテゴリ内の重ね合わせが可能",
+        noteDiff: "完成済み差分をクリックで切り替え。複数選択はできません。",
+        registerImage: "画像登録",
+        emptyParts: "まだ画像が登録されていません。",
+        emptyDiff: "完成済み差分画像を登録してください。",
+        partNamePlaceholder: "パーツ名",
+        unnamed: "名称未設定",
+        newCharacter: "新規キャラクター",
+        presetEmpty: "プリセットを選択",
+        displaying: "表示中",
+        applyDisplay: "表示適用",
+        languageChanged: "表示言語を変更しました。",
+        addedImages: "{count}件の画像を登録しました。",
+        pngExported: "PNGを書き出しました。{width} × {height}px",
+        pngExportFailed: "PNG書き出しに失敗しました。",
+        jsonSaved: "JSONを保存しました。",
+        jsonLoaded: "JSONを読み込みました。",
+        jsonLoadFailed: "JSONの読み込みに失敗しました。",
+        cacheSaved: "ブラウザキャッシュに保存しました。",
+        cacheSaveFailed: "キャッシュ保存に失敗しました。",
+        cacheMissing: "保存済みキャッシュがありません。",
+        cacheLoaded: "キャッシュから読み込みました。",
+        cacheLoadFailed: "キャッシュ読込に失敗しました。",
+        cacheDeleteConfirm: "ブラウザに保存したキャッシュを削除しますか？",
+        cacheDeleted: "キャッシュを削除しました。",
+        cacheDeleteFailed: "キャッシュ削除に失敗しました。",
+        cacheAutoLoaded: "保存済みキャッシュを自動読込しました。",
+        switchedDiff: "差分切り替えモードに変更しました。",
+        switchedParts: "パーツ組みモードに変更しました。",
+        enterCharacterName: "キャラクター名を入力してください。",
+        characterAdded: "キャラクターを追加しました。",
+        characterRenamed: "キャラクター名を変更しました。",
+        cannotDeleteLastCharacter: "最後のキャラクターは削除できません。",
+        deleteCharacterConfirm: "現在のキャラクターを削除しますか？",
+        characterDeleted: "キャラクターを削除しました。",
+        enterPresetName: "プリセット名を入力してください。",
+        presetSaved: "プリセットを保存しました。",
+        selectPresetDelete: "削除するプリセットを選択してください。",
+        presetDeleted: "プリセットを削除しました。",
+        presetApplied: "プリセット「{name}」を適用しました。"
+      },
+      en: {
+        appTitle: "Standing Image Variant Generator",
+        appSubtitle: "Register images by category, layer the checked parts, and export a transparent PNG.",
+        languageLabel: "Language",
+        leftPanelLabel: "Left panel",
+        modeParts: "Parts Assembly Mode",
+        modeDiff: "Variant Switch Mode",
+        characterLabel: "Character",
+        characterNameLabel: "Character name",
+        characterNamePlaceholder: "Character name",
+        addButton: "Add",
+        renameButton: "Rename",
+        deleteButton: "Delete",
+        presetLabel: "Preset",
+        presetNameLabel: "Preset name",
+        presetNamePlaceholder: "Example: Normal smile / Shy / Angry",
+        savePresetButton: "Save current combination",
+        applyButton: "Apply",
+        previewTitle: "Preview / Export",
+        previewSubtitle: "Scale, X move, and Y move are for preview only. They are not applied to PNG export.",
+        previewBgLabel: "Preview background",
+        bgTransparent: "Transparency check",
+        bgWhite: "White",
+        bgMint: "Muted mint",
+        exportHeightLabel: "Export height (px)",
+        sizeLabel: "Size",
+        sizeOriginal: "Original",
+        sizeHeight: "Custom height",
+        exportPngButton: "Export transparent PNG",
+        jsonSaveButton: "Save JSON",
+        jsonLoadButton: "Load JSON",
+        cacheSaveButton: "Save cache",
+        cacheLoadButton: "Load cache",
+        cacheDeleteButton: "Delete cache",
+        scaleLabel: "Scale",
+        xMoveLabel: "X Move",
+        yMoveLabel: "Y Move",
+        hintText: "The category order shown on screen is treated as front-to-back order. During export, layers are drawn from the back, so transparent PNG parts work best when they share the same canvas size.",
+        layer_armFront: "Arm (Front)",
+        layer_itemFront: "Item (Front)",
+        layer_hairFront: "Hair (Front)",
+        layer_eyes: "Eyes",
+        layer_brows: "Brows",
+        layer_mouth: "Mouth",
+        layer_effect: "Expression effect",
+        layer_armBack: "Arm (Back)",
+        layer_itemMiddle: "Item (Middle)",
+        layer_base: "Base",
+        layer_itemBack: "Item (Back)",
+        layer_hairBack: "Hair (Back)",
+        layer_diffBase: "Base",
+        noteParts: "Multiple checked items can be layered in the same category.",
+        noteDiff: "Click a completed variant to switch it. Multiple selections are not allowed.",
+        registerImage: "Add image",
+        emptyParts: "No images have been added yet.",
+        emptyDiff: "Add completed variant images.",
+        partNamePlaceholder: "Part name",
+        unnamed: "Untitled",
+        newCharacter: "New character",
+        presetEmpty: "Select preset",
+        displaying: "Visible",
+        applyDisplay: "Show",
+        languageChanged: "Language changed.",
+        addedImages: "Added {count} image(s).",
+        pngExported: "PNG exported. {width} × {height}px",
+        pngExportFailed: "Failed to export PNG.",
+        jsonSaved: "JSON saved.",
+        jsonLoaded: "JSON loaded.",
+        jsonLoadFailed: "Failed to load JSON.",
+        cacheSaved: "Saved to browser cache.",
+        cacheSaveFailed: "Failed to save cache.",
+        cacheMissing: "No saved cache was found.",
+        cacheLoaded: "Loaded from cache.",
+        cacheLoadFailed: "Failed to load cache.",
+        cacheDeleteConfirm: "Delete the cache saved in this browser?",
+        cacheDeleted: "Cache deleted.",
+        cacheDeleteFailed: "Failed to delete cache.",
+        cacheAutoLoaded: "Saved cache was loaded automatically.",
+        switchedDiff: "Switched to Variant Switch Mode.",
+        switchedParts: "Switched to Parts Assembly Mode.",
+        enterCharacterName: "Enter a character name.",
+        characterAdded: "Character added.",
+        characterRenamed: "Character renamed.",
+        cannotDeleteLastCharacter: "The last character cannot be deleted.",
+        deleteCharacterConfirm: "Delete the current character?",
+        characterDeleted: "Character deleted.",
+        enterPresetName: "Enter a preset name.",
+        presetSaved: "Preset saved.",
+        selectPresetDelete: "Select a preset to delete.",
+        presetDeleted: "Preset deleted.",
+        presetApplied: "Preset \"{name}\" applied."
+      },
+      ko: {
+        appTitle: "스탠딩 이미지 표정 차분 생성기",
+        appSubtitle: "카테고리별로 이미지를 등록하고, 선택한 파츠를 겹쳐 투명 PNG로 내보냅니다.",
+        languageLabel: "Language",
+        leftPanelLabel: "왼쪽 패널 표시",
+        modeParts: "파츠 조합 모드",
+        modeDiff: "차분 전환 모드",
+        characterLabel: "캐릭터",
+        characterNameLabel: "캐릭터 이름",
+        characterNamePlaceholder: "캐릭터 이름",
+        addButton: "추가",
+        renameButton: "이름 변경",
+        deleteButton: "삭제",
+        presetLabel: "프리셋",
+        presetNameLabel: "프리셋 이름",
+        presetNamePlaceholder: "예: 기본 미소 / 부끄러움 / 화남",
+        savePresetButton: "현재 조합 저장",
+        applyButton: "적용",
+        previewTitle: "미리보기 / 내보내기",
+        previewSubtitle: "스케일, X 이동, Y 이동은 확인용입니다. PNG 내보내기에는 반영되지 않습니다.",
+        previewBgLabel: "미리보기 배경",
+        bgTransparent: "투명 확인",
+        bgWhite: "흰색",
+        bgMint: "차분한 민트",
+        exportHeightLabel: "내보내기 세로(px)",
+        sizeLabel: "크기",
+        sizeOriginal: "원본 크기",
+        sizeHeight: "세로 지정",
+        exportPngButton: "투명 PNG 내보내기",
+        jsonSaveButton: "JSON 저장",
+        jsonLoadButton: "JSON 불러오기",
+        cacheSaveButton: "캐시 저장",
+        cacheLoadButton: "캐시 불러오기",
+        cacheDeleteButton: "캐시 삭제",
+        scaleLabel: "스케일",
+        xMoveLabel: "X 이동",
+        yMoveLabel: "Y 이동",
+        hintText: "화면에 표시된 카테고리 순서를 가장 앞쪽 순서로 처리합니다. 내보내기 시에는 뒤쪽 레이어부터 그리므로 투명 PNG 파츠는 같은 캔버스 크기로 만들면 깔끔하게 합성됩니다.",
+        layer_armFront: "팔(앞)",
+        layer_itemFront: "아이템(앞)",
+        layer_hairFront: "머리카락(앞)",
+        layer_eyes: "눈",
+        layer_brows: "눈썹",
+        layer_mouth: "입",
+        layer_effect: "표정 효과",
+        layer_armBack: "팔(뒤)",
+        layer_itemMiddle: "아이템(중간)",
+        layer_base: "베이스",
+        layer_itemBack: "아이템(뒤)",
+        layer_hairBack: "머리카락(뒤)",
+        layer_diffBase: "베이스",
+        noteParts: "같은 카테고리 안에서 여러 개를 체크해 겹칠 수 있습니다.",
+        noteDiff: "완성된 차분을 클릭해 전환합니다. 여러 개를 동시에 선택할 수 없습니다.",
+        registerImage: "이미지 등록",
+        emptyParts: "아직 등록된 이미지가 없습니다.",
+        emptyDiff: "완성된 차분 이미지를 등록해 주세요.",
+        partNamePlaceholder: "파츠 이름",
+        unnamed: "이름 없음",
+        newCharacter: "새 캐릭터",
+        presetEmpty: "프리셋 선택",
+        displaying: "표시 중",
+        applyDisplay: "표시 적용",
+        languageChanged: "표시 언어를 변경했습니다.",
+        addedImages: "이미지 {count}개를 등록했습니다.",
+        pngExported: "PNG를 내보냈습니다. {width} × {height}px",
+        pngExportFailed: "PNG 내보내기에 실패했습니다.",
+        jsonSaved: "JSON을 저장했습니다.",
+        jsonLoaded: "JSON을 불러왔습니다.",
+        jsonLoadFailed: "JSON 불러오기에 실패했습니다.",
+        cacheSaved: "브라우저 캐시에 저장했습니다.",
+        cacheSaveFailed: "캐시 저장에 실패했습니다.",
+        cacheMissing: "저장된 캐시가 없습니다.",
+        cacheLoaded: "캐시에서 불러왔습니다.",
+        cacheLoadFailed: "캐시 불러오기에 실패했습니다.",
+        cacheDeleteConfirm: "브라우저에 저장된 캐시를 삭제할까요?",
+        cacheDeleted: "캐시를 삭제했습니다.",
+        cacheDeleteFailed: "캐시 삭제에 실패했습니다.",
+        cacheAutoLoaded: "저장된 캐시를 자동으로 불러왔습니다.",
+        switchedDiff: "차분 전환 모드로 변경했습니다.",
+        switchedParts: "파츠 조합 모드로 변경했습니다.",
+        enterCharacterName: "캐릭터 이름을 입력해 주세요.",
+        characterAdded: "캐릭터를 추가했습니다.",
+        characterRenamed: "캐릭터 이름을 변경했습니다.",
+        cannotDeleteLastCharacter: "마지막 캐릭터는 삭제할 수 없습니다.",
+        deleteCharacterConfirm: "현재 캐릭터를 삭제할까요?",
+        characterDeleted: "캐릭터를 삭제했습니다.",
+        enterPresetName: "프리셋 이름을 입력해 주세요.",
+        presetSaved: "프리셋을 저장했습니다.",
+        selectPresetDelete: "삭제할 프리셋을 선택해 주세요.",
+        presetDeleted: "프리셋을 삭제했습니다.",
+        presetApplied: "프리셋 \"{name}\"을 적용했습니다."
+      }
+    };
+
     const LAYERS = [
-      { id: "armFront", name: "腕(手前)" },
-      { id: "itemFront", name: "アイテム(手前)" },
-      { id: "hairFront", name: "髪の毛(手前)" },
-      { id: "eyes", name: "目元" },
-      { id: "brows", name: "眉毛" },
-      { id: "mouth", name: "口" },
-      { id: "effect", name: "表情効果" },
-      { id: "armBack", name: "腕(奥)" },
-      { id: "itemMiddle", name: "アイテム(中)" },
-      { id: "base", name: "ベース" },
-      { id: "itemBack", name: "アイテム(奥)" },
-      { id: "hairBack", name: "髪の毛(奥)" }
+      { id: "armFront" },
+      { id: "itemFront" },
+      { id: "hairFront" },
+      { id: "eyes" },
+      { id: "brows" },
+      { id: "mouth" },
+      { id: "effect" },
+      { id: "armBack" },
+      { id: "itemMiddle" },
+      { id: "base" },
+      { id: "itemBack" },
+      { id: "hairBack" }
     ];
 
-    const DIFF_LAYERS = [
-      { id: "diffBase", name: "ベース" }
-    ];
-
+    const DIFF_LAYERS = [{ id: "diffBase" }];
     const DB_NAME = "stand-diff-generator-db";
     const DB_VERSION = 1;
     const STORE_NAME = "projects";
     const CACHE_KEY = "current-project";
+    const LANG_STORAGE_KEY = "stand-diff-generator-language";
 
     const $ = (selector) => document.querySelector(selector);
-    const $$ = (selector) => Array.from(document.querySelectorAll(selector));
     const uid = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
-
     const imageCache = new Map();
     let previewRenderToken = 0;
-
     let state = createDefaultState();
 
+    function getInitialLanguage() {
+      const stored = localStorage.getItem(LANG_STORAGE_KEY);
+      if (stored && I18N[stored]) return stored;
+      const browser = (navigator.language || "ja").toLowerCase();
+      if (browser.startsWith("ko")) return "ko";
+      if (browser.startsWith("en")) return "en";
+      return "ja";
+    }
+
+    function currentLanguage() {
+      return I18N[state.settings?.uiLanguage] ? state.settings.uiLanguage : getInitialLanguage();
+    }
+
+    function t(key, vars = {}) {
+      const lang = currentLanguage();
+      let text = I18N[lang]?.[key] ?? I18N.ja[key] ?? key;
+      for (const [name, value] of Object.entries(vars)) {
+        text = text.replaceAll(`{${name}}`, String(value));
+      }
+      return text;
+    }
+
+    function applyLanguage() {
+      const lang = currentLanguage();
+      document.documentElement.lang = lang;
+      document.title = t("appTitle");
+      localStorage.setItem(LANG_STORAGE_KEY, lang);
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        element.textContent = t(element.dataset.i18n);
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+        element.placeholder = t(element.dataset.i18nPlaceholder);
+      });
+
+      const languageSelect = $("#languageSelect");
+      if (languageSelect) languageSelect.value = lang;
+    }
+
     function createDefaultState() {
-      const firstChar = createCharacter("新規キャラクター");
+      const firstChar = createCharacter(I18N[getInitialLanguage()].newCharacter);
       return {
-        version: 1,
+        version: 2,
         activeCharacterId: firstChar.id,
         characters: [firstChar],
         settings: {
+          uiLanguage: getInitialLanguage(),
           leftMode: "parts",
           previewBg: "transparent",
           previewScale: 1,
@@ -589,30 +872,79 @@
     function createCharacter(name) {
       const layers = {};
       const diffLayers = {};
-
       for (const layer of LAYERS) layers[layer.id] = [];
       for (const layer of DIFF_LAYERS) diffLayers[layer.id] = [];
-
-      return {
-        id: uid(),
-        name,
-        layers,
-        diffLayers,
-        presets: []
-      };
+      return { id: uid(), name, layers, diffLayers, presets: [] };
     }
 
     function normalizePartList(parts) {
       if (!Array.isArray(parts)) return [];
-
       return parts.map((part) => ({
         id: part.id || uid(),
-        name: part.name || "名称未設定",
+        name: part.name || t("unnamed"),
         dataUrl: part.dataUrl || part.dataURL || "",
         width: Number(part.width || part.w || 0),
         height: Number(part.height || part.h || 0),
         selected: Boolean(part.selected)
       })).filter((part) => part.dataUrl);
+    }
+
+    function normalizeState(project) {
+      const normalized = project && typeof project === "object" ? project : createDefaultState();
+      const existingLanguage = normalized.settings?.uiLanguage || localStorage.getItem(LANG_STORAGE_KEY) || getInitialLanguage();
+
+      if (!Array.isArray(normalized.characters) || normalized.characters.length === 0) {
+        normalized.characters = [createCharacter(t("newCharacter"))];
+      }
+
+      normalized.settings = {
+        uiLanguage: I18N[existingLanguage] ? existingLanguage : getInitialLanguage(),
+        leftMode: normalized.settings?.leftMode === "diff" ? "diff" : "parts",
+        previewBg: normalized.settings?.previewBg || "transparent",
+        previewScale: Number(normalized.settings?.previewScale ?? 1),
+        previewX: Number(normalized.settings?.previewX ?? 0),
+        previewY: Number(normalized.settings?.previewY ?? 0),
+        exportMode: normalized.settings?.exportMode || "original",
+        exportHeight: Number(normalized.settings?.exportHeight ?? 1200)
+      };
+
+      for (const character of normalized.characters) {
+        if (!character.id) character.id = uid();
+        if (!character.name) character.name = t("unnamed");
+        if (!character.layers || typeof character.layers !== "object") character.layers = {};
+        if (!character.diffLayers || typeof character.diffLayers !== "object") character.diffLayers = {};
+        if (!Array.isArray(character.presets)) character.presets = [];
+
+        for (const layer of LAYERS) {
+          character.layers[layer.id] = normalizePartList(character.layers[layer.id]);
+        }
+
+        for (const layer of DIFF_LAYERS) {
+          character.diffLayers[layer.id] = normalizePartList(character.diffLayers[layer.id]);
+          const selectedIndex = character.diffLayers[layer.id].findIndex((part) => part.selected);
+          if (selectedIndex >= 0) {
+            character.diffLayers[layer.id].forEach((part, index) => {
+              part.selected = index === selectedIndex;
+            });
+          }
+        }
+
+        character.presets = character.presets.map((preset) => ({
+          id: preset.id || uid(),
+          name: preset.name || t("unnamed"),
+          selection: preset.selection && typeof preset.selection === "object" ? preset.selection : {}
+        }));
+      }
+
+      if (!normalized.activeCharacterId || !normalized.characters.some((c) => c.id === normalized.activeCharacterId)) {
+        normalized.activeCharacterId = normalized.characters[0].id;
+      }
+
+      return normalized;
+    }
+
+    function activeCharacter() {
+      return state.characters.find((character) => character.id === state.activeCharacterId) || state.characters[0];
     }
 
     function getActiveMode() {
@@ -627,75 +959,6 @@
       return getActiveMode() === "diff" ? character.diffLayers : character.layers;
     }
 
-    function normalizeState(project) {
-      const normalized = project && typeof project === "object" ? project : createDefaultState();
-
-      if (!Array.isArray(normalized.characters) || normalized.characters.length === 0) {
-        normalized.characters = [createCharacter("新規キャラクター")];
-      }
-
-      for (const character of normalized.characters) {
-        if (!character.id) character.id = uid();
-        if (!character.name) character.name = "名称未設定";
-        if (!character.layers || typeof character.layers !== "object") character.layers = {};
-        if (!character.diffLayers || typeof character.diffLayers !== "object") character.diffLayers = {};
-        if (!Array.isArray(character.presets)) character.presets = [];
-
-        for (const layer of LAYERS) {
-          character.layers[layer.id] = normalizePartList(character.layers[layer.id]);
-        }
-
-        for (const layer of DIFF_LAYERS) {
-          character.diffLayers[layer.id] = normalizePartList(character.diffLayers[layer.id]);
-
-          const selectedParts = character.diffLayers[layer.id].filter((part) => part.selected);
-          if (selectedParts.length > 1) {
-            character.diffLayers[layer.id].forEach((part, index) => {
-              part.selected = index === character.diffLayers[layer.id].findIndex((item) => item.selected);
-            });
-          }
-        }
-
-        character.presets = character.presets.map((preset) => ({
-          id: preset.id || uid(),
-          name: preset.name || "名称未設定",
-          selection: preset.selection && typeof preset.selection === "object" ? preset.selection : {}
-        }));
-      }
-
-      if (!normalized.activeCharacterId || !normalized.characters.some((c) => c.id === normalized.activeCharacterId)) {
-        normalized.activeCharacterId = normalized.characters[0].id;
-      }
-
-      normalized.settings = {
-        leftMode: normalized.settings?.leftMode === "diff" ? "diff" : "parts",
-        previewBg: normalized.settings?.previewBg || "transparent",
-        previewScale: Number(normalized.settings?.previewScale ?? 1),
-        previewX: Number(normalized.settings?.previewX ?? 0),
-        previewY: Number(normalized.settings?.previewY ?? 0),
-        exportMode: normalized.settings?.exportMode || "original",
-        exportHeight: Number(normalized.settings?.exportHeight ?? 1200)
-      };
-
-      return normalized;
-    }
-
-    function activeCharacter() {
-      return state.characters.find((character) => character.id === state.activeCharacterId) || state.characters[0];
-    }
-
-    function selectedParts(character = activeCharacter()) {
-      const result = {};
-      const layers = getActiveLayers();
-      const store = getLayerStore(character);
-
-      for (const layer of layers) {
-        result[layer.id] = store[layer.id].filter((part) => part.selected);
-      }
-
-      return result;
-    }
-
     function getCanvasBaseSize(character = activeCharacter()) {
       let width = 0;
       let height = 0;
@@ -703,7 +966,7 @@
       const store = getLayerStore(character);
 
       for (const layer of layers) {
-        for (const part of store[layer.id]) {
+        for (const part of store[layer.id] || []) {
           if (part.selected || width === 0 || height === 0) {
             width = Math.max(width, Number(part.width || 0));
             height = Math.max(height, Number(part.height || 0));
@@ -711,11 +974,7 @@
         }
       }
 
-      if (!width || !height) {
-        width = 1200;
-        height = 1200;
-      }
-
+      if (!width || !height) return { width: 1200, height: 1200 };
       return { width, height };
     }
 
@@ -725,6 +984,10 @@
       status.classList.toggle("danger-text", isDanger);
     }
 
+    function setStatusT(key, vars = {}, isDanger = false) {
+      setStatus(t(key, vars), isDanger);
+    }
+
     function renderAll() {
       renderCharacterControls();
       renderPresetControls();
@@ -732,12 +995,12 @@
       syncSettingsControls();
       updatePreviewTransform();
       renderPreview();
+      applyLanguage();
     }
 
     function renderCharacterControls() {
       const select = $("#characterSelect");
       select.innerHTML = "";
-
       for (const character of state.characters) {
         const option = document.createElement("option");
         option.value = character.id;
@@ -745,7 +1008,6 @@
         option.selected = character.id === state.activeCharacterId;
         select.appendChild(option);
       }
-
       $("#characterNameInput").value = activeCharacter().name;
     }
 
@@ -759,7 +1021,7 @@
 
       const emptyOption = document.createElement("option");
       emptyOption.value = "";
-      emptyOption.textContent = "プリセットを選択";
+      emptyOption.textContent = t("presetEmpty");
       select.appendChild(emptyOption);
 
       for (const preset of character.presets) {
@@ -773,7 +1035,6 @@
     function renderLayers() {
       const root = $("#layersRoot");
       root.innerHTML = "";
-
       const character = activeCharacter();
       const mode = getActiveMode();
       const layers = getActiveLayers();
@@ -789,19 +1050,16 @@
         const titleWrap = document.createElement("div");
         const name = document.createElement("div");
         name.className = "layer-name";
-        name.textContent = layer.name;
+        name.textContent = t(`layer_${layer.id}`);
 
         const note = document.createElement("div");
         note.className = "layer-note";
-        note.textContent = mode === "diff"
-          ? "完成済み差分をクリックで切り替え。複数選択はできません。"
-          : "複数チェックで同カテゴリ内の重ね合わせが可能";
-
+        note.textContent = mode === "diff" ? t("noteDiff") : t("noteParts");
         titleWrap.append(name, note);
 
         const uploadBtn = document.createElement("button");
         uploadBtn.className = "small";
-        uploadBtn.textContent = "画像登録";
+        uploadBtn.textContent = t("registerImage");
 
         const fileInput = document.createElement("input");
         fileInput.type = "file";
@@ -818,15 +1076,12 @@
 
         const list = document.createElement("div");
         list.className = "part-list";
-
-        const parts = store[layer.id];
+        const parts = store[layer.id] || [];
 
         if (parts.length === 0) {
           const empty = document.createElement("div");
           empty.className = "empty";
-          empty.textContent = mode === "diff"
-            ? "完成済み差分画像を登録してください。"
-            : "まだ画像が登録されていません。";
+          empty.textContent = mode === "diff" ? t("emptyDiff") : t("emptyParts");
           list.appendChild(empty);
         } else {
           for (const part of parts) {
@@ -844,26 +1099,25 @@
             const nameInput = document.createElement("input");
             nameInput.type = "text";
             nameInput.value = part.name;
-            nameInput.placeholder = "パーツ名";
+            nameInput.placeholder = t("partNamePlaceholder");
             nameInput.addEventListener("input", () => {
-              part.name = nameInput.value.trim() || "名称未設定";
+              part.name = nameInput.value.trim() || t("unnamed");
             });
 
             const size = document.createElement("div");
             size.className = "part-size";
-            size.textContent = `${part.width || "-"} × ${part.height || "-"} px${part.selected ? " / 表示中" : ""}`;
-
+            size.textContent = `${part.width || "-"} × ${part.height || "-"} px${part.selected ? ` / ${t("displaying")}` : ""}`;
             meta.append(nameInput, size);
 
             const removeBtn = document.createElement("button");
             removeBtn.className = "small danger";
-            removeBtn.textContent = "削除";
+            removeBtn.textContent = t("deleteButton");
 
             if (mode === "parts") {
               const checkbox = document.createElement("input");
               checkbox.type = "checkbox";
               checkbox.checked = part.selected;
-              checkbox.title = "表示適用";
+              checkbox.title = t("applyDisplay");
 
               const toggle = () => {
                 part.selected = !part.selected;
@@ -888,19 +1142,16 @@
               row.addEventListener("click", (event) => {
                 const tag = event.target.tagName.toLowerCase();
                 if (tag === "input" || tag === "button") return;
-
                 for (const item of parts) item.selected = false;
                 part.selected = true;
-
                 renderLayers();
                 renderPreview();
               });
-
               row.append(img, meta, removeBtn);
             }
 
             removeBtn.addEventListener("click", () => {
-              store[layer.id] = store[layer.id].filter((item) => item.id !== part.id);
+              store[layer.id] = parts.filter((item) => item.id !== part.id);
               imageCache.delete(part.dataUrl);
               renderLayers();
               renderPreview();
@@ -916,6 +1167,7 @@
     }
 
     function syncSettingsControls() {
+      $("#languageSelect").value = currentLanguage();
       $("#leftModeSelect").value = getActiveMode();
       $("#previewBgSelect").value = state.settings.previewBg;
       $("#previewScale").value = state.settings.previewScale;
@@ -929,7 +1181,6 @@
       const scale = Number(state.settings.previewScale || 1);
       const x = Number(state.settings.previewX || 0);
       const y = Number(state.settings.previewY || 0);
-
       $("#previewCanvas").style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
       $("#previewScaleValue").textContent = scale.toFixed(2);
       $("#previewXValue").textContent = `${x}px`;
@@ -942,19 +1193,15 @@
 
     async function addImagesToLayer(layerId, files) {
       if (!files.length) return;
-
-      const character = activeCharacter();
       const mode = getActiveMode();
-      const store = getLayerStore(character);
+      const store = getLayerStore(activeCharacter());
       let addedCount = 0;
 
       for (const file of files) {
         if (!file.type.startsWith("image/")) continue;
-
         const dataUrl = await fileToDataUrl(file);
         const size = await getImageSize(dataUrl);
         const shouldSelect = mode === "diff" && store[layerId].length === 0 && addedCount === 0;
-
         store[layerId].push({
           id: uid(),
           name: file.name.replace(/\.[^.]+$/, ""),
@@ -963,13 +1210,12 @@
           height: size.height,
           selected: shouldSelect
         });
-
         addedCount++;
       }
 
       renderLayers();
       renderPreview();
-      setStatus(`${addedCount}件の画像を登録しました。`);
+      setStatusT("addedImages", { count: addedCount });
     }
 
     function fileToDataUrl(file) {
@@ -982,15 +1228,11 @@
     }
 
     function getImageSize(dataUrl) {
-      return loadImage(dataUrl).then((img) => ({
-        width: img.naturalWidth,
-        height: img.naturalHeight
-      }));
+      return loadImage(dataUrl).then((img) => ({ width: img.naturalWidth, height: img.naturalHeight }));
     }
 
     function loadImage(dataUrl) {
       if (imageCache.has(dataUrl)) return Promise.resolve(imageCache.get(dataUrl));
-
       return new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = () => {
@@ -1007,26 +1249,20 @@
       const character = activeCharacter();
       const { width, height } = getCanvasBaseSize(character);
       const canvas = $("#previewCanvas");
-
       canvas.width = width;
       canvas.height = height;
-
       await drawComposite(canvas, width, height, character);
-
       if (token !== previewRenderToken) return;
-
       $("#previewInfo").textContent = `${width} × ${height}`;
     }
 
     async function drawComposite(canvas, width, height, character = activeCharacter()) {
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, width, height);
-
       const drawLayers = [...getActiveLayers()].reverse();
       const store = getLayerStore(character);
-
       for (const layer of drawLayers) {
-        const parts = store[layer.id].filter((part) => part.selected);
+        const parts = (store[layer.id] || []).filter((part) => part.selected);
         for (const part of parts) {
           const img = await loadImage(part.dataUrl);
           ctx.drawImage(img, 0, 0, width, height);
@@ -1036,13 +1272,11 @@
 
     function createSelectionSnapshot(character = activeCharacter()) {
       const selection = {};
-
       for (const layer of LAYERS) {
         selection[layer.id] = character.layers[layer.id]
           .filter((part) => part.selected)
           .map((part) => part.id);
       }
-
       return selection;
     }
 
@@ -1058,7 +1292,6 @@
     async function exportPng() {
       const character = activeCharacter();
       const base = getCanvasBaseSize(character);
-
       let outWidth = base.width;
       let outHeight = base.height;
 
@@ -1072,7 +1305,6 @@
       const canvas = document.createElement("canvas");
       canvas.width = outWidth;
       canvas.height = outHeight;
-
       await drawComposite(canvas, outWidth, outHeight, character);
 
       const link = document.createElement("a");
@@ -1080,8 +1312,7 @@
       link.download = `${safeName}_${formatDateForFile()}_${outWidth}x${outHeight}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
-
-      setStatus(`PNGを書き出しました。${outWidth} × ${outHeight}px`);
+      setStatusT("pngExported", { width: outWidth, height: outHeight });
     }
 
     function sanitizeFileName(name) {
@@ -1105,14 +1336,12 @@
       const json = JSON.stringify(state, null, 2);
       const blob = new Blob([json], { type: "application/json" });
       const url = URL.createObjectURL(blob);
-
       const link = document.createElement("a");
       link.download = `stand_diff_project_${formatDateForFile()}.json`;
       link.href = url;
       link.click();
-
       URL.revokeObjectURL(url);
-      setStatus("JSONを保存しました。");
+      setStatusT("jsonSaved");
     }
 
     async function importJsonFile(file) {
@@ -1122,24 +1351,22 @@
         state = normalizeState(project);
         imageCache.clear();
         renderAll();
-        setStatus("JSONを読み込みました。");
+        setStatusT("jsonLoaded");
       } catch (error) {
         console.error(error);
-        setStatus("JSONの読み込みに失敗しました。", true);
+        setStatusT("jsonLoadFailed", {}, true);
       }
     }
 
     function openDb() {
       return new Promise((resolve, reject) => {
         const request = indexedDB.open(DB_NAME, DB_VERSION);
-
         request.onupgradeneeded = () => {
           const db = request.result;
           if (!db.objectStoreNames.contains(STORE_NAME)) {
             db.createObjectStore(STORE_NAME, { keyPath: "key" });
           }
         };
-
         request.onsuccess = () => resolve(request.result);
         request.onerror = () => reject(request.error);
       });
@@ -1147,68 +1374,46 @@
 
     async function saveToCache() {
       const db = await openDb();
-
       return new Promise((resolve, reject) => {
         const tx = db.transaction(STORE_NAME, "readwrite");
-        tx.objectStore(STORE_NAME).put({
-          key: CACHE_KEY,
-          updatedAt: new Date().toISOString(),
-          project: state
-        });
-
-        tx.oncomplete = () => {
-          db.close();
-          resolve();
-        };
-        tx.onerror = () => {
-          db.close();
-          reject(tx.error);
-        };
+        tx.objectStore(STORE_NAME).put({ key: CACHE_KEY, updatedAt: new Date().toISOString(), project: state });
+        tx.oncomplete = () => { db.close(); resolve(); };
+        tx.onerror = () => { db.close(); reject(tx.error); };
       });
     }
 
     async function loadFromCache() {
       const db = await openDb();
-
       return new Promise((resolve, reject) => {
         const tx = db.transaction(STORE_NAME, "readonly");
         const request = tx.objectStore(STORE_NAME).get(CACHE_KEY);
-
-        request.onsuccess = () => {
-          db.close();
-          resolve(request.result?.project || null);
-        };
-
-        request.onerror = () => {
-          db.close();
-          reject(request.error);
-        };
+        request.onsuccess = () => { db.close(); resolve(request.result?.project || null); };
+        request.onerror = () => { db.close(); reject(request.error); };
       });
     }
 
     async function clearCache() {
       const db = await openDb();
-
       return new Promise((resolve, reject) => {
         const tx = db.transaction(STORE_NAME, "readwrite");
         tx.objectStore(STORE_NAME).delete(CACHE_KEY);
-
-        tx.oncomplete = () => {
-          db.close();
-          resolve();
-        };
-        tx.onerror = () => {
-          db.close();
-          reject(tx.error);
-        };
+        tx.oncomplete = () => { db.close(); resolve(); };
+        tx.onerror = () => { db.close(); reject(tx.error); };
       });
     }
 
     function bindEvents() {
+      $("#languageSelect").addEventListener("change", (event) => {
+        state.settings.uiLanguage = event.target.value;
+        localStorage.setItem(LANG_STORAGE_KEY, state.settings.uiLanguage);
+        renderAll();
+        setStatusT("languageChanged");
+      });
+
       $("#leftModeSelect").addEventListener("change", (event) => {
         state.settings.leftMode = event.target.value === "diff" ? "diff" : "parts";
         renderAll();
-        setStatus(state.settings.leftMode === "diff" ? "差分切り替えモードに変更しました。" : "パーツ組みモードに変更しました。");
+        setStatusT(state.settings.leftMode === "diff" ? "switchedDiff" : "switchedParts");
       });
 
       $("#characterSelect").addEventListener("change", (event) => {
@@ -1217,93 +1422,54 @@
       });
 
       $("#addCharacterBtn").addEventListener("click", () => {
-        const input = $("#characterNameInput");
-        const name = input.value.trim() || `キャラクター${state.characters.length + 1}`;
+        const name = $("#characterNameInput").value.trim();
+        if (!name) { setStatusT("enterCharacterName", {}, true); return; }
         const character = createCharacter(name);
         state.characters.push(character);
         state.activeCharacterId = character.id;
         renderAll();
-        setStatus(`「${name}」を追加しました。`);
+        setStatusT("characterAdded");
       });
 
       $("#renameCharacterBtn").addEventListener("click", () => {
-        const character = activeCharacter();
         const name = $("#characterNameInput").value.trim();
-
-        if (!name) {
-          setStatus("キャラクター名を入力してください。", true);
-          return;
-        }
-
-        character.name = name;
+        if (!name) { setStatusT("enterCharacterName", {}, true); return; }
+        activeCharacter().name = name;
         renderCharacterControls();
-        setStatus("キャラクター名を変更しました。");
+        setStatusT("characterRenamed");
       });
 
       $("#deleteCharacterBtn").addEventListener("click", () => {
-        if (state.characters.length <= 1) {
-          setStatus("キャラクターは最低1人必要です。", true);
-          return;
-        }
-
-        const character = activeCharacter();
-        const ok = confirm(`「${character.name}」を削除しますか？`);
-        if (!ok) return;
-
-        state.characters = state.characters.filter((item) => item.id !== character.id);
+        if (state.characters.length <= 1) { setStatusT("cannotDeleteLastCharacter", {}, true); return; }
+        if (!confirm(t("deleteCharacterConfirm"))) return;
+        const id = state.activeCharacterId;
+        state.characters = state.characters.filter((character) => character.id !== id);
         state.activeCharacterId = state.characters[0].id;
+        imageCache.clear();
         renderAll();
-        setStatus("キャラクターを削除しました。");
+        setStatusT("characterDeleted");
       });
 
       $("#savePresetBtn").addEventListener("click", () => {
-        const character = activeCharacter();
         const name = $("#presetNameInput").value.trim();
-
-        if (!name) {
-          setStatus("プリセット名を入力してください。", true);
-          return;
-        }
-
-        const existing = character.presets.find((preset) => preset.name === name);
-        const snapshot = createSelectionSnapshot(character);
-
-        if (existing) {
-          existing.selection = snapshot;
-          setStatus(`プリセット「${name}」を上書きしました。`);
-        } else {
-          character.presets.push({
-            id: uid(),
-            name,
-            selection: snapshot
-          });
-          setStatus(`プリセット「${name}」を保存しました。`);
-        }
-
+        if (!name) { setStatusT("enterPresetName", {}, true); return; }
+        const character = activeCharacter();
+        character.presets.push({ id: uid(), name, selection: createSelectionSnapshot(character) });
         $("#presetNameInput").value = "";
         renderPresetControls();
+        setStatusT("presetSaved");
       });
 
-      $("#applyPresetBtn").addEventListener("click", () => {
-        applySelectedPreset();
-      });
-
-      $("#presetSelect").addEventListener("change", () => {
-        applySelectedPreset();
-      });
+      $("#applyPresetBtn").addEventListener("click", applySelectedPreset);
+      $("#presetSelect").addEventListener("change", applySelectedPreset);
 
       $("#deletePresetBtn").addEventListener("click", () => {
         const character = activeCharacter();
         const presetId = $("#presetSelect").value;
-
-        if (!presetId) {
-          setStatus("削除するプリセットを選択してください。", true);
-          return;
-        }
-
+        if (!presetId) { setStatusT("selectPresetDelete", {}, true); return; }
         character.presets = character.presets.filter((preset) => preset.id !== presetId);
         renderPresetControls();
-        setStatus("プリセットを削除しました。");
+        setStatusT("presetDeleted");
       });
 
       $("#previewBgSelect").addEventListener("change", (event) => {
@@ -1337,15 +1503,12 @@
       $("#exportPngBtn").addEventListener("click", () => {
         exportPng().catch((error) => {
           console.error(error);
-          setStatus("PNG書き出しに失敗しました。", true);
+          setStatusT("pngExportFailed", {}, true);
         });
       });
 
       $("#downloadJsonBtn").addEventListener("click", downloadJson);
-
-      $("#importJsonBtn").addEventListener("click", () => {
-        $("#jsonFileInput").click();
-      });
+      $("#importJsonBtn").addEventListener("click", () => $("#jsonFileInput").click());
 
       $("#jsonFileInput").addEventListener("change", async (event) => {
         const file = event.target.files?.[0];
@@ -1354,72 +1517,53 @@
       });
 
       $("#saveCacheBtn").addEventListener("click", async () => {
-        try {
-          await saveToCache();
-          setStatus("ブラウザキャッシュに保存しました。");
-        } catch (error) {
-          console.error(error);
-          setStatus("キャッシュ保存に失敗しました。", true);
-        }
+        try { await saveToCache(); setStatusT("cacheSaved"); }
+        catch (error) { console.error(error); setStatusT("cacheSaveFailed", {}, true); }
       });
 
       $("#loadCacheBtn").addEventListener("click", async () => {
         try {
           const cached = await loadFromCache();
-
-          if (!cached) {
-            setStatus("保存済みキャッシュがありません。", true);
-            return;
-          }
-
+          if (!cached) { setStatusT("cacheMissing", {}, true); return; }
           state = normalizeState(cached);
           imageCache.clear();
           renderAll();
-          setStatus("キャッシュから読み込みました。");
+          setStatusT("cacheLoaded");
         } catch (error) {
           console.error(error);
-          setStatus("キャッシュ読込に失敗しました。", true);
+          setStatusT("cacheLoadFailed", {}, true);
         }
       });
 
       $("#clearCacheBtn").addEventListener("click", async () => {
-        const ok = confirm("ブラウザに保存したキャッシュを削除しますか？");
-        if (!ok) return;
-
-        try {
-          await clearCache();
-          setStatus("キャッシュを削除しました。");
-        } catch (error) {
-          console.error(error);
-          setStatus("キャッシュ削除に失敗しました。", true);
-        }
+        if (!confirm(t("cacheDeleteConfirm"))) return;
+        try { await clearCache(); setStatusT("cacheDeleted"); }
+        catch (error) { console.error(error); setStatusT("cacheDeleteFailed", {}, true); }
       });
     }
 
     function applySelectedPreset() {
       const character = activeCharacter();
       const presetId = $("#presetSelect").value;
-
       if (!presetId) return;
-
       const preset = character.presets.find((item) => item.id === presetId);
       if (!preset) return;
-
       applySelectionSnapshot(preset.selection, character);
       renderLayers();
       renderPreview();
-      setStatus(`プリセット「${preset.name}」を適用しました。`);
+      setStatusT("presetApplied", { name: preset.name });
     }
 
     async function tryAutoLoadCache() {
       try {
         const cached = await loadFromCache();
-
         if (cached) {
+          const currentLang = state.settings.uiLanguage;
           state = normalizeState(cached);
+          state.settings.uiLanguage = currentLang;
           imageCache.clear();
           renderAll();
-          setStatus("保存済みキャッシュを自動読込しました。");
+          setStatusT("cacheAutoLoaded");
         }
       } catch (error) {
         console.warn("cache auto load skipped:", error);
@@ -1433,4 +1577,3 @@
   </script>
 </body>
 </html>
-
