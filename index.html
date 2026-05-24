@@ -31,7 +31,7 @@
       font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
     }
 
-    button, input, select { font: inherit; }
+    button, input, select, textarea { font: inherit; }
 
     button {
       border: 0;
@@ -44,31 +44,15 @@
       white-space: nowrap;
     }
 
-    button:hover {
-      filter: brightness(0.96);
-      transform: translateY(-1px);
-    }
+    button:hover { filter: brightness(0.96); transform: translateY(-1px); }
+    button.secondary { background: #eff8f5; color: var(--mint-deep); border: 1px solid var(--line); }
+    button.danger { background: #fff0f0; color: #b84b4b; border: 1px solid #f2c6c6; }
+    button.small { padding: 0.35rem 0.65rem; font-size: 0.85rem; }
+    button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
 
-    button.secondary {
-      background: #eff8f5;
-      color: var(--mint-deep);
+    input[type="text"], input[type="number"], select, textarea {
       border: 1px solid var(--line);
-    }
-
-    button.danger {
-      background: #fff0f0;
-      color: #b84b4b;
-      border: 1px solid #f2c6c6;
-    }
-
-    button.small {
-      padding: 0.35rem 0.65rem;
-      font-size: 0.85rem;
-    }
-
-    input[type="text"], input[type="number"], select {
-      border: 1px solid var(--line);
-      border-radius: 999px;
+      border-radius: 14px;
       background: #fff;
       color: var(--text);
       padding: 0.5rem 0.75rem;
@@ -76,21 +60,22 @@
       min-width: 0;
     }
 
-    input[type="text"]:focus, input[type="number"]:focus, select:focus {
+    select, input[type="text"], input[type="number"] { border-radius: 999px; }
+    textarea { min-height: 5.5rem; resize: vertical; line-height: 1.55; }
+
+    input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
       border-color: var(--mint-dark);
       box-shadow: 0 0 0 3px rgba(146, 201, 186, 0.22);
     }
 
     input[type="file"] { display: none; }
+    input[type="color"] { width: 48px; height: 34px; border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 3px; }
 
-    label {
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
+    label { color: var(--muted); font-size: 0.88rem; }
 
     .app {
       display: grid;
-      grid-template-columns: minmax(360px, 0.8fr) minmax(560px, 1.4fr);
+      grid-template-columns: minmax(400px, 0.86fr) minmax(620px, 1.34fr);
       gap: 1rem;
       padding: 1rem;
       height: 100vh;
@@ -105,11 +90,7 @@
       backdrop-filter: blur(12px);
     }
 
-    .left, .right {
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-    }
+    .left, .right { min-height: 0; display: flex; flex-direction: column; }
 
     .header {
       padding: 1rem 1.1rem;
@@ -117,18 +98,11 @@
       background: rgba(216, 238, 232, 0.34);
     }
 
-    .title {
-      font-weight: 800;
-      font-size: 1.18rem;
-      letter-spacing: 0.03em;
-    }
-
-    .subtitle {
-      margin-top: 0.25rem;
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.45;
-    }
+    .title { font-weight: 800; font-size: 1.18rem; letter-spacing: 0.03em; }
+    .subtitle { margin-top: 0.25rem; color: var(--muted); font-size: 0.86rem; line-height: 1.45; }
+    .header-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.8rem; }
+    .header-title-block { min-width: 0; }
+    .header-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.45rem; align-items: center; max-width: 58%; }
 
     .toolbar {
       display: flex;
@@ -141,23 +115,32 @@
     }
 
     .toolbar.grouped { align-items: end; }
+    .field { display: grid; gap: 0.25rem; min-width: 140px; }
+    .field.wide { flex: 1; min-width: 210px; }
+    .field.full { width: 100%; }
 
-    .field {
-      display: grid;
-      gap: 0.25rem;
-      min-width: 140px;
+    .content-scroll { overflow: auto; padding: 1rem; min-height: 0; }
+
+    details.control-section {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.92);
+      margin-bottom: 0.8rem;
+      overflow: hidden;
     }
 
-    .field.wide {
-      flex: 1;
-      min-width: 210px;
+    details.control-section > summary {
+      cursor: pointer;
+      padding: 0.75rem 0.85rem;
+      background: linear-gradient(90deg, rgba(216, 238, 232, 0.85), rgba(255, 255, 255, 0.8));
+      border-bottom: 1px solid var(--line);
+      font-weight: 800;
+      list-style: none;
     }
 
-    .content-scroll {
-      overflow: auto;
-      padding: 1rem;
-      min-height: 0;
-    }
+    details.control-section > summary::-webkit-details-marker { display: none; }
+
+    .section-body { padding: 0.75rem; display: grid; gap: 0.65rem; }
 
     .layer-card {
       border: 1px solid var(--line);
@@ -178,19 +161,9 @@
     }
 
     .layer-name { font-weight: 700; }
+    .layer-note { color: var(--muted); font-size: 0.78rem; margin-top: 0.1rem; line-height: 1.4; }
 
-    .layer-note {
-      color: var(--muted);
-      font-size: 0.78rem;
-      margin-top: 0.1rem;
-      line-height: 1.4;
-    }
-
-    .part-list {
-      display: grid;
-      gap: 0.4rem;
-      padding: 0.65rem;
-    }
+    .part-list { display: grid; gap: 0.4rem; padding: 0.65rem; }
 
     .empty {
       color: var(--muted);
@@ -201,7 +174,7 @@
       background: #fbfefd;
     }
 
-    .part-row {
+    .part-row, .text-row, .font-row {
       display: grid;
       grid-template-columns: auto 48px 1fr auto;
       gap: 0.55rem;
@@ -213,19 +186,11 @@
       cursor: pointer;
     }
 
-    .part-row:hover { background: #f8fffc; }
-
-    .part-row.active {
-      border-color: var(--mint-dark);
-      background: #f1fbf8;
-    }
-
-    .part-row input[type="checkbox"] {
-      width: 1.05rem;
-      height: 1.05rem;
-      accent-color: var(--mint-deep);
-    }
-
+    .text-row { grid-template-columns: auto 1fr auto; }
+    .font-row { grid-template-columns: 1fr auto; cursor: default; }
+    .part-row:hover, .text-row:hover { background: #f8fffc; }
+    .part-row.active, .text-row.active { border-color: var(--mint-dark); background: #f1fbf8; }
+    .part-row input[type="checkbox"], .text-row input[type="checkbox"] { width: 1.05rem; height: 1.05rem; accent-color: var(--mint-deep); }
     .part-row.diff-mode { grid-template-columns: 48px 1fr auto; }
 
     .thumb {
@@ -243,34 +208,11 @@
       background-position: 0 0, 0 8px, 8px -8px, -8px 0;
     }
 
-    .part-meta {
-      min-width: 0;
-      display: grid;
-      gap: 0.25rem;
-    }
+    .part-meta, .text-meta { min-width: 0; display: grid; gap: 0.25rem; }
+    .part-meta input, .text-meta input { width: 100%; border-radius: 12px; padding: 0.38rem 0.5rem; }
+    .part-size, .text-note { color: var(--muted); font-size: 0.74rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-    .part-meta input {
-      width: 100%;
-      border-radius: 12px;
-      padding: 0.38rem 0.5rem;
-    }
-
-    .part-size {
-      color: var(--muted);
-      font-size: 0.74rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .preview-wrap {
-      padding: 1rem;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-      flex: 1;
-    }
+    .preview-wrap { padding: 1rem; min-height: 0; display: flex; flex-direction: column; gap: 0.85rem; flex: 1; }
 
     .preview-stage {
       position: relative;
@@ -299,12 +241,37 @@
     .preview-stage.bg-mint { background: #e4f3ee; }
 
     #previewCanvas {
-      max-width: 86%;
-      max-height: 86%;
+      max-width: 92%;
+      max-height: 92%;
       object-fit: contain;
-      transform-origin: center center;
-      transition: transform 0.05s linear;
       image-rendering: auto;
+      cursor: grab;
+      touch-action: none;
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    #previewCanvas[data-tool-mode="pan"] { cursor: grab; }
+    #previewCanvas.dragging { cursor: grabbing; }
+
+    .preview-view-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.7rem 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.86);
+    }
+
+    .preview-view-controls .zoom-wrap {
+      display: grid;
+      grid-template-columns: auto minmax(150px, 1fr) 58px;
+      gap: 0.5rem;
+      align-items: center;
+      flex: 1;
+      min-width: 240px;
     }
 
     .preview-info {
@@ -329,46 +296,85 @@
       background: rgba(255, 255, 255, 0.86);
     }
 
-    .slider-row {
+    .slider-row { display: grid; grid-template-columns: 112px 1fr 78px; align-items: center; gap: 0.65rem; }
+    .slider-row.compact { grid-template-columns: 82px 1fr 70px; }
+    input[type="range"] { width: 100%; accent-color: var(--mint-deep); }
+    .value { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; font-size: 0.85rem; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.55rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.55rem; }
+    .button-row { display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: center; }
+    .tool-button-group { display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: center; }
+    .tool-btn { background: #eff8f5; color: var(--mint-deep); border: 1px solid var(--line); }
+    .tool-btn.active { background: var(--mint-deep); color: #fff; border-color: var(--mint-deep); box-shadow: 0 4px 12px rgba(61, 127, 112, 0.22); }
+    .target-check-row { display: flex; flex-wrap: nowrap; gap: 0.45rem; align-items: center; min-width: 0; }
+    .target-check { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.42rem 0.7rem; border: 1px solid var(--line); border-radius: 999px; background: #eff8f5; color: var(--mint-deep); cursor: pointer; user-select: none; font-size: 0.88rem; white-space: nowrap; }
+    .target-check input { accent-color: var(--mint-deep); }
+    .target-check.active { background: var(--mint-deep); color: #fff; border-color: var(--mint-deep); box-shadow: 0 4px 12px rgba(61, 127, 112, 0.22); }
+    .target-text-select { flex: 1 1 240px; min-width: 190px; max-width: 420px; }
+    .target-text-select:disabled { opacity: 0.55; cursor: not-allowed; }
+    .check-row { display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; }
+    .check-row label { display: inline-flex; gap: 0.35rem; align-items: center; color: var(--text); }
+
+    .inline-style-item {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 0.65rem;
+      background: #fbfefd;
       display: grid;
-      grid-template-columns: 86px 1fr 70px;
+      gap: 0.55rem;
+    }
+
+    .inline-style-head { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; font-weight: 700; }
+    .color-line { display: grid; grid-template-columns: 1fr auto; gap: 0.4rem; align-items: end; }
+
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
       align-items: center;
-      gap: 0.65rem;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(20, 35, 31, 0.42);
+      backdrop-filter: blur(4px);
     }
 
-    input[type="range"] {
-      width: 100%;
-      accent-color: var(--mint-deep);
+    .modal-overlay.show { display: flex; }
+
+    .modal-card {
+      width: min(520px, 100%);
+      max-height: min(86vh, 720px);
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 24px 70px rgba(34, 62, 56, 0.28);
     }
 
-    .value {
-      text-align: right;
-      color: var(--muted);
-      font-variant-numeric: tabular-nums;
-      font-size: 0.85rem;
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      padding: 1rem 1.1rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(216, 238, 232, 0.56);
     }
 
-    .status {
-      color: var(--muted);
-      font-size: 0.82rem;
-      min-height: 1.2em;
-    }
+    .modal-title { font-weight: 800; font-size: 1.08rem; }
+    .modal-body { display: grid; gap: 0.8rem; padding: 1rem 1.1rem 1.1rem; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 0.55rem; align-items: center; margin-top: 0.25rem; }
 
-    .hint {
-      color: var(--muted);
-      font-size: 0.78rem;
-      line-height: 1.5;
-    }
-
+    .status { color: var(--muted); font-size: 0.82rem; min-height: 1.2em; }
+    .hint { color: var(--muted); font-size: 0.78rem; line-height: 1.5; }
     .danger-text { color: var(--danger); }
     .hidden { display: none !important; }
 
-    @media (max-width: 980px) {
-      .app {
-        grid-template-columns: 1fr;
-        height: auto;
-      }
-      .right { min-height: 720px; }
+    @media (max-width: 1060px) {
+      .app { grid-template-columns: 1fr; height: auto; }
+      .right { min-height: 760px; }
     }
   </style>
 </head>
@@ -376,8 +382,23 @@
   <main class="app">
     <section class="panel left">
       <div class="header">
-        <div class="title" data-i18n="appTitle">立ち絵の差分ジェネレーター</div>
-        <div class="subtitle" data-i18n="appSubtitle">カテゴリごとに画像を登録し、チェックしたパーツを重ねて透過PNGを書き出します。</div>
+        <div class="header-row">
+          <div class="header-title-block">
+            <div class="title" data-i18n="appTitle">立ち絵の差分ジェネレーター</div>
+            <div class="subtitle" data-i18n="appSubtitle">カテゴリごとに画像を登録し、背景・テキスト・立ち絵を重ねてPNGを書き出します。</div>
+          </div>
+          <div class="header-actions">
+            <button id="openExportSettingsBtn" class="small" data-i18n="exportSettingsButton">書き出し</button>
+            <button id="addFontBtn" class="small secondary" data-i18n="registerFont">フォント登録</button>
+            <button id="downloadJsonBtn" class="small secondary" data-i18n="jsonSaveButton">JSON保存</button>
+            <button id="importJsonBtn" class="small secondary" data-i18n="jsonLoadButton">JSON読込</button>
+            <button id="saveCacheBtn" class="small" data-i18n="cacheSaveButton">キャッシュ保存</button>
+            <button id="loadCacheBtn" class="small secondary" data-i18n="cacheLoadButton">キャッシュ読込</button>
+            <button id="clearCacheBtn" class="small danger" data-i18n="cacheDeleteButton">キャッシュ削除</button>
+            <input id="jsonFileInput" type="file" accept="application/json,.json" />
+            <input id="fontFileInput" type="file" accept=".ttf,.otf,.woff,.woff2,font/*" multiple />
+          </div>
+        </div>
       </div>
 
       <div class="toolbar grouped">
@@ -426,13 +447,81 @@
         <button id="deletePresetBtn" class="danger" data-i18n="deleteButton">削除</button>
       </div>
 
-      <div id="layersRoot" class="content-scroll"></div>
+      <div class="toolbar layer-order-toolbar">
+        <label class="target-check">
+          <input id="browsAboveHairFrontToggle" type="checkbox" />
+          <span data-i18n="browsAboveHairFront">眉毛を髪の毛(手前)より前に表示</span>
+        </label>
+      </div>
+
+      <div class="content-scroll">
+        <details class="control-section" open>
+          <summary data-i18n="transformSection">選択対象の位置・サイズ・角度</summary>
+          <div class="section-body">
+            <div class="hint" data-i18n="transformHint">操作対象をチェックで選び、移動・サイズ・回転ボタンを選んでプレビュー上をドラッグできます。数値調整はここで行います。</div>
+            <div class="slider-grid">
+              <div class="slider-row">
+                <label for="targetX" data-i18n="xMoveLabel">X移動</label>
+                <input id="targetX" type="range" min="-1200" max="1200" step="1" value="0" />
+                <div id="targetXValue" class="value">0px</div>
+              </div>
+              <div class="slider-row">
+                <label for="targetY" data-i18n="yMoveLabel">Y移動</label>
+                <input id="targetY" type="range" min="-1200" max="1200" step="1" value="0" />
+                <div id="targetYValue" class="value">0px</div>
+              </div>
+              <div class="slider-row">
+                <label for="targetScale" data-i18n="scaleLabel">スケール</label>
+                <input id="targetScale" type="range" min="0.05" max="4" step="0.01" value="1" />
+                <div id="targetScaleValue" class="value">1.00</div>
+              </div>
+              <div class="slider-row">
+                <label for="targetRotation" data-i18n="rotationLabel">角度</label>
+                <input id="targetRotation" type="range" min="-180" max="180" step="1" value="0" />
+                <div id="targetRotationValue" class="value">0°</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="control-section" open>
+          <summary data-i18n="textSection">テキストレイヤー</summary>
+          <div class="section-body">
+            <div class="button-row">
+              <button id="addTextLayerBtn" data-i18n="addTextLayer">テキスト追加</button>
+              <button id="duplicateTextLayerBtn" class="secondary" data-i18n="duplicateButton">複製</button>
+              <button id="deleteTextLayerBtn" class="danger" data-i18n="deleteButton">削除</button>
+            </div>
+            <div id="textLayerList" class="part-list"></div>
+          </div>
+        </details>
+
+        <details class="control-section">
+          <summary data-i18n="commonFontSection">共通フォント一覧</summary>
+          <div class="section-body">
+            <div class="hint" data-i18n="commonFontHint">ヘッダーのフォント登録から追加したフォントは、すべてのテキストレイヤーのフォントプルダウンに共通で追加されます。</div>
+            <div id="customFontList" class="part-list"></div>
+          </div>
+        </details>
+
+        <details class="control-section" open>
+          <summary data-i18n="textDetailSection">選択中テキスト詳細</summary>
+          <div id="textDetailEditor" class="section-body"></div>
+        </details>
+
+        <div id="layersRoot"></div>
+
+        <details class="control-section" open>
+          <summary data-i18n="backgroundSection">背景レイヤー</summary>
+          <div id="backgroundControls" class="section-body"></div>
+        </details>
+      </div>
     </section>
 
     <section class="panel right">
       <div class="header">
         <div class="title" data-i18n="previewTitle">プレビュー / 書き出し</div>
-        <div class="subtitle" data-i18n="previewSubtitle">スケール・X移動・Y移動は確認用です。PNG書き出しには反映されません。</div>
+        <div class="subtitle" data-i18n="previewSubtitle">プレビュー上で立ち絵全体またはテキストを移動・回転・拡大縮小できます。背景は専用スライダーで調整します。</div>
       </div>
 
       <div class="toolbar grouped">
@@ -444,370 +533,133 @@
             <option value="mint" data-i18n="bgMint">くすみミント</option>
           </select>
         </div>
+        <div class="field wide">
+          <label data-i18n="toolTargetLabel">操作対象</label>
+          <div id="toolTargetChecks" class="target-check-row"></div>
+        </div>
+        <div class="field wide">
+          <label data-i18n="toolModeLabel">プレビュー操作</label>
+          <div id="toolModeButtons" class="tool-button-group" role="group" aria-label="プレビュー操作">
+            <button type="button" class="tool-btn small" data-tool-mode="pan" data-i18n="toolPan">表示移動</button>
+            <button type="button" class="tool-btn small" data-tool-mode="move" data-i18n="toolMove">移動</button>
+            <button type="button" class="tool-btn small" data-tool-mode="scale" data-i18n="toolScale">サイズ</button>
+            <button type="button" class="tool-btn small" data-tool-mode="rotate" data-i18n="toolRotate">回転</button>
+          </div>
+        </div>
+      </div>
 
-        <div class="field">
+
+      <div class="preview-wrap">
+        <div class="preview-view-controls">
+          <button id="previewFitBtn" type="button" class="small secondary" data-i18n="previewFit">全体表示</button>
+          <button id="previewOriginalBtn" type="button" class="small secondary" data-i18n="previewOriginal">原寸表示</button>
+          <div class="zoom-wrap">
+            <label for="previewZoom" data-i18n="previewZoom">倍率</label>
+            <input id="previewZoom" type="range" min="0.1" max="3" step="0.01" value="1" />
+            <div id="previewZoomValue" class="value">100%</div>
+          </div>
+        </div>
+
+        <div id="previewStage" class="preview-stage bg-transparent">
+          <div id="previewInfo" class="preview-info">0 × 0</div>
+          <canvas id="previewCanvas"></canvas>
+        </div>
+
+        <div id="status" class="status"></div>
+        <div class="hint" data-i18n="hintText">背景1→背景2→背面テキスト→立ち絵→前面テキストの順に描画します。プレビュー操作の変更はPNG書き出しにも反映されます。</div>
+      </div>
+    </section>
+  </main>
+
+  <div id="exportModal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="exportModalTitle">
+      <div class="modal-head">
+        <div id="exportModalTitle" class="modal-title" data-i18n="exportSettingsTitle">書き出し設定</div>
+        <button id="closeExportModalBtn" type="button" class="small secondary" data-i18n="closeButton">閉じる</button>
+      </div>
+      <div class="modal-body">
+        <div class="field full">
           <label for="exportHeightInput" data-i18n="exportHeightLabel">書き出し縦幅(px)</label>
           <input id="exportHeightInput" type="number" min="1" step="1" value="1200" />
         </div>
-
-        <div class="field">
+        <div class="field full">
           <label for="exportOriginalSelect" data-i18n="sizeLabel">サイズ</label>
           <select id="exportOriginalSelect">
             <option value="original" data-i18n="sizeOriginal">原寸</option>
             <option value="height" data-i18n="sizeHeight">縦幅指定</option>
           </select>
         </div>
-
-        <button id="exportPngBtn" data-i18n="exportPngButton">透過PNG書き出し</button>
-      </div>
-
-      <div class="toolbar">
-        <button id="downloadJsonBtn" data-i18n="jsonSaveButton">JSON保存</button>
-        <button id="importJsonBtn" class="secondary" data-i18n="jsonLoadButton">JSON読込</button>
-        <button id="saveCacheBtn" data-i18n="cacheSaveButton">キャッシュ保存</button>
-        <button id="loadCacheBtn" class="secondary" data-i18n="cacheLoadButton">キャッシュ読込</button>
-        <button id="clearCacheBtn" class="danger" data-i18n="cacheDeleteButton">キャッシュ削除</button>
-        <input id="jsonFileInput" type="file" accept="application/json,.json" />
-      </div>
-
-      <div class="preview-wrap">
-        <div id="previewStage" class="preview-stage bg-transparent">
-          <div id="previewInfo" class="preview-info">0 × 0</div>
-          <canvas id="previewCanvas"></canvas>
+        <div class="modal-actions">
+          <button id="exportPngBtn" type="button" data-i18n="exportPngButton">PNG書き出し</button>
         </div>
-
-        <div class="slider-grid">
-          <div class="slider-row">
-            <label for="previewScale" data-i18n="scaleLabel">スケール</label>
-            <input id="previewScale" type="range" min="0.2" max="3" step="0.01" value="1" />
-            <div id="previewScaleValue" class="value">1.00</div>
-          </div>
-
-          <div class="slider-row">
-            <label for="previewX" data-i18n="xMoveLabel">X移動</label>
-            <input id="previewX" type="range" min="-500" max="500" step="1" value="0" />
-            <div id="previewXValue" class="value">0px</div>
-          </div>
-
-          <div class="slider-row">
-            <label for="previewY" data-i18n="yMoveLabel">Y移動</label>
-            <input id="previewY" type="range" min="-500" max="500" step="1" value="0" />
-            <div id="previewYValue" class="value">0px</div>
-          </div>
-        </div>
-
-        <div id="status" class="status"></div>
-        <div class="hint" data-i18n="hintText">重ね順は画面上のカテゴリ順を最前面として扱います。書き出し時は奥側から順に描画されるため、透明PNGのパーツ画像は同じキャンバスサイズで作ると綺麗に合成できます。</div>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
 
   <script>
     const I18N = {
       ja: {
         appTitle: "立ち絵の差分ジェネレーター",
-        appSubtitle: "カテゴリごとに画像を登録し、チェックしたパーツを重ねて透過PNGを書き出します。",
-        languageLabel: "Language",
-        leftPanelLabel: "左パネル表示",
-        modeParts: "パーツ組みモード",
-        modeDiff: "差分切り替えモード",
-        characterLabel: "キャラクター",
-        characterNameLabel: "キャラクター名",
-        characterNamePlaceholder: "キャラクター名",
-        addButton: "追加",
-        renameButton: "名前変更",
-        deleteButton: "削除",
-        presetLabel: "プリセット",
-        presetNameLabel: "プリセット名",
-        presetNamePlaceholder: "例：通常笑顔 / 照れ / 怒り",
-        savePresetButton: "現在の組み合わせを保存",
-        applyButton: "適用",
-        previewTitle: "プレビュー / 書き出し",
-        previewSubtitle: "スケール・X移動・Y移動は確認用です。PNG書き出しには反映されません。",
-        previewBgLabel: "プレビュー背景",
-        bgTransparent: "透明確認",
-        bgWhite: "白",
-        bgMint: "くすみミント",
-        exportHeightLabel: "書き出し縦幅(px)",
-        sizeLabel: "サイズ",
-        sizeOriginal: "原寸",
-        sizeHeight: "縦幅指定",
-        exportPngButton: "透過PNG書き出し",
-        jsonSaveButton: "JSON保存",
-        jsonLoadButton: "JSON読込",
-        cacheSaveButton: "キャッシュ保存",
-        cacheLoadButton: "キャッシュ読込",
-        cacheDeleteButton: "キャッシュ削除",
-        scaleLabel: "スケール",
-        xMoveLabel: "X移動",
-        yMoveLabel: "Y移動",
-        hintText: "重ね順は画面上のカテゴリ順を最前面として扱います。書き出し時は奥側から順に描画されるため、透明PNGのパーツ画像は同じキャンバスサイズで作ると綺麗に合成できます。",
-        layer_armFront: "腕(手前)",
-        layer_itemFront: "アイテム(手前)",
-        layer_hairFront: "髪の毛(手前)",
-        layer_eyes: "目元",
-        layer_brows: "眉毛",
-        layer_mouth: "口",
-        layer_effect: "表情効果",
-        layer_armBack: "腕(奥)",
-        layer_itemMiddle: "アイテム(中)",
-        layer_base: "ベース",
-        layer_itemBack: "アイテム(奥)",
-        layer_hairBack: "髪の毛(奥)",
-        layer_diffBase: "ベース",
-        noteParts: "複数チェックで同カテゴリ内の重ね合わせが可能",
-        noteDiff: "完成済み差分をクリックで切り替え。複数選択はできません。",
-        registerImage: "画像登録",
-        emptyParts: "まだ画像が登録されていません。",
-        emptyDiff: "完成済み差分画像を登録してください。",
-        partNamePlaceholder: "パーツ名",
-        unnamed: "名称未設定",
-        newCharacter: "新規キャラクター",
-        presetEmpty: "プリセットを選択",
-        displaying: "表示中",
-        applyDisplay: "表示適用",
-        languageChanged: "表示言語を変更しました。",
-        addedImages: "{count}件の画像を登録しました。",
-        pngExported: "PNGを書き出しました。{width} × {height}px",
-        pngExportFailed: "PNG書き出しに失敗しました。",
-        jsonSaved: "JSONを保存しました。",
-        jsonLoaded: "JSONを読み込みました。",
-        jsonLoadFailed: "JSONの読み込みに失敗しました。",
-        cacheSaved: "ブラウザキャッシュに保存しました。",
-        cacheSaveFailed: "キャッシュ保存に失敗しました。",
-        cacheMissing: "保存済みキャッシュがありません。",
-        cacheLoaded: "キャッシュから読み込みました。",
-        cacheLoadFailed: "キャッシュ読込に失敗しました。",
-        cacheDeleteConfirm: "ブラウザに保存したキャッシュを削除しますか？",
-        cacheDeleted: "キャッシュを削除しました。",
-        cacheDeleteFailed: "キャッシュ削除に失敗しました。",
-        cacheAutoLoaded: "保存済みキャッシュを自動読込しました。",
-        switchedDiff: "差分切り替えモードに変更しました。",
-        switchedParts: "パーツ組みモードに変更しました。",
-        enterCharacterName: "キャラクター名を入力してください。",
-        characterAdded: "キャラクターを追加しました。",
-        characterRenamed: "キャラクター名を変更しました。",
-        cannotDeleteLastCharacter: "最後のキャラクターは削除できません。",
-        deleteCharacterConfirm: "現在のキャラクターを削除しますか？",
-        characterDeleted: "キャラクターを削除しました。",
-        enterPresetName: "プリセット名を入力してください。",
-        presetSaved: "プリセットを保存しました。",
-        selectPresetDelete: "削除するプリセットを選択してください。",
-        presetDeleted: "プリセットを削除しました。",
-        presetApplied: "プリセット「{name}」を適用しました。"
+        appSubtitle: "カテゴリごとに画像を登録し、背景・テキスト・立ち絵を重ねてPNGを書き出します。",
+        languageLabel: "Language", leftPanelLabel: "左パネル表示", modeParts: "パーツ組みモード", modeDiff: "差分切り替えモード",
+        characterLabel: "キャラクター", characterNameLabel: "キャラクター名", characterNamePlaceholder: "キャラクター名", addButton: "追加", renameButton: "名前変更", deleteButton: "削除",
+        presetLabel: "プリセット", presetNameLabel: "プリセット名", presetNamePlaceholder: "例：通常笑顔 / 照れ / 怒り", savePresetButton: "現在の組み合わせを保存", applyButton: "適用",
+        previewTitle: "プレビュー / 書き出し", previewSubtitle: "プレビュー上で立ち絵全体またはテキストを移動・回転・拡大縮小できます。背景は専用スライダーで調整します。",
+        previewBgLabel: "プレビュー背景", bgTransparent: "透明確認", bgWhite: "白", bgMint: "くすみミント", exportHeightLabel: "書き出し縦幅(px)", sizeLabel: "サイズ", sizeOriginal: "原寸", sizeHeight: "縦幅指定", exportPngButton: "PNG書き出し", exportSettingsButton: "書き出し", exportSettingsTitle: "書き出し設定", closeButton: "閉じる",
+        jsonSaveButton: "JSON保存", jsonLoadButton: "JSON読込", cacheSaveButton: "キャッシュ保存", cacheLoadButton: "キャッシュ読込", cacheDeleteButton: "キャッシュ削除",
+        backgroundSection: "背景レイヤー", textSection: "テキストレイヤー", textDetailSection: "選択中テキスト詳細", customFontSection: "任意フォント", registerFont: "フォント登録", fontHint: "登録したフォントはテキストレイヤーと文字部分指定で選択できます。",
+        addTextLayer: "テキスト追加", duplicateButton: "複製", toolTargetLabel: "操作対象", toolModeLabel: "プレビュー操作", toolPan: "表示移動", toolMove: "ドラッグ移動", toolScale: "ドラッグでサイズ", toolRotate: "ドラッグで回転", standingTarget: "立ち絵", textTarget: "テキスト",
+        scaleLabel: "スケール", xMoveLabel: "X移動", yMoveLabel: "Y移動", rotationLabel: "角度",
+        hintText: "背景1→背景2→背面テキスト→立ち絵→前面テキストの順に描画します。プレビュー操作の変更はPNG書き出しにも反映されます。",
+        bg1: "背景1", bg2: "背景2", bgVisible: "表示", bgRegister: "背景画像登録", bgClear: "背景削除", bgNotLoaded: "未登録", bgLoaded: "登録済み：{name}", bgScale: "背景スケール", bgX: "背景X", bgY: "背景Y", browsAboveHairFront: "眉毛を髪の毛(手前)より前に表示", browsYOffset: "眉毛Y",
+        textName: "レイヤー名", textBody: "テキスト", textBodyPlaceholder: "表示する文字を入力", textVisible: "表示", textPlacement: "表示位置", textBack: "立ち絵の背面", textFront: "立ち絵の前面", textAlign: "文字揃え", alignLeft: "左", alignCenter: "中央", alignRight: "右", writingMode: "文字方向", writingHorizontal: "横書き", writingVertical: "縦書き", verticalLatinRotate: "英数字を横倒しにする", verticalColumnGap: "縦書き列間", wrapWidth: "折り返し幅", wrapHeight: "折り返し高さ", font: "フォント", fontSize: "フォントサイズ", textColor: "文字色", lineHeight: "行間", letterSpacing: "字間", stroke: "縁取り", strokeColor: "フチ色", strokeWidth: "フチ太さ", shadow: "ドロップシャドウ", shadowColor: "影色", shadowBlur: "影ぼかし", shadowX: "影X", shadowY: "影Y",
+        inlineStyleTitle: "文字部分指定", inlineStyleHint: "指定した文字列だけフォント・色・サイズ・フチ・影を変更できます。複数指定はコンマで区切ってください。", inlineStyleEmpty: "指定はまだありません。", inlineStyleItem: "指定 {number}", inlineStyleTargets: "指定したい文字列", inlineStyleTargetsPlaceholder: "例：赤い, 海", inlineStyleFont: "指定フォント", inlineStyleColor: "色", inlineStyleSize: "サイズ", inlineStyleStrokeColor: "フチ色", inlineStyleStrokeWidth: "フチ太さ", inlineStyleShadowColor: "影色", inlineStyleShadowBlur: "影ぼかし", addInlineStyle: "+ 追加",
+        layer_armFront: "腕(手前)", layer_itemFront: "アイテム(手前)", layer_hairFront: "髪の毛(手前)", layer_eyes: "目元", layer_brows: "眉毛", layer_mouth: "口", layer_effect: "表情効果", layer_armBack: "腕(奥)", layer_itemMiddle: "アイテム(中)", layer_base: "ベース", layer_itemBack: "アイテム(奥)", layer_hairBack: "髪の毛(奥)", layer_diffBase: "ベース",
+        noteParts: "複数チェックで同カテゴリ内の重ね合わせが可能", noteDiff: "完成済み差分をクリックで切り替え。複数選択はできません。", registerImage: "画像登録", emptyParts: "まだ画像が登録されていません。", emptyDiff: "完成済み差分画像を登録してください。", partNamePlaceholder: "パーツ名", unnamed: "名称未設定", newCharacter: "新規キャラクター", presetEmpty: "プリセットを選択", displaying: "表示中", applyDisplay: "表示適用",
+        noTextLayer: "テキストレイヤーがありません。", noSelectedText: "編集するテキストレイヤーを選択してください。", defaultTextLayerName: "テキスト", defaultTextBody: "TEXT", defaultFont: "default",
+        languageChanged: "表示言語を変更しました。", addedImages: "{count}件の画像を登録しました。", fontAdded: "フォントを登録しました。", bgAdded: "背景画像を登録しました。", pngExported: "PNGを書き出しました。{width} × {height}px", pngExportFailed: "PNG書き出しに失敗しました。", jsonSaved: "JSONを保存しました。", jsonLoaded: "JSONを読み込みました。", jsonLoadFailed: "JSONの読み込みに失敗しました。", cacheSaved: "ブラウザキャッシュに保存しました。", cacheSaveFailed: "キャッシュ保存に失敗しました。", cacheMissing: "保存済みキャッシュがありません。", cacheLoaded: "キャッシュから読み込みました。", cacheLoadFailed: "キャッシュ読込に失敗しました。", cacheDeleteConfirm: "ブラウザに保存したキャッシュを削除しますか？", cacheDeleted: "キャッシュを削除しました。", cacheDeleteFailed: "キャッシュ削除に失敗しました。", cacheAutoLoaded: "保存済みキャッシュを自動読込しました。", switchedDiff: "差分切り替えモードに変更しました。", switchedParts: "パーツ組みモードに変更しました。", enterCharacterName: "キャラクター名を入力してください。", characterAdded: "キャラクターを追加しました。", characterRenamed: "キャラクター名を変更しました。", cannotDeleteLastCharacter: "最後のキャラクターは削除できません。", deleteCharacterConfirm: "現在のキャラクターを削除しますか？", characterDeleted: "キャラクターを削除しました。", enterPresetName: "プリセット名を入力してください。", presetSaved: "プリセットを保存しました。", selectPresetDelete: "削除するプリセットを選択してください。", presetDeleted: "プリセットを削除しました。", presetApplied: "プリセット「{name}」を適用しました。"
       },
-      en: {
-        appTitle: "Standing Image Variant Generator",
-        appSubtitle: "Register images by category, layer the checked parts, and export a transparent PNG.",
-        languageLabel: "Language",
-        leftPanelLabel: "Left panel",
-        modeParts: "Parts Assembly Mode",
-        modeDiff: "Variant Switch Mode",
-        characterLabel: "Character",
-        characterNameLabel: "Character name",
-        characterNamePlaceholder: "Character name",
-        addButton: "Add",
-        renameButton: "Rename",
-        deleteButton: "Delete",
-        presetLabel: "Preset",
-        presetNameLabel: "Preset name",
-        presetNamePlaceholder: "Example: Normal smile / Shy / Angry",
-        savePresetButton: "Save current combination",
-        applyButton: "Apply",
-        previewTitle: "Preview / Export",
-        previewSubtitle: "Scale, X move, and Y move are for preview only. They are not applied to PNG export.",
-        previewBgLabel: "Preview background",
-        bgTransparent: "Transparency check",
-        bgWhite: "White",
-        bgMint: "Muted mint",
-        exportHeightLabel: "Export height (px)",
-        sizeLabel: "Size",
-        sizeOriginal: "Original",
-        sizeHeight: "Custom height",
-        exportPngButton: "Export transparent PNG",
-        jsonSaveButton: "Save JSON",
-        jsonLoadButton: "Load JSON",
-        cacheSaveButton: "Save cache",
-        cacheLoadButton: "Load cache",
-        cacheDeleteButton: "Delete cache",
-        scaleLabel: "Scale",
-        xMoveLabel: "X Move",
-        yMoveLabel: "Y Move",
-        hintText: "The category order shown on screen is treated as front-to-back order. During export, layers are drawn from the back, so transparent PNG parts work best when they share the same canvas size.",
-        layer_armFront: "Arm (Front)",
-        layer_itemFront: "Item (Front)",
-        layer_hairFront: "Hair (Front)",
-        layer_eyes: "Eyes",
-        layer_brows: "Brows",
-        layer_mouth: "Mouth",
-        layer_effect: "Expression effect",
-        layer_armBack: "Arm (Back)",
-        layer_itemMiddle: "Item (Middle)",
-        layer_base: "Base",
-        layer_itemBack: "Item (Back)",
-        layer_hairBack: "Hair (Back)",
-        layer_diffBase: "Base",
-        noteParts: "Multiple checked items can be layered in the same category.",
-        noteDiff: "Click a completed variant to switch it. Multiple selections are not allowed.",
-        registerImage: "Add image",
-        emptyParts: "No images have been added yet.",
-        emptyDiff: "Add completed variant images.",
-        partNamePlaceholder: "Part name",
-        unnamed: "Untitled",
-        newCharacter: "New character",
-        presetEmpty: "Select preset",
-        displaying: "Visible",
-        applyDisplay: "Show",
-        languageChanged: "Language changed.",
-        addedImages: "Added {count} image(s).",
-        pngExported: "PNG exported. {width} × {height}px",
-        pngExportFailed: "Failed to export PNG.",
-        jsonSaved: "JSON saved.",
-        jsonLoaded: "JSON loaded.",
-        jsonLoadFailed: "Failed to load JSON.",
-        cacheSaved: "Saved to browser cache.",
-        cacheSaveFailed: "Failed to save cache.",
-        cacheMissing: "No saved cache was found.",
-        cacheLoaded: "Loaded from cache.",
-        cacheLoadFailed: "Failed to load cache.",
-        cacheDeleteConfirm: "Delete the cache saved in this browser?",
-        cacheDeleted: "Cache deleted.",
-        cacheDeleteFailed: "Failed to delete cache.",
-        cacheAutoLoaded: "Saved cache was loaded automatically.",
-        switchedDiff: "Switched to Variant Switch Mode.",
-        switchedParts: "Switched to Parts Assembly Mode.",
-        enterCharacterName: "Enter a character name.",
-        characterAdded: "Character added.",
-        characterRenamed: "Character renamed.",
-        cannotDeleteLastCharacter: "The last character cannot be deleted.",
-        deleteCharacterConfirm: "Delete the current character?",
-        characterDeleted: "Character deleted.",
-        enterPresetName: "Enter a preset name.",
-        presetSaved: "Preset saved.",
-        selectPresetDelete: "Select a preset to delete.",
-        presetDeleted: "Preset deleted.",
-        presetApplied: "Preset \"{name}\" applied."
-      },
-      ko: {
-        appTitle: "스탠딩 이미지 표정 차분 생성기",
-        appSubtitle: "카테고리별로 이미지를 등록하고, 선택한 파츠를 겹쳐 투명 PNG로 내보냅니다.",
-        languageLabel: "Language",
-        leftPanelLabel: "왼쪽 패널 표시",
-        modeParts: "파츠 조합 모드",
-        modeDiff: "차분 전환 모드",
-        characterLabel: "캐릭터",
-        characterNameLabel: "캐릭터 이름",
-        characterNamePlaceholder: "캐릭터 이름",
-        addButton: "추가",
-        renameButton: "이름 변경",
-        deleteButton: "삭제",
-        presetLabel: "프리셋",
-        presetNameLabel: "프리셋 이름",
-        presetNamePlaceholder: "예: 기본 미소 / 부끄러움 / 화남",
-        savePresetButton: "현재 조합 저장",
-        applyButton: "적용",
-        previewTitle: "미리보기 / 내보내기",
-        previewSubtitle: "스케일, X 이동, Y 이동은 확인용입니다. PNG 내보내기에는 반영되지 않습니다.",
-        previewBgLabel: "미리보기 배경",
-        bgTransparent: "투명 확인",
-        bgWhite: "흰색",
-        bgMint: "차분한 민트",
-        exportHeightLabel: "내보내기 세로(px)",
-        sizeLabel: "크기",
-        sizeOriginal: "원본 크기",
-        sizeHeight: "세로 지정",
-        exportPngButton: "투명 PNG 내보내기",
-        jsonSaveButton: "JSON 저장",
-        jsonLoadButton: "JSON 불러오기",
-        cacheSaveButton: "캐시 저장",
-        cacheLoadButton: "캐시 불러오기",
-        cacheDeleteButton: "캐시 삭제",
-        scaleLabel: "스케일",
-        xMoveLabel: "X 이동",
-        yMoveLabel: "Y 이동",
-        hintText: "화면에 표시된 카테고리 순서를 가장 앞쪽 순서로 처리합니다. 내보내기 시에는 뒤쪽 레이어부터 그리므로 투명 PNG 파츠는 같은 캔버스 크기로 만들면 깔끔하게 합성됩니다.",
-        layer_armFront: "팔(앞)",
-        layer_itemFront: "아이템(앞)",
-        layer_hairFront: "머리카락(앞)",
-        layer_eyes: "눈",
-        layer_brows: "눈썹",
-        layer_mouth: "입",
-        layer_effect: "표정 효과",
-        layer_armBack: "팔(뒤)",
-        layer_itemMiddle: "아이템(중간)",
-        layer_base: "베이스",
-        layer_itemBack: "아이템(뒤)",
-        layer_hairBack: "머리카락(뒤)",
-        layer_diffBase: "베이스",
-        noteParts: "같은 카테고리 안에서 여러 개를 체크해 겹칠 수 있습니다.",
-        noteDiff: "완성된 차분을 클릭해 전환합니다. 여러 개를 동시에 선택할 수 없습니다.",
-        registerImage: "이미지 등록",
-        emptyParts: "아직 등록된 이미지가 없습니다.",
-        emptyDiff: "완성된 차분 이미지를 등록해 주세요.",
-        partNamePlaceholder: "파츠 이름",
-        unnamed: "이름 없음",
-        newCharacter: "새 캐릭터",
-        presetEmpty: "프리셋 선택",
-        displaying: "표시 중",
-        applyDisplay: "표시 적용",
-        languageChanged: "표시 언어를 변경했습니다.",
-        addedImages: "이미지 {count}개를 등록했습니다.",
-        pngExported: "PNG를 내보냈습니다. {width} × {height}px",
-        pngExportFailed: "PNG 내보내기에 실패했습니다.",
-        jsonSaved: "JSON을 저장했습니다.",
-        jsonLoaded: "JSON을 불러왔습니다.",
-        jsonLoadFailed: "JSON 불러오기에 실패했습니다.",
-        cacheSaved: "브라우저 캐시에 저장했습니다.",
-        cacheSaveFailed: "캐시 저장에 실패했습니다.",
-        cacheMissing: "저장된 캐시가 없습니다.",
-        cacheLoaded: "캐시에서 불러왔습니다.",
-        cacheLoadFailed: "캐시 불러오기에 실패했습니다.",
-        cacheDeleteConfirm: "브라우저에 저장된 캐시를 삭제할까요?",
-        cacheDeleted: "캐시를 삭제했습니다.",
-        cacheDeleteFailed: "캐시 삭제에 실패했습니다.",
-        cacheAutoLoaded: "저장된 캐시를 자동으로 불러왔습니다.",
-        switchedDiff: "차분 전환 모드로 변경했습니다.",
-        switchedParts: "파츠 조합 모드로 변경했습니다.",
-        enterCharacterName: "캐릭터 이름을 입력해 주세요.",
-        characterAdded: "캐릭터를 추가했습니다.",
-        characterRenamed: "캐릭터 이름을 변경했습니다.",
-        cannotDeleteLastCharacter: "마지막 캐릭터는 삭제할 수 없습니다.",
-        deleteCharacterConfirm: "현재 캐릭터를 삭제할까요?",
-        characterDeleted: "캐릭터를 삭제했습니다.",
-        enterPresetName: "프리셋 이름을 입력해 주세요.",
-        presetSaved: "프리셋을 저장했습니다.",
-        selectPresetDelete: "삭제할 프리셋을 선택해 주세요.",
-        presetDeleted: "프리셋을 삭제했습니다.",
-        presetApplied: "프리셋 \"{name}\"을 적용했습니다."
-      }
+      en: {},
+      ko: {}
+    };
+
+    I18N.en = { ...I18N.ja,
+      appTitle: "Standing Image Variant Generator", appSubtitle: "Register image parts, add backgrounds and text layers, then export as PNG.", leftPanelLabel: "Left panel", modeParts: "Parts Assembly Mode", modeDiff: "Variant Switch Mode", characterLabel: "Character", characterNameLabel: "Character name", characterNamePlaceholder: "Character name", addButton: "Add", renameButton: "Rename", deleteButton: "Delete", presetLabel: "Preset", presetNameLabel: "Preset name", presetNamePlaceholder: "Example: Normal smile / Shy / Angry", savePresetButton: "Save current combination", applyButton: "Apply",
+      previewTitle: "Preview / Export", previewSubtitle: "Move, rotate, and scale the whole standing image or text layers on the preview. Backgrounds use their own sliders.", previewBgLabel: "Preview background", bgTransparent: "Transparency check", bgWhite: "White", bgMint: "Muted mint", exportHeightLabel: "Export height (px)", sizeLabel: "Size", sizeOriginal: "Original", sizeHeight: "Custom height", exportPngButton: "Export PNG", exportSettingsButton: "Export", exportSettingsTitle: "Export Settings", closeButton: "Close", jsonSaveButton: "Save JSON", jsonLoadButton: "Load JSON", cacheSaveButton: "Save cache", cacheLoadButton: "Load cache", cacheDeleteButton: "Delete cache",
+      backgroundSection: "Background Layers", textSection: "Text Layers", textDetailSection: "Selected Text Details", commonFontSection: "Shared Font List", registerFont: "Add Font", commonFontHint: "Registered fonts are shared by all text layers. The font dropdown shows default first, then added custom fonts.", transformSection: "Selected Target Position / Size / Rotation", transformHint: "Choose the target with checkboxes, select Move / Size / Rotate, then drag on the preview. Fine adjustment is here.", addTextLayer: "Add Text", duplicateButton: "Duplicate", toolTargetLabel: "Target", toolModeLabel: "Preview Tool", toolPan: "Pan view", toolMove: "Move", toolScale: "Scale", toolRotate: "Rotate", standingTarget: "Standing image", textTarget: "Text", previewFit: "Fit", previewOriginal: "Original", previewZoom: "Zoom", scaleLabel: "Scale", xMoveLabel: "X Move", yMoveLabel: "Y Move", rotationLabel: "Rotation", hintText: "Draw order: Background 1 → Background 2 → Back Text → Standing Image → Front Text. Preview edits are applied to PNG export.",
+      bg1: "Background 1", bg2: "Background 2", bgVisible: "Visible", bgRegister: "Add background", bgClear: "Clear background", bgNotLoaded: "Not loaded", bgLoaded: "Loaded: {name}", bgScale: "BG Scale", bgX: "BG X", bgY: "BG Y", browsAboveHairFront: "Show brows above front hair", browsYOffset: "Brows Y",
+      textName: "Layer name", textBody: "Text", textBodyPlaceholder: "Enter text", textVisible: "Visible", textPlacement: "Position", textBack: "Behind standing image", textFront: "In front of standing image", textAlign: "Alignment", alignLeft: "Left", alignCenter: "Center", alignRight: "Right", writingMode: "Writing direction", writingHorizontal: "Horizontal", writingVertical: "Vertical", verticalLatinRotate: "Rotate Latin/numbers sideways", verticalColumnGap: "Vertical column gap", wrapWidth: "Wrap width", wrapHeight: "Wrap height", font: "Font", fontSize: "Font size", textColor: "Text color", lineHeight: "Line height", letterSpacing: "Letter spacing", stroke: "Stroke", strokeColor: "Stroke color", strokeWidth: "Stroke width", shadow: "Drop shadow", shadowColor: "Shadow color", shadowBlur: "Shadow blur", shadowX: "Shadow X", shadowY: "Shadow Y",
+      inlineStyleTitle: "Partial Text Styling", inlineStyleHint: "Change font, color, size, stroke, and shadow only for specified text. Separate multiple strings with commas.", inlineStyleEmpty: "No assignments yet.", inlineStyleItem: "Assignment {number}", inlineStyleTargets: "Target text", inlineStyleTargetsPlaceholder: "e.g. red, sea", inlineStyleFont: "Assigned font", inlineStyleColor: "Color", inlineStyleSize: "Size", inlineStyleStrokeColor: "Stroke color", inlineStyleStrokeWidth: "Stroke width", inlineStyleShadowColor: "Shadow color", inlineStyleShadowBlur: "Shadow blur", addInlineStyle: "+ Add",
+      noTextLayer: "No text layers yet.", noSelectedText: "Select a text layer to edit.", defaultTextLayerName: "Text", defaultTextBody: "TEXT", defaultFont: "default", languageChanged: "Language changed.", addedImages: "Added {count} image(s).", fontAdded: "Font registered.", bgAdded: "Background image registered.", pngExported: "PNG exported. {width} × {height}px", pngExportFailed: "Failed to export PNG.", jsonSaved: "JSON saved.", jsonLoaded: "JSON loaded.", jsonLoadFailed: "Failed to load JSON.", cacheSaved: "Saved to browser cache.", cacheSaveFailed: "Failed to save cache.", cacheMissing: "No saved cache was found.", cacheLoaded: "Loaded from cache.", cacheLoadFailed: "Failed to load cache.", cacheDeleteConfirm: "Delete the cache saved in this browser?", cacheDeleted: "Cache deleted.", cacheDeleteFailed: "Failed to delete cache.", cacheAutoLoaded: "Saved cache was loaded automatically.", switchedDiff: "Switched to Variant Switch Mode.", switchedParts: "Switched to Parts Assembly Mode.", enterCharacterName: "Enter a character name.", characterAdded: "Character added.", characterRenamed: "Character renamed.", cannotDeleteLastCharacter: "The last character cannot be deleted.", deleteCharacterConfirm: "Delete the current character?", characterDeleted: "Character deleted.", enterPresetName: "Enter a preset name.", presetSaved: "Preset saved.", selectPresetDelete: "Select a preset to delete.", presetDeleted: "Preset deleted.", presetApplied: "Preset \"{name}\" applied."
+    };
+
+    I18N.ko = { ...I18N.ja,
+      appTitle: "스탠딩 이미지 표정 차분 생성기", appSubtitle: "이미지 파츠, 배경, 텍스트 레이어를 겹쳐 PNG로 내보냅니다.", leftPanelLabel: "왼쪽 패널", modeParts: "파츠 조합 모드", modeDiff: "차분 전환 모드", characterLabel: "캐릭터", characterNameLabel: "캐릭터 이름", characterNamePlaceholder: "캐릭터 이름", addButton: "추가", renameButton: "이름 변경", deleteButton: "삭제", presetLabel: "프리셋", presetNameLabel: "프리셋 이름", presetNamePlaceholder: "예: 기본 미소 / 부끄러움 / 화남", savePresetButton: "현재 조합 저장", applyButton: "적용",
+      previewTitle: "미리보기 / 내보내기", previewSubtitle: "미리보기에서 스탠딩 이미지 전체 또는 텍스트를 이동, 회전, 크기 조절할 수 있습니다. 배경은 전용 슬라이더로 조정합니다.", previewBgLabel: "미리보기 배경", bgTransparent: "투명 확인", bgWhite: "흰색", bgMint: "차분한 민트", exportHeightLabel: "내보내기 세로(px)", sizeLabel: "크기", sizeOriginal: "원본", sizeHeight: "세로 지정", exportPngButton: "PNG 내보내기", exportSettingsButton: "내보내기", exportSettingsTitle: "내보내기 설정", closeButton: "닫기", jsonSaveButton: "JSON 저장", jsonLoadButton: "JSON 불러오기", cacheSaveButton: "캐시 저장", cacheLoadButton: "캐시 불러오기", cacheDeleteButton: "캐시 삭제",
+      backgroundSection: "배경 레이어", textSection: "텍스트 레이어", textDetailSection: "선택한 텍스트 상세", commonFontSection: "공통 폰트 목록", registerFont: "폰트 등록", commonFontHint: "등록한 폰트는 모든 텍스트 레이어에서 공통으로 사용됩니다. 폰트 드롭다운에는 default 다음에 사용자 폰트가 추가됩니다.", transformSection: "선택 대상 위치 / 크기 / 각도", transformHint: "조작 대상을 체크로 선택하고 이동 / 크기 / 회전 버튼을 고른 뒤 미리보기에서 드래그하세요. 세부 조정은 여기서 합니다.", addTextLayer: "텍스트 추가", duplicateButton: "복제", toolTargetLabel: "조작 대상", toolModeLabel: "미리보기 조작", toolPan: "표시 이동", toolMove: "이동", toolScale: "크기", toolRotate: "회전", standingTarget: "스탠딩 이미지", textTarget: "텍스트", previewFit: "전체 표시", previewOriginal: "원본 표시", previewZoom: "배율", scaleLabel: "스케일", xMoveLabel: "X 이동", yMoveLabel: "Y 이동", rotationLabel: "각도", hintText: "배경1→배경2→뒤 텍스트→스탠딩 이미지→앞 텍스트 순서로 그립니다. 미리보기 조작은 PNG 내보내기에 반영됩니다.",
+      bg1: "배경1", bg2: "배경2", bgVisible: "표시", bgRegister: "배경 이미지 등록", bgClear: "배경 삭제", bgNotLoaded: "미등록", bgLoaded: "등록됨: {name}", bgScale: "배경 스케일", bgX: "배경 X", bgY: "배경 Y", browsAboveHairFront: "눈썹을 앞머리보다 위에 표시", browsYOffset: "눈썹 Y",
+      textName: "레이어 이름", textBody: "텍스트", textBodyPlaceholder: "표시할 텍스트 입력", textVisible: "표시", textPlacement: "표시 위치", textBack: "스탠딩 이미지 뒤", textFront: "스탠딩 이미지 앞", textAlign: "문자 정렬", alignLeft: "왼쪽", alignCenter: "가운데", alignRight: "오른쪽", writingMode: "문자 방향", writingHorizontal: "가로쓰기", writingVertical: "세로쓰기", verticalLatinRotate: "영문/숫자 옆으로 회전", verticalColumnGap: "세로 열 간격", wrapWidth: "줄바꿈 폭", wrapHeight: "줄바꿈 높이", font: "폰트", fontSize: "폰트 크기", textColor: "문자색", lineHeight: "줄 간격", letterSpacing: "자간", stroke: "외곽선", strokeColor: "외곽선 색", strokeWidth: "외곽선 두께", shadow: "드롭 섀도", shadowColor: "그림자 색", shadowBlur: "그림자 흐림", shadowX: "그림자 X", shadowY: "그림자 Y",
+      inlineStyleTitle: "부분 텍스트 지정", inlineStyleHint: "지정한 문자열에만 폰트, 색상, 크기, 외곽선, 그림자를 변경할 수 있습니다. 여러 항목은 쉼표로 구분하세요.", inlineStyleEmpty: "아직 지정이 없습니다.", inlineStyleItem: "지정 {number}", inlineStyleTargets: "지정할 문자열", inlineStyleTargetsPlaceholder: "예: 빨간, 바다", inlineStyleFont: "지정 폰트", inlineStyleColor: "색상", inlineStyleSize: "크기", inlineStyleStrokeColor: "외곽선 색", inlineStyleStrokeWidth: "외곽선 두께", inlineStyleShadowColor: "그림자 색", inlineStyleShadowBlur: "그림자 흐림", addInlineStyle: "+ 추가",
+      noTextLayer: "텍스트 레イヤーがありません。", noSelectedText: "편집할 텍스트 레이어를 선택해 주세요.", defaultTextLayerName: "텍스트", defaultTextBody: "TEXT", defaultFont: "default", languageChanged: "표시 언어를 변경했습니다.", addedImages: "이미지 {count}개를 등록했습니다.", fontAdded: "폰트를 등록했습니다.", bgAdded: "배경 이미지를 등록했습니다.", pngExported: "PNG를 내보냈습니다. {width} × {height}px", pngExportFailed: "PNG 내보내기에 실패했습니다.", jsonSaved: "JSON을 저장했습니다.", jsonLoaded: "JSON을 불러왔습니다.", jsonLoadFailed: "JSON 불러오기에 실패했습니다.", cacheSaved: "브라우저 캐시에 저장했습니다.", cacheSaveFailed: "캐시 저장에 실패했습니다.", cacheMissing: "저장된 캐시가 없습니다.", cacheLoaded: "캐시에서 불러왔습니다.", cacheLoadFailed: "캐시 불러오기에 실패했습니다.", cacheDeleteConfirm: "브라우저에 저장된 캐시를 삭제할까요?", cacheDeleted: "캐시를 삭제했습니다.", cacheDeleteFailed: "캐시 삭제에 실패했습니다.", cacheAutoLoaded: "저장된 캐시를 자동으로 불러왔습니다.", switchedDiff: "차분 전환 모드로 변경했습니다.", switchedParts: "파츠 조합 모드로 변경했습니다.", enterCharacterName: "캐릭터 이름을 입력해 주세요.", characterAdded: "캐릭터를 추가했습니다.", characterRenamed: "캐릭터 이름을 변경했습니다.", cannotDeleteLastCharacter: "마지막 캐릭터는 삭제할 수 없습니다.", deleteCharacterConfirm: "현재 캐릭터를 삭제할까요?", characterDeleted: "캐릭터를 삭제했습니다.", enterPresetName: "프리셋 이름을 입력해 주세요.", presetSaved: "프리셋을 저장했습니다.", selectPresetDelete: "삭제할 프리셋을 선택해 주세요.", presetDeleted: "프리셋을 삭제했습니다.", presetApplied: "프리셋 \"{name}\"을 적용했습니다."
     };
 
     const LAYERS = [
-      { id: "armFront" },
-      { id: "itemFront" },
-      { id: "hairFront" },
-      { id: "eyes" },
-      { id: "brows" },
-      { id: "mouth" },
-      { id: "effect" },
-      { id: "armBack" },
-      { id: "itemMiddle" },
-      { id: "base" },
-      { id: "itemBack" },
-      { id: "hairBack" }
+      { id: "armFront" }, { id: "itemFront" }, { id: "hairFront" }, { id: "eyes" }, { id: "brows" }, { id: "mouth" }, { id: "effect" }, { id: "armBack" }, { id: "itemMiddle" }, { id: "base" }, { id: "itemBack" }, { id: "hairBack" }
     ];
-
     const DIFF_LAYERS = [{ id: "diffBase" }];
+    const DEFAULT_FONT_STACK = '"Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
     const DB_NAME = "stand-diff-generator-db";
-    const DB_VERSION = 1;
+    const DB_VERSION = 2;
     const STORE_NAME = "projects";
     const CACHE_KEY = "current-project";
     const LANG_STORAGE_KEY = "stand-diff-generator-language";
 
     const $ = (selector) => document.querySelector(selector);
-    const uid = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+    const uid = (prefix = "id") => `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
     const imageCache = new Map();
+    const registeredFonts = new Set();
     let previewRenderToken = 0;
+    let pointerState = null;
     let state = createDefaultState();
 
     function getInitialLanguage() {
@@ -819,163 +671,179 @@
       return "ja";
     }
 
-    function currentLanguage() {
-      return I18N[state.settings?.uiLanguage] ? state.settings.uiLanguage : getInitialLanguage();
-    }
-
+    function currentLanguage() { return I18N[state.settings?.uiLanguage] ? state.settings.uiLanguage : getInitialLanguage(); }
     function t(key, vars = {}) {
       const lang = currentLanguage();
       let text = I18N[lang]?.[key] ?? I18N.ja[key] ?? key;
-      for (const [name, value] of Object.entries(vars)) {
-        text = text.replaceAll(`{${name}}`, String(value));
-      }
+      for (const [name, value] of Object.entries(vars)) text = text.replaceAll(`{${name}}`, String(value));
       return text;
     }
+    function clamp(value, min, max) { return Math.min(max, Math.max(min, Number(value) || 0)); }
+    function safeArray(value) { return Array.isArray(value) ? value : []; }
+    function clone(value) { return JSON.parse(JSON.stringify(value)); }
 
     function applyLanguage() {
       const lang = currentLanguage();
       document.documentElement.lang = lang;
       document.title = t("appTitle");
       localStorage.setItem(LANG_STORAGE_KEY, lang);
-
-      document.querySelectorAll("[data-i18n]").forEach((element) => {
-        element.textContent = t(element.dataset.i18n);
-      });
-
-      document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
-        element.placeholder = t(element.dataset.i18nPlaceholder);
-      });
-
+      document.querySelectorAll("[data-i18n]").forEach((element) => { element.textContent = t(element.dataset.i18n); });
+      document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => { element.placeholder = t(element.dataset.i18nPlaceholder); });
       const languageSelect = $("#languageSelect");
       if (languageSelect) languageSelect.value = lang;
     }
 
+    function defaultTransform() { return { x: 0, y: 0, scale: 1, rotation: 0 }; }
+    function createBackgroundLayer(index) { return { id: `bg${index}`, nameKey: `bg${index}`, visible: false, dataUrl: "", fileName: "", width: 0, height: 0, x: 0, y: 0, scale: 1 }; }
+    function createTextLayer() {
+      return {
+        id: uid("text"), name: "テキスト", text: "TEXT", visible: true, placement: "front",
+        x: 600, y: 600, scale: 1, rotation: 0,
+        align: "center", writingMode: "horizontal", verticalLatinRotate: true, verticalColumnGap: 24,
+        wrapWidth: 900, wrapHeight: 900, fontFamily: DEFAULT_FONT_STACK, fontSize: 86, color: "#ffffff", lineHeight: 1.25, letterSpacing: 0,
+        stroke: { enabled: true, color: "#111827", width: 8 },
+        shadow: { enabled: true, color: "#000000", blur: 12, offsetX: 0, offsetY: 6 },
+        inlineStyles: []
+      };
+    }
+    function createCustomFont(fileName = "Custom Font", dataUrl = "") {
+      const base = String(fileName || "Custom Font").replace(/\.[^.]+$/, "").replace(/[\"\\]/g, "");
+      return { id: uid("font"), name: base, family: `CustomFont_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`, dataUrl, fileName };
+    }
+    function createCharacter(name) {
+      const layers = {}; const diffLayers = {};
+      for (const layer of LAYERS) layers[layer.id] = [];
+      for (const layer of DIFF_LAYERS) diffLayers[layer.id] = [];
+      return { id: uid("character"), name, layers, diffLayers, presets: [], transform: defaultTransform(), layerAdjustments: { browsY: 0 } };
+    }
     function createDefaultState() {
       const firstChar = createCharacter(I18N[getInitialLanguage()].newCharacter);
+      const textLayer = createTextLayer();
       return {
-        version: 2,
+        version: 4,
         activeCharacterId: firstChar.id,
+        activeTextLayerId: textLayer.id,
+        activeToolTarget: "standing",
         characters: [firstChar],
-        settings: {
-          uiLanguage: getInitialLanguage(),
-          leftMode: "parts",
-          previewBg: "transparent",
-          previewScale: 1,
-          previewX: 0,
-          previewY: 0,
-          exportMode: "original",
-          exportHeight: 1200
-        }
+        backgroundLayers: [createBackgroundLayer(1), createBackgroundLayer(2)],
+        textLayers: [textLayer],
+        customFonts: [],
+        settings: { uiLanguage: getInitialLanguage(), leftMode: "parts", previewBg: "transparent", exportMode: "original", exportHeight: 1200, toolMode: "move", previewView: "fit", previewZoom: 1, previewPanX: 0, previewPanY: 0, browsAboveHairFront: false }
       };
     }
 
-    function createCharacter(name) {
-      const layers = {};
-      const diffLayers = {};
-      for (const layer of LAYERS) layers[layer.id] = [];
-      for (const layer of DIFF_LAYERS) diffLayers[layer.id] = [];
-      return { id: uid(), name, layers, diffLayers, presets: [] };
+    function normalizeTransform(value) {
+      return { x: Number(value?.x || 0), y: Number(value?.y || 0), scale: clamp(value?.scale ?? 1, 0.05, 4), rotation: clamp(value?.rotation || 0, -180, 180) };
     }
-
+    function normalizeLayerAdjustments(value) {
+      return { browsY: Math.round(clamp(value?.browsY ?? 0, -500, 500)) };
+    }
     function normalizePartList(parts) {
       if (!Array.isArray(parts)) return [];
-      return parts.map((part) => ({
-        id: part.id || uid(),
-        name: part.name || t("unnamed"),
-        dataUrl: part.dataUrl || part.dataURL || "",
-        width: Number(part.width || part.w || 0),
-        height: Number(part.height || part.h || 0),
-        selected: Boolean(part.selected)
-      })).filter((part) => part.dataUrl);
+      return parts.map((part) => ({ id: part.id || uid("part"), name: part.name || t("unnamed"), dataUrl: part.dataUrl || part.dataURL || "", width: Number(part.width || part.w || 0), height: Number(part.height || part.h || 0), selected: Boolean(part.selected) })).filter((part) => part.dataUrl);
     }
-
+    function normalizeInlineStyle(style) {
+      if (!style || typeof style !== "object") return null;
+      return { id: style.id || uid("inline"), targets: String(style.targets || ""), fontFamily: style.fontFamily || DEFAULT_FONT_STACK, color: style.color || "#ffffff", fontSize: Math.round(clamp(style.fontSize ?? 86, 10, 300)), strokeColor: style.strokeColor || "#111827", strokeWidth: Math.round(clamp(style.strokeWidth ?? 0, 0, 60)), shadowColor: style.shadowColor || "#000000", shadowBlur: Math.round(clamp(style.shadowBlur ?? 0, 0, 120)) };
+    }
+    function normalizeTextLayer(layer) {
+      const base = createTextLayer();
+      return {
+        ...base,
+        ...layer,
+        id: layer?.id || uid("text"), name: layer?.name || t("defaultTextLayerName"), text: String(layer?.text ?? t("defaultTextBody")), visible: layer?.visible !== false, placement: layer?.placement === "back" ? "back" : "front",
+        x: Number(layer?.x ?? base.x), y: Number(layer?.y ?? base.y), scale: clamp(layer?.scale ?? base.scale, 0.05, 4), rotation: clamp(layer?.rotation ?? base.rotation, -180, 180),
+        align: ["left", "center", "right"].includes(layer?.align) ? layer.align : "center",
+        writingMode: layer?.writingMode === "vertical" ? "vertical" : "horizontal",
+        verticalLatinRotate: layer?.verticalLatinRotate !== false,
+        verticalColumnGap: Math.round(clamp(layer?.verticalColumnGap ?? base.verticalColumnGap, 0, 300)),
+        wrapWidth: Math.round(clamp(layer?.wrapWidth ?? base.wrapWidth, 100, 4000)), wrapHeight: Math.round(clamp(layer?.wrapHeight ?? base.wrapHeight, 100, 4000)),
+        fontFamily: layer?.fontFamily || DEFAULT_FONT_STACK, fontSize: Math.round(clamp(layer?.fontSize ?? base.fontSize, 10, 300)), color: layer?.color || base.color, lineHeight: clamp(layer?.lineHeight ?? base.lineHeight, 0.5, 3), letterSpacing: Math.round(clamp(layer?.letterSpacing ?? base.letterSpacing, -100, 240)),
+        stroke: { enabled: layer?.stroke?.enabled !== false, color: layer?.stroke?.color || "#111827", width: Math.round(clamp(layer?.stroke?.width ?? 8, 0, 80)) },
+        shadow: { enabled: layer?.shadow?.enabled !== false, color: layer?.shadow?.color || "#000000", blur: Math.round(clamp(layer?.shadow?.blur ?? 12, 0, 160)), offsetX: Math.round(clamp(layer?.shadow?.offsetX ?? 0, -200, 200)), offsetY: Math.round(clamp(layer?.shadow?.offsetY ?? 6, -200, 200)) },
+        inlineStyles: safeArray(layer?.inlineStyles).map(normalizeInlineStyle).filter(Boolean)
+      };
+    }
     function normalizeState(project) {
       const normalized = project && typeof project === "object" ? project : createDefaultState();
       const existingLanguage = normalized.settings?.uiLanguage || localStorage.getItem(LANG_STORAGE_KEY) || getInitialLanguage();
-
-      if (!Array.isArray(normalized.characters) || normalized.characters.length === 0) {
-        normalized.characters = [createCharacter(t("newCharacter"))];
-      }
-
-      normalized.settings = {
-        uiLanguage: I18N[existingLanguage] ? existingLanguage : getInitialLanguage(),
-        leftMode: normalized.settings?.leftMode === "diff" ? "diff" : "parts",
-        previewBg: normalized.settings?.previewBg || "transparent",
-        previewScale: Number(normalized.settings?.previewScale ?? 1),
-        previewX: Number(normalized.settings?.previewX ?? 0),
-        previewY: Number(normalized.settings?.previewY ?? 0),
-        exportMode: normalized.settings?.exportMode || "original",
-        exportHeight: Number(normalized.settings?.exportHeight ?? 1200)
-      };
-
+      if (!Array.isArray(normalized.characters) || normalized.characters.length === 0) normalized.characters = [createCharacter(t("newCharacter"))];
+      normalized.settings = { uiLanguage: I18N[existingLanguage] ? existingLanguage : getInitialLanguage(), leftMode: normalized.settings?.leftMode === "diff" ? "diff" : "parts", previewBg: normalized.settings?.previewBg || "transparent", exportMode: normalized.settings?.exportMode || "original", exportHeight: Number(normalized.settings?.exportHeight ?? 1200), toolMode: ["pan", "move", "scale", "rotate"].includes(normalized.settings?.toolMode) ? normalized.settings.toolMode : "move", previewView: ["fit", "zoom"].includes(normalized.settings?.previewView) ? normalized.settings.previewView : "fit", previewZoom: clamp(normalized.settings?.previewZoom ?? 1, 0.1, 3), previewPanX: Number(normalized.settings?.previewPanX || 0), previewPanY: Number(normalized.settings?.previewPanY || 0), browsAboveHairFront: Boolean(normalized.settings?.browsAboveHairFront) };
       for (const character of normalized.characters) {
-        if (!character.id) character.id = uid();
+        if (!character.id) character.id = uid("character");
         if (!character.name) character.name = t("unnamed");
+        character.transform = normalizeTransform(character.transform);
+        character.layerAdjustments = normalizeLayerAdjustments(character.layerAdjustments);
         if (!character.layers || typeof character.layers !== "object") character.layers = {};
         if (!character.diffLayers || typeof character.diffLayers !== "object") character.diffLayers = {};
         if (!Array.isArray(character.presets)) character.presets = [];
-
-        for (const layer of LAYERS) {
-          character.layers[layer.id] = normalizePartList(character.layers[layer.id]);
-        }
-
+        for (const layer of LAYERS) character.layers[layer.id] = normalizePartList(character.layers[layer.id]);
         for (const layer of DIFF_LAYERS) {
           character.diffLayers[layer.id] = normalizePartList(character.diffLayers[layer.id]);
           const selectedIndex = character.diffLayers[layer.id].findIndex((part) => part.selected);
-          if (selectedIndex >= 0) {
-            character.diffLayers[layer.id].forEach((part, index) => {
-              part.selected = index === selectedIndex;
-            });
-          }
+          if (selectedIndex >= 0) character.diffLayers[layer.id].forEach((part, index) => { part.selected = index === selectedIndex; });
         }
-
-        character.presets = character.presets.map((preset) => ({
-          id: preset.id || uid(),
-          name: preset.name || t("unnamed"),
-          selection: preset.selection && typeof preset.selection === "object" ? preset.selection : {}
-        }));
+        character.presets = character.presets.map((preset) => ({ id: preset.id || uid("preset"), name: preset.name || t("unnamed"), selection: preset.selection && typeof preset.selection === "object" ? preset.selection : {} }));
       }
-
-      if (!normalized.activeCharacterId || !normalized.characters.some((c) => c.id === normalized.activeCharacterId)) {
-        normalized.activeCharacterId = normalized.characters[0].id;
-      }
-
+      if (!normalized.activeCharacterId || !normalized.characters.some((c) => c.id === normalized.activeCharacterId)) normalized.activeCharacterId = normalized.characters[0].id;
+      normalized.backgroundLayers = safeArray(normalized.backgroundLayers).slice(0, 2).map((bg, index) => ({ ...createBackgroundLayer(index + 1), ...bg, id: `bg${index + 1}`, nameKey: `bg${index + 1}`, visible: Boolean(bg?.visible), dataUrl: bg?.dataUrl || "", fileName: bg?.fileName || "", width: Number(bg?.width || 0), height: Number(bg?.height || 0), x: Number(bg?.x || 0), y: Number(bg?.y || 0), scale: clamp(bg?.scale ?? 1, 0.05, 4) }));
+      while (normalized.backgroundLayers.length < 2) normalized.backgroundLayers.push(createBackgroundLayer(normalized.backgroundLayers.length + 1));
+      normalized.textLayers = safeArray(normalized.textLayers).map(normalizeTextLayer);
+      if (!normalized.textLayers.length) normalized.textLayers = [];
+      if (!normalized.activeTextLayerId || !normalized.textLayers.some((layer) => layer.id === normalized.activeTextLayerId)) normalized.activeTextLayerId = normalized.textLayers[0]?.id || "";
+      normalized.customFonts = safeArray(normalized.customFonts).map((font) => ({ id: font.id || uid("font"), name: font.name || font.fileName || "Custom Font", family: font.family || `CustomFont_${uid("f")}`, dataUrl: font.dataUrl || "", fileName: font.fileName || font.name || "Custom Font" })).filter((font) => font.dataUrl);
+      normalized.activeToolTarget = normalized.activeToolTarget || "standing";
+      if (normalized.activeToolTarget !== "standing" && !normalized.textLayers.some((layer) => `text:${layer.id}` === normalized.activeToolTarget)) normalized.activeToolTarget = normalized.activeTextLayerId ? `text:${normalized.activeTextLayerId}` : "standing";
       return normalized;
     }
 
-    function activeCharacter() {
-      return state.characters.find((character) => character.id === state.activeCharacterId) || state.characters[0];
+    function activeCharacter() { return state.characters.find((character) => character.id === state.activeCharacterId) || state.characters[0]; }
+    function activeTextLayer() { return state.textLayers.find((layer) => layer.id === state.activeTextLayerId) || null; }
+    function getActiveMode() { return state.settings?.leftMode === "diff" ? "diff" : "parts"; }
+    function getActiveLayers() { return getActiveMode() === "diff" ? DIFF_LAYERS : LAYERS; }
+    function getLayerStore(character = activeCharacter()) { return getActiveMode() === "diff" ? character.diffLayers : character.layers; }
+    function selectedTransformTarget() {
+      if (state.activeToolTarget === "standing") return activeCharacter().transform;
+      const match = String(state.activeToolTarget || "").match(/^text:(.+)$/);
+      if (match) return state.textLayers.find((layer) => layer.id === match[1]) || null;
+      return activeCharacter().transform;
     }
 
-    function getActiveMode() {
-      return state.settings?.leftMode === "diff" ? "diff" : "parts";
+    function fontOptions() {
+      return [{ label: t("defaultFont"), value: DEFAULT_FONT_STACK }, ...state.customFonts.map((font) => ({ label: font.name, value: `"${font.family}"` }))];
+    }
+    function populateFontSelect(select, value) {
+      select.innerHTML = "";
+      for (const optionInfo of fontOptions()) {
+        const option = document.createElement("option");
+        option.value = optionInfo.value;
+        option.textContent = optionInfo.label;
+        option.selected = optionInfo.value === value;
+        select.appendChild(option);
+      }
+      if (![...select.options].some((option) => option.value === value)) {
+        const option = document.createElement("option");
+        option.value = value || DEFAULT_FONT_STACK;
+        option.textContent = value || t("defaultFont");
+        option.selected = true;
+        select.appendChild(option);
+      }
     }
 
-    function getActiveLayers() {
-      return getActiveMode() === "diff" ? DIFF_LAYERS : LAYERS;
-    }
-
-    function getLayerStore(character = activeCharacter()) {
-      return getActiveMode() === "diff" ? character.diffLayers : character.layers;
-    }
-
-    function getCanvasBaseSize(character = activeCharacter()) {
-      let width = 0;
-      let height = 0;
-      const layers = getActiveLayers();
-      const store = getLayerStore(character);
-
-      for (const layer of layers) {
-        for (const part of store[layer.id] || []) {
-          if (part.selected || width === 0 || height === 0) {
-            width = Math.max(width, Number(part.width || 0));
-            height = Math.max(height, Number(part.height || 0));
-          }
+    async function registerCustomFonts() {
+      if (!("FontFace" in window)) return;
+      for (const font of state.customFonts) {
+        if (!font.dataUrl || registeredFonts.has(font.family)) continue;
+        try {
+          const face = new FontFace(font.family, `url(${font.dataUrl})`);
+          await face.load();
+          document.fonts.add(face);
+          registeredFonts.add(font.family);
+        } catch (error) {
+          console.warn("font load failed:", font.fileName, error);
         }
       }
-
-      if (!width || !height) return { width: 1200, height: 1200 };
-      return { width, height };
+      if (document.fonts?.ready) await document.fonts.ready;
     }
 
     function setStatus(text, isDanger = false) {
@@ -983,597 +851,736 @@
       status.textContent = text;
       status.classList.toggle("danger-text", isDanger);
     }
-
-    function setStatusT(key, vars = {}, isDanger = false) {
-      setStatus(t(key, vars), isDanger);
-    }
+    function setStatusT(key, vars = {}, isDanger = false) { setStatus(t(key, vars), isDanger); }
 
     function renderAll() {
-      renderCharacterControls();
-      renderPresetControls();
-      renderLayers();
-      syncSettingsControls();
-      updatePreviewTransform();
-      renderPreview();
-      applyLanguage();
+      renderCharacterControls(); renderPresetControls(); renderBackgroundControls(); renderTextLayerList(); renderCustomFontList(); renderTextDetailEditor(); renderLayers(); renderToolTargetOptions(); syncSettingsControls(); updatePreviewStageBg(); syncTargetSliders(); renderPreview(); applyLanguage();
     }
-
     function renderCharacterControls() {
-      const select = $("#characterSelect");
-      select.innerHTML = "";
+      const select = $("#characterSelect"); select.innerHTML = "";
       for (const character of state.characters) {
-        const option = document.createElement("option");
-        option.value = character.id;
-        option.textContent = character.name;
-        option.selected = character.id === state.activeCharacterId;
-        select.appendChild(option);
+        const option = document.createElement("option"); option.value = character.id; option.textContent = character.name; option.selected = character.id === state.activeCharacterId; select.appendChild(option);
       }
       $("#characterNameInput").value = activeCharacter().name;
     }
-
     function renderPresetControls() {
-      const toolbar = $("#presetToolbar");
-      if (toolbar) toolbar.classList.toggle("hidden", getActiveMode() === "diff");
+      const toolbar = $("#presetToolbar"); if (toolbar) toolbar.classList.toggle("hidden", getActiveMode() === "diff");
+      const character = activeCharacter(); const select = $("#presetSelect"); select.innerHTML = "";
+      const emptyOption = document.createElement("option"); emptyOption.value = ""; emptyOption.textContent = t("presetEmpty"); select.appendChild(emptyOption);
+      for (const preset of character.presets) { const option = document.createElement("option"); option.value = preset.id; option.textContent = preset.name; select.appendChild(option); }
+    }
 
-      const character = activeCharacter();
-      const select = $("#presetSelect");
-      select.innerHTML = "";
+    function renderBackgroundControls() {
+      const root = $("#backgroundControls"); root.innerHTML = "";
+      state.backgroundLayers.forEach((bg, index) => {
+        const box = document.createElement("div"); box.className = "slider-grid";
+        box.innerHTML = `
+          <div class="layer-head" style="margin:-0.75rem -0.75rem 0; border-radius:16px 16px 0 0;">
+            <div><div class="layer-name">${t(index === 0 ? "bg1" : "bg2")}</div><div class="layer-note">${bg.dataUrl ? t("bgLoaded", { name: bg.fileName || "image" }) : t("bgNotLoaded")}</div></div>
+            <div class="button-row"><button class="small bg-upload">${t("bgRegister")}</button><button class="small danger bg-clear">${t("bgClear")}</button></div>
+          </div>
+          <input class="bg-file" type="file" accept="image/png,image/jpeg,image/webp" />
+          <div class="check-row"><label><input class="bg-visible" type="checkbox" ${bg.visible ? "checked" : ""}> ${t("bgVisible")}</label></div>
+        `;
+        const fileInput = box.querySelector(".bg-file");
+        box.querySelector(".bg-upload").addEventListener("click", () => fileInput.click());
+        box.querySelector(".bg-clear").addEventListener("click", () => { bg.dataUrl = ""; bg.fileName = ""; bg.width = 0; bg.height = 0; bg.visible = false; renderAll(); });
+        box.querySelector(".bg-visible").addEventListener("change", (event) => { bg.visible = event.target.checked; renderPreview(); });
+        fileInput.addEventListener("change", async (event) => {
+          const file = event.target.files?.[0];
+          if (!file) return;
+          const dataUrl = await fileToDataUrl(file); const size = await getImageSize(dataUrl);
+          bg.dataUrl = dataUrl; bg.fileName = file.name; bg.width = size.width; bg.height = size.height; bg.visible = true;
+          fileInput.value = ""; renderAll(); setStatusT("bgAdded");
+        });
+        addRange(box, t("bgX"), bg.x, -2000, 2000, 1, "px", (value) => { bg.x = value; renderPreview(); });
+        addRange(box, t("bgY"), bg.y, -2000, 2000, 1, "px", (value) => { bg.y = value; renderPreview(); });
+        addRange(box, t("bgScale"), bg.scale, 0.05, 4, 0.01, "", (value) => { bg.scale = value; renderPreview(); }, 2);
+        root.appendChild(box);
+      });
+    }
 
-      const emptyOption = document.createElement("option");
-      emptyOption.value = "";
-      emptyOption.textContent = t("presetEmpty");
-      select.appendChild(emptyOption);
+    function renderTextLayerList() {
+      const root = $("#textLayerList"); root.innerHTML = "";
+      if (!state.textLayers.length) { const empty = document.createElement("div"); empty.className = "empty"; empty.textContent = t("noTextLayer"); root.appendChild(empty); return; }
+      state.textLayers.forEach((layer) => {
+        const row = document.createElement("div"); row.className = `text-row${layer.id === state.activeTextLayerId ? " active" : ""}`;
+        const checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = layer.visible; checkbox.title = t("textVisible");
+        const meta = document.createElement("div"); meta.className = "text-meta";
+        const nameInput = document.createElement("input"); nameInput.type = "text"; nameInput.value = layer.name; nameInput.placeholder = t("textName");
+        const note = document.createElement("div"); note.className = "text-note"; note.textContent = `${layer.placement === "back" ? t("textBack") : t("textFront")} / ${String(layer.text || "").replace(/\s+/g, " ").slice(0, 40)}`;
+        meta.append(nameInput, note);
+        const selectBtn = document.createElement("button"); selectBtn.className = "small secondary"; selectBtn.textContent = t("applyButton");
+        checkbox.addEventListener("change", () => { layer.visible = checkbox.checked; renderPreview(); });
+        nameInput.addEventListener("input", () => { layer.name = nameInput.value || t("defaultTextLayerName"); renderToolTargetOptions(); });
+        const selectLayer = () => { state.activeTextLayerId = layer.id; state.activeToolTarget = `text:${layer.id}`; renderAll(); };
+        row.addEventListener("click", (event) => { const tag = event.target.tagName.toLowerCase(); if (tag === "input" || tag === "button") return; selectLayer(); });
+        selectBtn.addEventListener("click", selectLayer);
+        row.append(checkbox, meta, selectBtn); root.appendChild(row);
+      });
+    }
 
-      for (const preset of character.presets) {
-        const option = document.createElement("option");
-        option.value = preset.id;
-        option.textContent = preset.name;
-        select.appendChild(option);
+    function renderCustomFontList() {
+      const root = $("#customFontList"); root.innerHTML = "";
+      if (!state.customFonts.length) { const empty = document.createElement("div"); empty.className = "empty"; empty.textContent = t("inlineStyleEmpty"); root.appendChild(empty); return; }
+      state.customFonts.forEach((font) => {
+        const row = document.createElement("div"); row.className = "font-row";
+        const input = document.createElement("input"); input.type = "text"; input.value = font.name;
+        const remove = document.createElement("button"); remove.className = "small danger"; remove.textContent = t("deleteButton");
+        input.addEventListener("input", () => { font.name = input.value || font.fileName || "Custom Font"; renderTextDetailEditor(); });
+        remove.addEventListener("click", () => { state.customFonts = state.customFonts.filter((item) => item.id !== font.id); renderAll(); });
+        row.append(input, remove); root.appendChild(row);
+      });
+    }
+
+    function renderTextDetailEditor() {
+      const root = $("#textDetailEditor"); root.innerHTML = "";
+      const layer = activeTextLayer();
+      if (!layer) { const empty = document.createElement("div"); empty.className = "empty"; empty.textContent = t("noSelectedText"); root.appendChild(empty); return; }
+      const nameField = createField(t("textName"), "input", layer.name, (value) => { layer.name = value || t("defaultTextLayerName"); renderTextLayerList(); renderToolTargetOptions(); });
+      const textField = createField(t("textBody"), "textarea", layer.text, (value) => { layer.text = value; renderTextLayerList(); renderToolTargetOptions(); renderPreview(); });
+      textField.querySelector("textarea").placeholder = t("textBodyPlaceholder");
+      root.append(nameField, textField);
+
+      const basic = document.createElement("div"); basic.className = "grid-2";
+      basic.append(
+        createCheckboxField(t("textVisible"), layer.visible, (checked) => { layer.visible = checked; renderTextLayerList(); renderPreview(); }),
+        createSelectField(t("textPlacement"), layer.placement, [{ value: "back", label: t("textBack") }, { value: "front", label: t("textFront") }], (value) => { layer.placement = value; renderTextLayerList(); renderPreview(); }),
+        createSelectField(t("textAlign"), layer.align, [{ value: "left", label: t("alignLeft") }, { value: "center", label: t("alignCenter") }, { value: "right", label: t("alignRight") }], (value) => { layer.align = value; renderPreview(); }),
+        createSelectField(t("writingMode"), layer.writingMode, [{ value: "horizontal", label: t("writingHorizontal") }, { value: "vertical", label: t("writingVertical") }], (value) => { layer.writingMode = value; renderPreview(); })
+      );
+      root.appendChild(basic);
+      root.appendChild(createCheckboxField(t("verticalLatinRotate"), layer.verticalLatinRotate, (checked) => { layer.verticalLatinRotate = checked; renderPreview(); }));
+
+      const fontSelect = createSelectField(t("font"), layer.fontFamily, [], (value) => { layer.fontFamily = value; renderPreview(); });
+      populateFontSelect(fontSelect.querySelector("select"), layer.fontFamily);
+      root.appendChild(fontSelect);
+
+      const colorGrid = document.createElement("div"); colorGrid.className = "grid-2";
+      colorGrid.append(createColorField(t("textColor"), layer.color, (value) => { layer.color = value; renderPreview(); }), createColorField(t("strokeColor"), layer.stroke.color, (value) => { layer.stroke.color = value; renderPreview(); }));
+      root.appendChild(colorGrid);
+
+      addRange(root, t("fontSize"), layer.fontSize, 10, 300, 1, "px", (value) => { layer.fontSize = Math.round(value); renderPreview(); });
+      addRange(root, t("wrapWidth"), layer.wrapWidth, 100, 4000, 1, "px", (value) => { layer.wrapWidth = Math.round(value); renderPreview(); });
+      addRange(root, t("wrapHeight"), layer.wrapHeight, 100, 4000, 1, "px", (value) => { layer.wrapHeight = Math.round(value); renderPreview(); });
+      addRange(root, t("lineHeight"), layer.lineHeight, 0.5, 3, 0.01, "", (value) => { layer.lineHeight = value; renderPreview(); }, 2);
+      addRange(root, t("letterSpacing"), layer.letterSpacing, -100, 240, 1, "px", (value) => { layer.letterSpacing = Math.round(value); renderPreview(); });
+      addRange(root, t("verticalColumnGap"), layer.verticalColumnGap, 0, 300, 1, "px", (value) => { layer.verticalColumnGap = Math.round(value); renderPreview(); });
+
+      root.appendChild(createCheckboxField(t("stroke"), layer.stroke.enabled, (checked) => { layer.stroke.enabled = checked; renderPreview(); }));
+      addRange(root, t("strokeWidth"), layer.stroke.width, 0, 80, 1, "px", (value) => { layer.stroke.width = Math.round(value); renderPreview(); });
+
+      root.appendChild(createCheckboxField(t("shadow"), layer.shadow.enabled, (checked) => { layer.shadow.enabled = checked; renderPreview(); }));
+      const shadowColors = document.createElement("div"); shadowColors.className = "grid-2";
+      shadowColors.append(createColorField(t("shadowColor"), layer.shadow.color, (value) => { layer.shadow.color = value; renderPreview(); }));
+      root.appendChild(shadowColors);
+      addRange(root, t("shadowBlur"), layer.shadow.blur, 0, 160, 1, "px", (value) => { layer.shadow.blur = Math.round(value); renderPreview(); });
+      addRange(root, t("shadowX"), layer.shadow.offsetX, -200, 200, 1, "px", (value) => { layer.shadow.offsetX = Math.round(value); renderPreview(); });
+      addRange(root, t("shadowY"), layer.shadow.offsetY, -200, 200, 1, "px", (value) => { layer.shadow.offsetY = Math.round(value); renderPreview(); });
+
+      const inlineBox = document.createElement("div"); inlineBox.className = "slider-grid";
+      const head = document.createElement("div"); head.className = "inline-style-head"; head.innerHTML = `<span>${t("inlineStyleTitle")}</span>`;
+      const addBtn = document.createElement("button"); addBtn.className = "small"; addBtn.textContent = t("addInlineStyle"); addBtn.addEventListener("click", () => { layer.inlineStyles.push(normalizeInlineStyle({ targets: "", fontFamily: layer.fontFamily, color: layer.color, fontSize: layer.fontSize, strokeColor: layer.stroke.color, strokeWidth: layer.stroke.width, shadowColor: layer.shadow.color, shadowBlur: layer.shadow.blur })); renderTextDetailEditor(); renderPreview(); });
+      head.appendChild(addBtn); inlineBox.appendChild(head);
+      const hint = document.createElement("div"); hint.className = "hint"; hint.textContent = t("inlineStyleHint"); inlineBox.appendChild(hint);
+      if (!layer.inlineStyles.length) { const empty = document.createElement("div"); empty.className = "empty"; empty.textContent = t("inlineStyleEmpty"); inlineBox.appendChild(empty); }
+      layer.inlineStyles.forEach((style, index) => inlineBox.appendChild(renderInlineStyleItem(layer, style, index)));
+      root.appendChild(inlineBox);
+    }
+
+    function renderInlineStyleItem(layer, style, index) {
+      const item = document.createElement("div"); item.className = "inline-style-item";
+      const head = document.createElement("div"); head.className = "inline-style-head"; head.innerHTML = `<span>${t("inlineStyleItem", { number: index + 1 })}</span>`;
+      const del = document.createElement("button"); del.className = "small danger"; del.textContent = t("deleteButton"); del.addEventListener("click", () => { layer.inlineStyles = layer.inlineStyles.filter((entry) => entry.id !== style.id); renderTextDetailEditor(); renderPreview(); }); head.appendChild(del); item.appendChild(head);
+      item.appendChild(createField(t("inlineStyleTargets"), "input", style.targets, (value) => { style.targets = value; renderPreview(); }, t("inlineStyleTargetsPlaceholder")));
+      const fontSelect = createSelectField(t("inlineStyleFont"), style.fontFamily, [], (value) => { style.fontFamily = value; renderPreview(); }); populateFontSelect(fontSelect.querySelector("select"), style.fontFamily); item.appendChild(fontSelect);
+      const grid = document.createElement("div"); grid.className = "grid-2"; grid.append(createColorField(t("inlineStyleColor"), style.color, (value) => { style.color = value; renderPreview(); }), createColorField(t("inlineStyleStrokeColor"), style.strokeColor, (value) => { style.strokeColor = value; renderPreview(); }), createColorField(t("inlineStyleShadowColor"), style.shadowColor, (value) => { style.shadowColor = value; renderPreview(); })); item.appendChild(grid);
+      addRange(item, t("inlineStyleSize"), style.fontSize, 10, 300, 1, "px", (value) => { style.fontSize = Math.round(value); renderPreview(); });
+      addRange(item, t("inlineStyleStrokeWidth"), style.strokeWidth, 0, 80, 1, "px", (value) => { style.strokeWidth = Math.round(value); renderPreview(); });
+      addRange(item, t("inlineStyleShadowBlur"), style.shadowBlur, 0, 160, 1, "px", (value) => { style.shadowBlur = Math.round(value); renderPreview(); });
+      return item;
+    }
+
+    function createField(labelText, type, value, onInput, placeholder = "") {
+      const field = document.createElement("div"); field.className = "field full";
+      const label = document.createElement("label"); label.textContent = labelText;
+      const input = document.createElement(type === "textarea" ? "textarea" : "input"); if (type !== "textarea") input.type = type || "text";
+      input.value = value ?? ""; if (placeholder) input.placeholder = placeholder;
+      input.addEventListener("input", () => onInput(input.value)); field.append(label, input); return field;
+    }
+    function createSelectField(labelText, value, options, onChange) {
+      const field = document.createElement("div"); field.className = "field";
+      const label = document.createElement("label"); label.textContent = labelText;
+      const select = document.createElement("select");
+      options.forEach((optionInfo) => { const option = document.createElement("option"); option.value = optionInfo.value; option.textContent = optionInfo.label; option.selected = optionInfo.value === value; select.appendChild(option); });
+      select.addEventListener("change", () => onChange(select.value)); field.append(label, select); return field;
+    }
+    function createCheckboxField(labelText, checked, onChange) {
+      const wrap = document.createElement("div"); wrap.className = "check-row";
+      const label = document.createElement("label"); const input = document.createElement("input"); input.type = "checkbox"; input.checked = checked; input.addEventListener("change", () => onChange(input.checked)); label.append(input, document.createTextNode(` ${labelText}`)); wrap.appendChild(label); return wrap;
+    }
+    function createColorField(labelText, value, onInput) {
+      const field = document.createElement("div"); field.className = "field";
+      const label = document.createElement("label"); label.textContent = labelText;
+      const row = document.createElement("div"); row.className = "color-line";
+      const text = document.createElement("input"); text.type = "text"; text.value = value;
+      const color = document.createElement("input"); color.type = "color"; color.value = /^#[0-9a-f]{6}$/i.test(value) ? value : "#ffffff";
+      const apply = (val) => { text.value = val; color.value = /^#[0-9a-f]{6}$/i.test(val) ? val : color.value; onInput(val); };
+      text.addEventListener("input", () => onInput(text.value)); color.addEventListener("input", () => apply(color.value)); row.append(text, color); field.append(label, row); return field;
+    }
+    function addRange(root, labelText, value, min, max, step, suffix, onInput, digits = 0) {
+      const row = document.createElement("div"); row.className = "slider-row compact";
+      const label = document.createElement("label"); label.textContent = labelText;
+      const input = document.createElement("input"); input.type = "range"; input.min = min; input.max = max; input.step = step; input.value = value;
+      const output = document.createElement("div"); output.className = "value";
+      const format = (v) => `${Number(v).toFixed(digits)}${suffix}`;
+      output.textContent = format(value);
+      input.addEventListener("input", () => { const n = Number(input.value); output.textContent = format(n); onInput(n); syncTargetSliders(false); });
+      row.append(label, input, output); root.appendChild(row); return row;
+    }
+
+    function isExclusivePartsLayer(layerId) {
+      return ["mouth", "eyes", "brows"].includes(layerId);
+    }
+
+    function setPartSelection(layerId, partId, selected) {
+      const store = getLayerStore(activeCharacter());
+      const parts = store[layerId] || [];
+      const exclusive = getActiveMode() === "parts" && isExclusivePartsLayer(layerId);
+      for (const item of parts) {
+        if (item.id === partId) item.selected = selected;
+        else if (exclusive && selected) item.selected = false;
       }
+    }
+
+    function renderBrowsYOffsetControl(container, character) {
+      const wrap = document.createElement("div");
+      wrap.className = "slider-grid";
+      wrap.style.marginBottom = "0.65rem";
+      const row = document.createElement("div");
+      row.className = "slider-row";
+      const label = document.createElement("label");
+      label.textContent = t("browsYOffset");
+      const input = document.createElement("input");
+      input.type = "range";
+      input.min = "-500";
+      input.max = "500";
+      input.step = "1";
+      input.value = character.layerAdjustments?.browsY || 0;
+      const output = document.createElement("div");
+      output.className = "value";
+      output.textContent = `${input.value}px`;
+      input.addEventListener("input", () => {
+        if (!character.layerAdjustments) character.layerAdjustments = { browsY: 0 };
+        character.layerAdjustments.browsY = Number(input.value || 0);
+        output.textContent = `${character.layerAdjustments.browsY}px`;
+        renderPreview();
+      });
+      row.append(label, input, output);
+      wrap.appendChild(row);
+      container.appendChild(wrap);
     }
 
     function renderLayers() {
-      const root = $("#layersRoot");
-      root.innerHTML = "";
-      const character = activeCharacter();
-      const mode = getActiveMode();
-      const layers = getActiveLayers();
-      const store = getLayerStore(character);
-
+      const root = $("#layersRoot"); root.innerHTML = "";
+      const character = activeCharacter(); const mode = getActiveMode(); const layers = getActiveLayers(); const store = getLayerStore(character);
       for (const layer of layers) {
-        const card = document.createElement("section");
-        card.className = "layer-card";
-
-        const head = document.createElement("div");
-        head.className = "layer-head";
-
-        const titleWrap = document.createElement("div");
-        const name = document.createElement("div");
-        name.className = "layer-name";
-        name.textContent = t(`layer_${layer.id}`);
-
-        const note = document.createElement("div");
-        note.className = "layer-note";
-        note.textContent = mode === "diff" ? t("noteDiff") : t("noteParts");
-        titleWrap.append(name, note);
-
-        const uploadBtn = document.createElement("button");
-        uploadBtn.className = "small";
-        uploadBtn.textContent = t("registerImage");
-
-        const fileInput = document.createElement("input");
-        fileInput.type = "file";
-        fileInput.accept = "image/png,image/jpeg,image/webp";
-        fileInput.multiple = true;
-
-        uploadBtn.addEventListener("click", () => fileInput.click());
-        fileInput.addEventListener("change", async (event) => {
-          await addImagesToLayer(layer.id, Array.from(event.target.files || []));
-          fileInput.value = "";
-        });
-
+        const card = document.createElement("section"); card.className = "layer-card";
+        const head = document.createElement("div"); head.className = "layer-head";
+        const titleWrap = document.createElement("div"); const name = document.createElement("div"); name.className = "layer-name"; name.textContent = t(`layer_${layer.id}`); const note = document.createElement("div"); note.className = "layer-note"; note.textContent = mode === "diff" ? t("noteDiff") : t("noteParts"); titleWrap.append(name, note);
+        const uploadBtn = document.createElement("button"); uploadBtn.className = "small"; uploadBtn.textContent = t("registerImage"); const fileInput = document.createElement("input"); fileInput.type = "file"; fileInput.accept = "image/png,image/jpeg,image/webp"; fileInput.multiple = true;
+        uploadBtn.addEventListener("click", () => fileInput.click()); fileInput.addEventListener("change", async (event) => { await addImagesToLayer(layer.id, Array.from(event.target.files || [])); fileInput.value = ""; });
         head.append(titleWrap, uploadBtn, fileInput);
-
-        const list = document.createElement("div");
-        list.className = "part-list";
-        const parts = store[layer.id] || [];
-
-        if (parts.length === 0) {
-          const empty = document.createElement("div");
-          empty.className = "empty";
-          empty.textContent = mode === "diff" ? t("emptyDiff") : t("emptyParts");
-          list.appendChild(empty);
-        } else {
+        const list = document.createElement("div"); list.className = "part-list"; const parts = store[layer.id] || [];
+        if (mode === "parts" && layer.id === "brows") renderBrowsYOffsetControl(list, character);
+        if (!parts.length) { const empty = document.createElement("div"); empty.className = "empty"; empty.textContent = mode === "diff" ? t("emptyDiff") : t("emptyParts"); list.appendChild(empty); }
+        else {
           for (const part of parts) {
-            const row = document.createElement("div");
-            row.className = `part-row${part.selected ? " active" : ""}${mode === "diff" ? " diff-mode" : ""}`;
-
-            const img = document.createElement("img");
-            img.className = "thumb";
-            img.src = part.dataUrl;
-            img.alt = part.name;
-
-            const meta = document.createElement("div");
-            meta.className = "part-meta";
-
-            const nameInput = document.createElement("input");
-            nameInput.type = "text";
-            nameInput.value = part.name;
-            nameInput.placeholder = t("partNamePlaceholder");
-            nameInput.addEventListener("input", () => {
-              part.name = nameInput.value.trim() || t("unnamed");
-            });
-
-            const size = document.createElement("div");
-            size.className = "part-size";
-            size.textContent = `${part.width || "-"} × ${part.height || "-"} px${part.selected ? ` / ${t("displaying")}` : ""}`;
-            meta.append(nameInput, size);
-
-            const removeBtn = document.createElement("button");
-            removeBtn.className = "small danger";
-            removeBtn.textContent = t("deleteButton");
-
+            const row = document.createElement("div"); row.className = `part-row${part.selected ? " active" : ""}${mode === "diff" ? " diff-mode" : ""}`;
+            const img = document.createElement("img"); img.className = "thumb"; img.src = part.dataUrl; img.alt = part.name;
+            const meta = document.createElement("div"); meta.className = "part-meta"; const nameInput = document.createElement("input"); nameInput.type = "text"; nameInput.value = part.name; nameInput.placeholder = t("partNamePlaceholder"); nameInput.addEventListener("input", () => { part.name = nameInput.value.trim() || t("unnamed"); }); const size = document.createElement("div"); size.className = "part-size"; size.textContent = `${part.width || "-"} × ${part.height || "-"} px${part.selected ? ` / ${t("displaying")}` : ""}`; meta.append(nameInput, size);
+            const removeBtn = document.createElement("button"); removeBtn.className = "small danger"; removeBtn.textContent = t("deleteButton");
             if (mode === "parts") {
-              const checkbox = document.createElement("input");
-              checkbox.type = "checkbox";
-              checkbox.checked = part.selected;
-              checkbox.title = t("applyDisplay");
-
-              const toggle = () => {
-                part.selected = !part.selected;
-                renderLayers();
-                renderPreview();
-              };
-
-              row.addEventListener("click", (event) => {
-                const tag = event.target.tagName.toLowerCase();
-                if (tag === "input" || tag === "button") return;
-                toggle();
-              });
-
-              checkbox.addEventListener("change", () => {
-                part.selected = checkbox.checked;
-                renderLayers();
-                renderPreview();
-              });
-
-              row.append(checkbox, img, meta, removeBtn);
+              const checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = part.selected; checkbox.title = t("applyDisplay");
+              const toggle = () => { setPartSelection(layer.id, part.id, !part.selected); renderLayers(); renderPreview(); };
+              row.addEventListener("click", (event) => { const tag = event.target.tagName.toLowerCase(); if (tag === "input" || tag === "button") return; toggle(); });
+              checkbox.addEventListener("change", () => { setPartSelection(layer.id, part.id, checkbox.checked); renderLayers(); renderPreview(); }); row.append(checkbox, img, meta, removeBtn);
             } else {
-              row.addEventListener("click", (event) => {
-                const tag = event.target.tagName.toLowerCase();
-                if (tag === "input" || tag === "button") return;
-                for (const item of parts) item.selected = false;
-                part.selected = true;
-                renderLayers();
-                renderPreview();
-              });
-              row.append(img, meta, removeBtn);
+              row.addEventListener("click", (event) => { const tag = event.target.tagName.toLowerCase(); if (tag === "input" || tag === "button") return; for (const item of parts) item.selected = false; part.selected = true; renderLayers(); renderPreview(); }); row.append(img, meta, removeBtn);
             }
-
-            removeBtn.addEventListener("click", () => {
-              store[layer.id] = parts.filter((item) => item.id !== part.id);
-              imageCache.delete(part.dataUrl);
-              renderLayers();
-              renderPreview();
-            });
-
-            list.appendChild(row);
+            removeBtn.addEventListener("click", () => { store[layer.id] = parts.filter((item) => item.id !== part.id); imageCache.delete(part.dataUrl); renderLayers(); renderPreview(); }); list.appendChild(row);
           }
         }
-
-        card.append(head, list);
-        root.appendChild(card);
+        card.append(head, list); root.appendChild(card);
       }
     }
 
+    function getToolTextLayerLabel(layer) {
+      const layerName = String(layer?.name || t("defaultTextLayerName")).trim() || t("defaultTextLayerName");
+      const body = String(layer?.text || "").replace(/\s+/g, " ").trim() || "（空）";
+      return `${layerName}：${body}`;
+    }
+
+    function setToolTarget(target) {
+      if (target === "standing") {
+        state.activeToolTarget = "standing";
+      } else {
+        const layerId = target?.replace(/^text:/, "") || state.activeTextLayerId || state.textLayers[0]?.id || "";
+        const layer = state.textLayers.find((item) => item.id === layerId) || state.textLayers[0];
+        if (layer) {
+          state.activeTextLayerId = layer.id;
+          state.activeToolTarget = `text:${layer.id}`;
+        } else {
+          state.activeToolTarget = "standing";
+        }
+      }
+      renderToolTargetOptions();
+      renderTextLayerList();
+      renderTextDetailEditor();
+      syncTargetSliders();
+      renderPreview();
+    }
+
+    function renderToolTargetOptions() {
+      const root = $("#toolTargetChecks");
+      if (!root) return;
+
+      const currentTextLayer = state.textLayers.find((layer) => layer.id === state.activeTextLayerId) || state.textLayers[0] || null;
+      if (state.activeToolTarget !== "standing") {
+        const match = String(state.activeToolTarget || "").match(/^text:(.+)$/);
+        const matchedLayer = match ? state.textLayers.find((layer) => layer.id === match[1]) : null;
+        if (matchedLayer) state.activeTextLayerId = matchedLayer.id;
+        else state.activeToolTarget = currentTextLayer ? `text:${currentTextLayer.id}` : "standing";
+      }
+
+      const isStanding = state.activeToolTarget === "standing";
+      const isText = String(state.activeToolTarget || "").startsWith("text:");
+      root.innerHTML = "";
+
+      const standingLabel = document.createElement("label");
+      standingLabel.className = `target-check${isStanding ? " active" : ""}`;
+      const standingCheck = document.createElement("input");
+      standingCheck.type = "checkbox";
+      standingCheck.checked = isStanding;
+      standingCheck.addEventListener("change", () => setToolTarget("standing"));
+      standingLabel.append(standingCheck, document.createTextNode(` ${t("standingTarget")}`));
+
+      const textLabel = document.createElement("label");
+      textLabel.className = `target-check${isText ? " active" : ""}`;
+      const textCheck = document.createElement("input");
+      textCheck.type = "checkbox";
+      textCheck.checked = isText;
+      textCheck.disabled = state.textLayers.length === 0;
+      textCheck.addEventListener("change", () => setToolTarget("text"));
+      textLabel.append(textCheck, document.createTextNode(` ${t("textTarget")}`));
+
+      const select = document.createElement("select");
+      select.className = "target-text-select";
+      select.disabled = state.textLayers.length === 0;
+      for (const layer of state.textLayers) {
+        const option = document.createElement("option");
+        option.value = layer.id;
+        option.textContent = getToolTextLayerLabel(layer);
+        option.selected = layer.id === state.activeTextLayerId;
+        select.appendChild(option);
+      }
+      select.addEventListener("change", () => setToolTarget(`text:${select.value}`));
+
+      root.append(standingLabel, textLabel, select);
+    }
     function syncSettingsControls() {
       $("#languageSelect").value = currentLanguage();
       $("#leftModeSelect").value = getActiveMode();
       $("#previewBgSelect").value = state.settings.previewBg;
-      $("#previewScale").value = state.settings.previewScale;
-      $("#previewX").value = state.settings.previewX;
-      $("#previewY").value = state.settings.previewY;
       $("#exportOriginalSelect").value = state.settings.exportMode;
       $("#exportHeightInput").value = state.settings.exportHeight;
+      const zoom = clamp(state.settings.previewZoom ?? 1, 0.1, 3);
+      const browsToggle = $("#browsAboveHairFrontToggle");
+      if (browsToggle) browsToggle.checked = Boolean(state.settings.browsAboveHairFront);
+      const zoomInput = $("#previewZoom");
+      if (zoomInput) zoomInput.value = zoom;
+      const zoomValue = $("#previewZoomValue");
+      if (zoomValue) zoomValue.textContent = `${Math.round(zoom * 100)}%`;
+      syncToolModeButtons();
+      updatePreviewView();
+    }
+    function syncToolModeButtons() {
+      const mode = state.settings.toolMode || "move";
+      document.querySelectorAll("[data-tool-mode]").forEach((button) => {
+        const active = button.dataset.toolMode === mode;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", active ? "true" : "false");
+      });
     }
 
-    function updatePreviewTransform() {
-      const scale = Number(state.settings.previewScale || 1);
-      const x = Number(state.settings.previewX || 0);
-      const y = Number(state.settings.previewY || 0);
-      $("#previewCanvas").style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-      $("#previewScaleValue").textContent = scale.toFixed(2);
-      $("#previewXValue").textContent = `${x}px`;
-      $("#previewYValue").textContent = `${y}px`;
+    function updatePreviewStageBg() { const stage = $("#previewStage"); stage.classList.remove("bg-transparent", "bg-white", "bg-mint"); stage.classList.add(`bg-${state.settings.previewBg}`); }
+    function updatePreviewView() {
+      const canvas = $("#previewCanvas");
+      const zoom = clamp(state.settings.previewZoom ?? 1, 0.1, 3);
+      state.settings.previewZoom = zoom;
+      const zoomValue = $("#previewZoomValue");
+      if (zoomValue) zoomValue.textContent = `${Math.round(zoom * 100)}%`;
+      const zoomInput = $("#previewZoom");
+      if (zoomInput && Number(zoomInput.value) !== zoom) zoomInput.value = zoom;
+      if (!canvas) return;
 
-      const stage = $("#previewStage");
-      stage.classList.remove("bg-transparent", "bg-white", "bg-mint");
-      stage.classList.add(`bg-${state.settings.previewBg}`);
+      canvas.style.maxWidth = "none";
+      canvas.style.maxHeight = "none";
+
+      if (state.settings.previewView === "fit") {
+        const stage = $("#previewStage");
+        const canvasWidth = Math.max(1, Number(canvas.width || 1));
+        const canvasHeight = Math.max(1, Number(canvas.height || 1));
+        const stageWidth = Math.max(1, Number(stage?.clientWidth || window.innerWidth || canvasWidth));
+        const stageHeight = Math.max(1, Number(stage?.clientHeight || window.innerHeight || canvasHeight));
+        const padding = 32;
+        const availableWidth = Math.max(1, stageWidth - padding);
+        const availableHeight = Math.max(1, stageHeight - padding);
+        const fitScale = Math.min(availableWidth / canvasWidth, availableHeight / canvasHeight);
+        canvas.style.width = `${Math.max(1, Math.floor(canvasWidth * fitScale))}px`;
+        canvas.style.height = `${Math.max(1, Math.floor(canvasHeight * fitScale))}px`;
+      } else {
+        canvas.style.width = `${Math.max(1, Math.round(canvas.width * zoom))}px`;
+        canvas.style.height = `${Math.max(1, Math.round(canvas.height * zoom))}px`;
+      }
+      canvas.style.transform = `translate(${Number(state.settings.previewPanX || 0)}px, ${Number(state.settings.previewPanY || 0)}px)`;
     }
+    function syncTargetSliders(updateValues = true) {
+      const target = selectedTransformTarget(); const disabled = !target;
+      ["#targetX", "#targetY", "#targetScale", "#targetRotation"].forEach((selector) => { $(selector).disabled = disabled; });
+      if (!target || !updateValues) return;
+      $("#targetX").value = target.x || 0; $("#targetY").value = target.y || 0; $("#targetScale").value = target.scale || 1; $("#targetRotation").value = target.rotation || 0;
+      $("#targetXValue").textContent = `${Math.round(target.x || 0)}px`; $("#targetYValue").textContent = `${Math.round(target.y || 0)}px`; $("#targetScaleValue").textContent = Number(target.scale || 1).toFixed(2); $("#targetRotationValue").textContent = `${Math.round(target.rotation || 0)}°`;
+    }
+    function updateTargetFromSliders() {
+      const target = selectedTransformTarget(); if (!target) return;
+      target.x = Number($("#targetX").value || 0); target.y = Number($("#targetY").value || 0); target.scale = Number($("#targetScale").value || 1); target.rotation = Number($("#targetRotation").value || 0);
+      syncTargetSliders(); renderPreview(); if (state.activeToolTarget?.startsWith("text:")) renderTextDetailTransformOnly();
+    }
+    function renderTextDetailTransformOnly() { /* The transform sliders are authoritative; full editor rerender is noisy while dragging. */ }
 
     async function addImagesToLayer(layerId, files) {
       if (!files.length) return;
-      const mode = getActiveMode();
-      const store = getLayerStore(activeCharacter());
-      let addedCount = 0;
-
+      const mode = getActiveMode(); const store = getLayerStore(activeCharacter()); let addedCount = 0;
       for (const file of files) {
         if (!file.type.startsWith("image/")) continue;
-        const dataUrl = await fileToDataUrl(file);
-        const size = await getImageSize(dataUrl);
-        const shouldSelect = mode === "diff" && store[layerId].length === 0 && addedCount === 0;
-        store[layerId].push({
-          id: uid(),
-          name: file.name.replace(/\.[^.]+$/, ""),
-          dataUrl,
-          width: size.width,
-          height: size.height,
-          selected: shouldSelect
-        });
-        addedCount++;
+        const dataUrl = await fileToDataUrl(file); const size = await getImageSize(dataUrl); const shouldSelect = mode === "diff" && store[layerId].length === 0 && addedCount === 0;
+        store[layerId].push({ id: uid("part"), name: file.name.replace(/\.[^.]+$/, ""), dataUrl, width: size.width, height: size.height, selected: shouldSelect }); addedCount++;
       }
-
-      renderLayers();
-      renderPreview();
-      setStatusT("addedImages", { count: addedCount });
+      renderLayers(); renderPreview(); setStatusT("addedImages", { count: addedCount });
     }
+    function fileToDataUrl(file) { return new Promise((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(String(reader.result)); reader.onerror = reject; reader.readAsDataURL(file); }); }
+    function getImageSize(dataUrl) { return loadImage(dataUrl).then((img) => ({ width: img.naturalWidth, height: img.naturalHeight })); }
+    function loadImage(dataUrl) { if (imageCache.has(dataUrl)) return Promise.resolve(imageCache.get(dataUrl)); return new Promise((resolve, reject) => { const img = new Image(); img.onload = () => { imageCache.set(dataUrl, img); resolve(img); }; img.onerror = reject; img.src = dataUrl; }); }
 
-    function fileToDataUrl(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(String(reader.result));
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
+    function getCanvasBaseSize(character = activeCharacter()) {
+      let width = 0, height = 0;
+      const layers = getActiveLayers(); const store = getLayerStore(character);
+      for (const layer of layers) for (const part of store[layer.id] || []) if (part.selected || width === 0 || height === 0) { width = Math.max(width, Number(part.width || 0)); height = Math.max(height, Number(part.height || 0)); }
+      for (const bg of state.backgroundLayers) if (bg.dataUrl) { width = Math.max(width, Number(bg.width || 0)); height = Math.max(height, Number(bg.height || 0)); }
+      if (!width || !height) return { width: 1200, height: 1200 };
+      return { width, height };
     }
-
-    function getImageSize(dataUrl) {
-      return loadImage(dataUrl).then((img) => ({ width: img.naturalWidth, height: img.naturalHeight }));
-    }
-
-    function loadImage(dataUrl) {
-      if (imageCache.has(dataUrl)) return Promise.resolve(imageCache.get(dataUrl));
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => {
-          imageCache.set(dataUrl, img);
-          resolve(img);
-        };
-        img.onerror = reject;
-        img.src = dataUrl;
-      });
-    }
-
     async function renderPreview() {
       const token = ++previewRenderToken;
-      const character = activeCharacter();
-      const { width, height } = getCanvasBaseSize(character);
-      const canvas = $("#previewCanvas");
-      canvas.width = width;
-      canvas.height = height;
-      await drawComposite(canvas, width, height, character);
-      if (token !== previewRenderToken) return;
-      $("#previewInfo").textContent = `${width} × ${height}`;
+      await registerCustomFonts();
+      const character = activeCharacter(); const { width, height } = getCanvasBaseSize(character); const canvas = $("#previewCanvas"); canvas.width = width; canvas.height = height;
+      await drawComposite(canvas, width, height, character); if (token !== previewRenderToken) return; $("#previewInfo").textContent = `${width} × ${height}`; updatePreviewView();
+    }
+    async function drawComposite(canvas, width, height, character = activeCharacter()) {
+      const ctx = canvas.getContext("2d", { alpha: true }); ctx.clearRect(0, 0, width, height);
+      for (const bg of state.backgroundLayers) await drawBackground(ctx, bg, width, height);
+      for (const layer of state.textLayers.filter((item) => item.visible && item.placement === "back")) drawTextLayer(ctx, layer);
+      await drawStandingGroup(ctx, width, height, character);
+      for (const layer of state.textLayers.filter((item) => item.visible && item.placement === "front")) drawTextLayer(ctx, layer);
+    }
+    async function drawBackground(ctx, bg, width, height) {
+      if (!bg.visible || !bg.dataUrl) return;
+      const img = await loadImage(bg.dataUrl); ctx.save(); ctx.translate(width / 2 + (bg.x || 0), height / 2 + (bg.y || 0)); ctx.scale(bg.scale || 1, bg.scale || 1); ctx.drawImage(img, -width / 2, -height / 2, width, height); ctx.restore();
+    }
+    function getStandingDrawLayers() {
+      const drawLayers = [...getActiveLayers()].reverse();
+      if (getActiveMode() === "parts" && state.settings?.browsAboveHairFront) {
+        const browsIndex = drawLayers.findIndex((layer) => layer.id === "brows");
+        const hairFrontIndex = drawLayers.findIndex((layer) => layer.id === "hairFront");
+        if (browsIndex >= 0 && hairFrontIndex >= 0) {
+          const [browsLayer] = drawLayers.splice(browsIndex, 1);
+          const nextHairFrontIndex = drawLayers.findIndex((layer) => layer.id === "hairFront");
+          drawLayers.splice(nextHairFrontIndex + 1, 0, browsLayer);
+        }
+      }
+      return drawLayers;
     }
 
-    async function drawComposite(canvas, width, height, character = activeCharacter()) {
-      const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, width, height);
-      const drawLayers = [...getActiveLayers()].reverse();
-      const store = getLayerStore(character);
+    async function drawStandingGroup(ctx, width, height, character = activeCharacter()) {
+      const store = getLayerStore(character); const drawLayers = getStandingDrawLayers();
+      const off = document.createElement("canvas"); off.width = width; off.height = height; const offCtx = off.getContext("2d", { alpha: true }); offCtx.clearRect(0, 0, width, height);
+      let hasAny = false;
       for (const layer of drawLayers) {
         const parts = (store[layer.id] || []).filter((part) => part.selected);
-        for (const part of parts) {
-          const img = await loadImage(part.dataUrl);
-          ctx.drawImage(img, 0, 0, width, height);
-        }
+        const layerY = layer.id === "brows" ? Number(character.layerAdjustments?.browsY || 0) : 0;
+        for (const part of parts) { const img = await loadImage(part.dataUrl); offCtx.drawImage(img, 0, layerY, width, height); hasAny = true; }
       }
+      if (!hasAny) return;
+      const tr = character.transform || defaultTransform(); ctx.save(); ctx.translate(width / 2 + (tr.x || 0), height / 2 + (tr.y || 0)); ctx.rotate((tr.rotation || 0) * Math.PI / 180); ctx.scale(tr.scale || 1, tr.scale || 1); ctx.drawImage(off, -width / 2, -height / 2, width, height); ctx.restore();
     }
 
-    function createSelectionSnapshot(character = activeCharacter()) {
-      const selection = {};
-      for (const layer of LAYERS) {
-        selection[layer.id] = character.layers[layer.id]
-          .filter((part) => part.selected)
-          .map((part) => part.id);
+    function splitChars(value) {
+      value = String(value || "");
+      if (window.Intl?.Segmenter) { const locale = currentLanguage() === "ko" ? "ko" : (currentLanguage() === "en" ? "en" : "ja"); const segmenter = new Intl.Segmenter(locale, { granularity: "grapheme" }); return Array.from(segmenter.segment(value), (item) => item.segment); }
+      return Array.from(value);
+    }
+    function splitInlineTargets(value) { return String(value || "").split(/[,、，]/).map((item) => item.trim()).filter(Boolean); }
+    function fontStringForSettings(settings) { return `700 ${Math.max(1, settings.fontSize || 86)}px ${settings.fontFamily || DEFAULT_FONT_STACK}`; }
+    function mergeInlineSettings(settings, inlineStyle) {
+      if (!inlineStyle) return settings;
+      return { ...settings, fontFamily: inlineStyle.fontFamily || settings.fontFamily, color: inlineStyle.color || settings.color, fontSize: Math.round(clamp(inlineStyle.fontSize ?? settings.fontSize ?? 86, 10, 300)), stroke: { ...(settings.stroke || {}), enabled: Number(inlineStyle.strokeWidth ?? settings.stroke?.width ?? 0) > 0, color: inlineStyle.strokeColor || settings.stroke?.color || "#111827", width: Math.round(clamp(inlineStyle.strokeWidth ?? settings.stroke?.width ?? 0, 0, 80)) }, shadow: { ...(settings.shadow || {}), enabled: Number(inlineStyle.shadowBlur ?? settings.shadow?.blur ?? 0) > 0, color: inlineStyle.shadowColor || settings.shadow?.color || "#000000", blur: Math.round(clamp(inlineStyle.shadowBlur ?? settings.shadow?.blur ?? 0, 0, 160)), offsetX: settings.shadow?.offsetX || 0, offsetY: settings.shadow?.offsetY || 0 }, verticalLatinRotate: settings.verticalLatinRotate };
+    }
+    function inlineStyleMapForText(text, settings) {
+      const chars = splitChars(text); const map = Array(chars.length).fill(null); const inlineStyles = safeArray(settings?.inlineStyles).map(normalizeInlineStyle).filter(Boolean);
+      if (!chars.length || !inlineStyles.length) return map;
+      inlineStyles.forEach((style) => { splitInlineTargets(style.targets).forEach((target) => { const targetChars = splitChars(target); if (!targetChars.length || targetChars.length > chars.length) return; for (let i = 0; i <= chars.length - targetChars.length; i++) { let matched = true; for (let j = 0; j < targetChars.length; j++) if (chars[i + j] !== targetChars[j]) { matched = false; break; } if (matched) for (let j = 0; j < targetChars.length; j++) map[i + j] = style; } }); });
+      return map;
+    }
+    function measureTextWidth(context, text, letterSpacing = 0, settings = null) {
+      const chars = splitChars(text); if (!chars.length) return 0; const previousFont = context.font; let width = 0; const inlineMap = inlineStyleMapForText(text, settings);
+      chars.forEach((char, index) => { const charSettings = settings ? mergeInlineSettings(settings, inlineMap[index]) : settings; if (charSettings) context.font = fontStringForSettings(charSettings); width += context.measureText(char).width; if (index < chars.length - 1) width += Number(letterSpacing || 0); }); context.font = previousFont; return width;
+    }
+    function wrapTextLines(context, text, maxWidth, letterSpacing = 0, settings = null) {
+      const sourceLines = String(text || "").split(/\n/); const lines = [];
+      sourceLines.forEach((sourceLine) => { const chars = splitChars(sourceLine); let line = ""; chars.forEach((char) => { const testLine = line + char; if (line && measureTextWidth(context, testLine, letterSpacing, settings) > maxWidth) { lines.push(line); line = char; } else { line = testLine; } }); lines.push(line); });
+      return lines.length ? lines : [""];
+    }
+    function hasVisibleShadow(settings) { const shadow = settings?.shadow || {}; return Boolean(shadow.enabled) && (Number(shadow.blur || 0) > 0 || Number(shadow.offsetX || 0) !== 0 || Number(shadow.offsetY || 0) !== 0); }
+    function clearTextShadow(context) { context.shadowColor = "transparent"; context.shadowBlur = 0; context.shadowOffsetX = 0; context.shadowOffsetY = 0; }
+    function paintChar(context, char, x, y, settings, layer) {
+      context.font = fontStringForSettings(settings); context.lineJoin = "round"; context.miterLimit = 2;
+      if (layer === "shadow") { if (!hasVisibleShadow(settings)) return; const shadow = settings.shadow || {}; context.shadowColor = shadow.color || "#000000"; context.shadowBlur = Number(shadow.blur || 0); context.shadowOffsetX = Number(shadow.offsetX || 0); context.shadowOffsetY = Number(shadow.offsetY || 0); context.fillStyle = shadow.color || "#000000"; context.fillText(char, x, y); return; }
+      clearTextShadow(context);
+      if (layer === "stroke") { if (settings.stroke?.enabled && Number(settings.stroke.width) > 0) { context.strokeStyle = settings.stroke.color || "#111827"; context.lineWidth = Number(settings.stroke.width) || 0; context.strokeText(char, x, y); } return; }
+      context.fillStyle = settings.color || "#ffffff"; context.fillText(char, x, y);
+    }
+    function drawStyledTextLine(context, text, x, y, settings, letterSpacing, layer) {
+      const chars = splitChars(text); const inlineMap = inlineStyleMapForText(text, settings); let cursorX = x;
+      chars.forEach((char, index) => { const charSettings = mergeInlineSettings(settings, inlineMap[index]); context.font = fontStringForSettings(charSettings); const charWidth = context.measureText(char).width; paintChar(context, char, cursorX, y, charSettings, layer); cursorX += charWidth + Number(letterSpacing || 0); });
+    }
+    function drawStyledText(context, text, x, y, settings, letterSpacing = 0) { ["shadow", "stroke", "fill"].forEach((layer) => drawStyledTextLine(context, text, x, y, settings, letterSpacing, layer)); }
+    function isVerticalLatinGlyph(char) { return /^[A-Za-z0-9Ａ-Ｚａ-ｚ０-９]$/.test(String(char || "")); }
+    function paintCenteredGlyph(context, char, settings, layer) {
+      context.save(); context.textAlign = "center"; context.textBaseline = "middle"; paintChar(context, char, 0, 0, settings, layer); context.restore();
+    }
+    function buildVerticalEntries(context, text, settings, letterSpacing) {
+      const maxHeight = Math.max(100, Number(settings.wrapHeight) || 900); const columnGap = Math.round(clamp(settings.verticalColumnGap ?? Math.round((settings.fontSize || 86) * 0.35), 0, 300)); const inlineMap = inlineStyleMapForText(text, settings); const chars = splitChars(text); const columns = []; let current = null;
+      const newColumn = () => { current = { glyphs: [], height: 0, width: 0, x: 0 }; columns.push(current); }; newColumn();
+      chars.forEach((char, sourceIndex) => { if (char === "\r") return; if (char === "\n") { if (current.glyphs.length) newColumn(); return; } const charSettings = mergeInlineSettings(settings, inlineMap[sourceIndex]); const fontSize = Math.max(1, Number(charSettings.fontSize || settings.fontSize || 86)); const lineHeight = Math.max(0.5, Number(charSettings.lineHeight || settings.lineHeight || 1.25)); const step = Math.max(fontSize * 0.25, fontSize * lineHeight + Number(letterSpacing || 0)); const columnWidth = fontSize; if (current.glyphs.length && current.height + step > maxHeight) newColumn(); current.glyphs.push({ char, settings: charSettings, localY: current.height + step / 2, width: columnWidth, rotateLatin: Boolean(charSettings.verticalLatinRotate !== false && isVerticalLatinGlyph(char)) }); current.height += step; current.width = Math.max(current.width, columnWidth); });
+      const nonEmpty = columns.filter((column) => column.glyphs.length); if (!nonEmpty.length) return [];
+      let offset = 0; nonEmpty.forEach((column, index) => { if (index === 0) column.x = 0; else { const previous = nonEmpty[index - 1]; offset += previous.width / 2 + columnGap + column.width / 2; column.x = -offset; } });
+      const minX = Math.min(...nonEmpty.map((column) => column.x - column.width / 2)); const maxX = Math.max(...nonEmpty.map((column) => column.x + column.width / 2)); let shiftX = 0; if (settings.align === "center") shiftX = -(minX + maxX) / 2; if (settings.align === "left") shiftX = -minX; if (settings.align === "right") shiftX = -maxX;
+      const entries = []; nonEmpty.forEach((column) => { column.glyphs.forEach((entry) => { entries.push({ ...entry, x: column.x + shiftX, y: entry.localY - column.height / 2 }); }); }); return entries;
+    }
+    function drawTextLayer(context, layer) {
+      if (!layer.visible || !layer.text) return;
+      const settings = normalizeTextLayer(layer); context.save(); context.translate(settings.x || 0, settings.y || 0); context.rotate((settings.rotation || 0) * Math.PI / 180); context.scale(settings.scale || 1, settings.scale || 1); context.globalAlpha = 1; context.textBaseline = "alphabetic"; context.font = fontStringForSettings(settings);
+      const letterSpacing = settings.letterSpacing || 0;
+      if (settings.writingMode === "vertical") {
+        const entries = buildVerticalEntries(context, settings.text, settings, letterSpacing);
+        ["shadow", "stroke", "fill"].forEach((layerName) => { entries.forEach((entry) => { context.save(); context.translate(entry.x, entry.y); if (entry.rotateLatin) context.rotate(Math.PI / 2); paintCenteredGlyph(context, entry.char, entry.settings, layerName); context.restore(); }); });
+      } else {
+        const maxWidth = Math.max(100, settings.wrapWidth || 900); const lines = wrapTextLines(context, settings.text, maxWidth, letterSpacing, settings); const lineHeight = Math.max(1, (settings.fontSize || 86) * (settings.lineHeight || 1.25)); const totalHeight = lineHeight * Math.max(1, lines.length); const startY = -totalHeight / 2 + lineHeight * 0.85;
+        lines.forEach((line, lineIndex) => { const yLine = startY + lineIndex * lineHeight; const lineWidth = measureTextWidth(context, line, letterSpacing, settings); let xLine = 0; if (settings.align === "center") xLine -= lineWidth / 2; if (settings.align === "right") xLine -= lineWidth; drawStyledText(context, line, xLine, yLine, settings, letterSpacing); });
       }
-      return selection;
+      context.restore();
     }
 
-    function applySelectionSnapshot(selection, character = activeCharacter()) {
-      for (const layer of LAYERS) {
-        const selectedIds = new Set(Array.isArray(selection?.[layer.id]) ? selection[layer.id] : []);
-        for (const part of character.layers[layer.id]) {
-          part.selected = selectedIds.has(part.id);
-        }
-      }
-    }
-
+    function createSelectionSnapshot(character = activeCharacter()) { const selection = {}; for (const layer of LAYERS) selection[layer.id] = character.layers[layer.id].filter((part) => part.selected).map((part) => part.id); return selection; }
+    function applySelectionSnapshot(selection, character = activeCharacter()) { for (const layer of LAYERS) { const selectedIds = new Set(Array.isArray(selection?.[layer.id]) ? selection[layer.id] : []); for (const part of character.layers[layer.id]) part.selected = selectedIds.has(part.id); } }
     async function exportPng() {
-      const character = activeCharacter();
-      const base = getCanvasBaseSize(character);
-      let outWidth = base.width;
-      let outHeight = base.height;
-
-      if (state.settings.exportMode === "height") {
-        const desiredHeight = Math.max(1, Math.floor(Number(state.settings.exportHeight || base.height)));
-        const ratio = desiredHeight / base.height;
-        outHeight = desiredHeight;
-        outWidth = Math.max(1, Math.round(base.width * ratio));
-      }
-
-      const canvas = document.createElement("canvas");
-      canvas.width = outWidth;
-      canvas.height = outHeight;
-      await drawComposite(canvas, outWidth, outHeight, character);
-
-      const link = document.createElement("a");
-      const safeName = sanitizeFileName(character.name || "character");
-      link.download = `${safeName}_${formatDateForFile()}_${outWidth}x${outHeight}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-      setStatusT("pngExported", { width: outWidth, height: outHeight });
+      await registerCustomFonts();
+      const character = activeCharacter(); const base = getCanvasBaseSize(character); const baseCanvas = document.createElement("canvas"); baseCanvas.width = base.width; baseCanvas.height = base.height; await drawComposite(baseCanvas, base.width, base.height, character);
+      let outWidth = base.width, outHeight = base.height, outputCanvas = baseCanvas;
+      if (state.settings.exportMode === "height") { const desiredHeight = Math.max(1, Math.floor(Number(state.settings.exportHeight || base.height))); const ratio = desiredHeight / base.height; outHeight = desiredHeight; outWidth = Math.max(1, Math.round(base.width * ratio)); outputCanvas = document.createElement("canvas"); outputCanvas.width = outWidth; outputCanvas.height = outHeight; outputCanvas.getContext("2d", { alpha: true }).drawImage(baseCanvas, 0, 0, outWidth, outHeight); }
+      const link = document.createElement("a"); const safeName = sanitizeFileName(activeCharacter().name || "character"); link.download = `${safeName}_${formatDateForFile()}_${outWidth}x${outHeight}.png`; link.href = outputCanvas.toDataURL("image/png"); link.click(); setStatusT("pngExported", { width: outWidth, height: outHeight });
     }
-
-    function sanitizeFileName(name) {
-      return String(name)
-        .replace(/[\\/:*?"<>|]/g, "_")
-        .replace(/\s+/g, "_")
-        .slice(0, 80) || "character";
-    }
-
-    function formatDateForFile() {
-      const d = new Date();
-      const y = d.getFullYear();
-      const m = String(d.getMonth() + 1).padStart(2, "0");
-      const day = String(d.getDate()).padStart(2, "0");
-      const h = String(d.getHours()).padStart(2, "0");
-      const min = String(d.getMinutes()).padStart(2, "0");
-      return `${y}${m}${day}_${h}${min}`;
-    }
-
-    function downloadJson() {
-      const json = JSON.stringify(state, null, 2);
-      const blob = new Blob([json], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.download = `stand_diff_project_${formatDateForFile()}.json`;
-      link.href = url;
-      link.click();
-      URL.revokeObjectURL(url);
-      setStatusT("jsonSaved");
-    }
-
-    async function importJsonFile(file) {
-      try {
-        const text = await file.text();
-        const project = JSON.parse(text);
-        state = normalizeState(project);
-        imageCache.clear();
-        renderAll();
-        setStatusT("jsonLoaded");
-      } catch (error) {
-        console.error(error);
-        setStatusT("jsonLoadFailed", {}, true);
-      }
-    }
-
-    function openDb() {
-      return new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, DB_VERSION);
-        request.onupgradeneeded = () => {
-          const db = request.result;
-          if (!db.objectStoreNames.contains(STORE_NAME)) {
-            db.createObjectStore(STORE_NAME, { keyPath: "key" });
-          }
-        };
-        request.onsuccess = () => resolve(request.result);
-        request.onerror = () => reject(request.error);
-      });
-    }
-
-    async function saveToCache() {
-      const db = await openDb();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE_NAME, "readwrite");
-        tx.objectStore(STORE_NAME).put({ key: CACHE_KEY, updatedAt: new Date().toISOString(), project: state });
-        tx.oncomplete = () => { db.close(); resolve(); };
-        tx.onerror = () => { db.close(); reject(tx.error); };
-      });
-    }
-
-    async function loadFromCache() {
-      const db = await openDb();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE_NAME, "readonly");
-        const request = tx.objectStore(STORE_NAME).get(CACHE_KEY);
-        request.onsuccess = () => { db.close(); resolve(request.result?.project || null); };
-        request.onerror = () => { db.close(); reject(request.error); };
-      });
-    }
-
-    async function clearCache() {
-      const db = await openDb();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE_NAME, "readwrite");
-        tx.objectStore(STORE_NAME).delete(CACHE_KEY);
-        tx.oncomplete = () => { db.close(); resolve(); };
-        tx.onerror = () => { db.close(); reject(tx.error); };
-      });
-    }
+    function sanitizeFileName(name) { return String(name).replace(/[\\/:*?"<>|]/g, "_").replace(/\s+/g, "_").slice(0, 80) || "character"; }
+    function formatDateForFile() { const d = new Date(); const y = d.getFullYear(); const m = String(d.getMonth() + 1).padStart(2, "0"); const day = String(d.getDate()).padStart(2, "0"); const h = String(d.getHours()).padStart(2, "0"); const min = String(d.getMinutes()).padStart(2, "0"); return `${y}${m}${day}_${h}${min}`; }
+    function downloadJson() { const json = JSON.stringify(state, null, 2); const blob = new Blob([json], { type: "application/json" }); const url = URL.createObjectURL(blob); const link = document.createElement("a"); link.download = `stand_diff_project_${formatDateForFile()}.json`; link.href = url; link.click(); URL.revokeObjectURL(url); setStatusT("jsonSaved"); }
+    async function importJsonFile(file) { try { const text = await file.text(); const project = JSON.parse(text); state = normalizeState(project); imageCache.clear(); registeredFonts.clear(); await registerCustomFonts(); renderAll(); setStatusT("jsonLoaded"); } catch (error) { console.error(error); setStatusT("jsonLoadFailed", {}, true); } }
+    function openDb() { return new Promise((resolve, reject) => { const request = indexedDB.open(DB_NAME, DB_VERSION); request.onupgradeneeded = () => { const db = request.result; if (!db.objectStoreNames.contains(STORE_NAME)) db.createObjectStore(STORE_NAME, { keyPath: "key" }); }; request.onsuccess = () => resolve(request.result); request.onerror = () => reject(request.error); }); }
+    async function saveToCache() { const db = await openDb(); return new Promise((resolve, reject) => { const tx = db.transaction(STORE_NAME, "readwrite"); tx.objectStore(STORE_NAME).put({ key: CACHE_KEY, updatedAt: new Date().toISOString(), project: state }); tx.oncomplete = () => { db.close(); resolve(); }; tx.onerror = () => { db.close(); reject(tx.error); }; }); }
+    async function loadFromCache() { const db = await openDb(); return new Promise((resolve, reject) => { const tx = db.transaction(STORE_NAME, "readonly"); const request = tx.objectStore(STORE_NAME).get(CACHE_KEY); request.onsuccess = () => { db.close(); resolve(request.result?.project || null); }; request.onerror = () => { db.close(); reject(request.error); }; }); }
+    async function clearCache() { const db = await openDb(); return new Promise((resolve, reject) => { const tx = db.transaction(STORE_NAME, "readwrite"); tx.objectStore(STORE_NAME).delete(CACHE_KEY); tx.oncomplete = () => { db.close(); resolve(); }; tx.onerror = () => { db.close(); reject(tx.error); }; }); }
 
     function bindEvents() {
-      $("#languageSelect").addEventListener("change", (event) => {
-        state.settings.uiLanguage = event.target.value;
-        localStorage.setItem(LANG_STORAGE_KEY, state.settings.uiLanguage);
-        renderAll();
-        setStatusT("languageChanged");
+      const exportModal = $("#exportModal");
+      const openExportSettingsBtn = $("#openExportSettingsBtn");
+      const closeExportModalBtn = $("#closeExportModalBtn");
+      const openExportModal = () => {
+        exportModal.classList.add("show");
+        exportModal.setAttribute("aria-hidden", "false");
+      };
+      const closeExportModal = () => {
+        exportModal.classList.remove("show");
+        exportModal.setAttribute("aria-hidden", "true");
+      };
+      openExportSettingsBtn.addEventListener("click", openExportModal);
+      closeExportModalBtn.addEventListener("click", closeExportModal);
+      exportModal.addEventListener("click", (event) => { if (event.target === exportModal) closeExportModal(); });
+      document.addEventListener("keydown", (event) => { if (event.key === "Escape" && exportModal.classList.contains("show")) closeExportModal(); });
+      $("#languageSelect").addEventListener("change", (event) => { state.settings.uiLanguage = event.target.value; localStorage.setItem(LANG_STORAGE_KEY, state.settings.uiLanguage); renderAll(); setStatusT("languageChanged"); });
+      $("#leftModeSelect").addEventListener("change", (event) => { state.settings.leftMode = event.target.value === "diff" ? "diff" : "parts"; renderAll(); setStatusT(state.settings.leftMode === "diff" ? "switchedDiff" : "switchedParts"); });
+      $("#characterSelect").addEventListener("change", (event) => { state.activeCharacterId = event.target.value; state.activeToolTarget = "standing"; renderAll(); });
+      $("#addCharacterBtn").addEventListener("click", () => { const name = $("#characterNameInput").value.trim(); if (!name) { setStatusT("enterCharacterName", {}, true); return; } const character = createCharacter(name); state.characters.push(character); state.activeCharacterId = character.id; state.activeToolTarget = "standing"; renderAll(); setStatusT("characterAdded"); });
+      $("#renameCharacterBtn").addEventListener("click", () => { const name = $("#characterNameInput").value.trim(); if (!name) { setStatusT("enterCharacterName", {}, true); return; } activeCharacter().name = name; renderCharacterControls(); setStatusT("characterRenamed"); });
+      $("#deleteCharacterBtn").addEventListener("click", () => { if (state.characters.length <= 1) { setStatusT("cannotDeleteLastCharacter", {}, true); return; } if (!confirm(t("deleteCharacterConfirm"))) return; const id = state.activeCharacterId; state.characters = state.characters.filter((character) => character.id !== id); state.activeCharacterId = state.characters[0].id; state.activeToolTarget = "standing"; imageCache.clear(); renderAll(); setStatusT("characterDeleted"); });
+      $("#savePresetBtn").addEventListener("click", () => { const name = $("#presetNameInput").value.trim(); if (!name) { setStatusT("enterPresetName", {}, true); return; } const character = activeCharacter(); character.presets.push({ id: uid("preset"), name, selection: createSelectionSnapshot(character) }); $("#presetNameInput").value = ""; renderPresetControls(); setStatusT("presetSaved"); });
+      $("#applyPresetBtn").addEventListener("click", applySelectedPreset); $("#presetSelect").addEventListener("change", applySelectedPreset);
+      $("#deletePresetBtn").addEventListener("click", () => { const character = activeCharacter(); const presetId = $("#presetSelect").value; if (!presetId) { setStatusT("selectPresetDelete", {}, true); return; } character.presets = character.presets.filter((preset) => preset.id !== presetId); renderPresetControls(); setStatusT("presetDeleted"); });
+      $("#addTextLayerBtn").addEventListener("click", () => { const layer = createTextLayer(); const { width, height } = getCanvasBaseSize(); layer.x = width / 2; layer.y = height / 2; state.textLayers.push(layer); state.activeTextLayerId = layer.id; state.activeToolTarget = `text:${layer.id}`; renderAll(); });
+      $("#duplicateTextLayerBtn").addEventListener("click", () => { const layer = activeTextLayer(); if (!layer) return; const copy = normalizeTextLayer(clone(layer)); copy.id = uid("text"); copy.name = `${layer.name} copy`; copy.x += 24; copy.y += 24; state.textLayers.push(copy); state.activeTextLayerId = copy.id; state.activeToolTarget = `text:${copy.id}`; renderAll(); });
+      $("#deleteTextLayerBtn").addEventListener("click", () => { const layer = activeTextLayer(); if (!layer) return; state.textLayers = state.textLayers.filter((item) => item.id !== layer.id); state.activeTextLayerId = state.textLayers[0]?.id || ""; state.activeToolTarget = state.activeTextLayerId ? `text:${state.activeTextLayerId}` : "standing"; renderAll(); });
+      $("#addFontBtn").addEventListener("click", () => $("#fontFileInput").click());
+      $("#fontFileInput").addEventListener("change", async (event) => { const files = Array.from(event.target.files || []); for (const file of files) { const dataUrl = await fileToDataUrl(file); state.customFonts.push(createCustomFont(file.name, dataUrl)); } event.target.value = ""; registeredFonts.clear(); await registerCustomFonts(); renderAll(); setStatusT("fontAdded"); });
+      $("#previewBgSelect").addEventListener("change", (event) => { state.settings.previewBg = event.target.value; updatePreviewStageBg(); });
+      $("#browsAboveHairFrontToggle").addEventListener("change", (event) => {
+        state.settings.browsAboveHairFront = event.target.checked;
+        renderPreview();
       });
-
-      $("#leftModeSelect").addEventListener("change", (event) => {
-        state.settings.leftMode = event.target.value === "diff" ? "diff" : "parts";
-        renderAll();
-        setStatusT(state.settings.leftMode === "diff" ? "switchedDiff" : "switchedParts");
-      });
-
-      $("#characterSelect").addEventListener("change", (event) => {
-        state.activeCharacterId = event.target.value;
-        renderAll();
-      });
-
-      $("#addCharacterBtn").addEventListener("click", () => {
-        const name = $("#characterNameInput").value.trim();
-        if (!name) { setStatusT("enterCharacterName", {}, true); return; }
-        const character = createCharacter(name);
-        state.characters.push(character);
-        state.activeCharacterId = character.id;
-        renderAll();
-        setStatusT("characterAdded");
-      });
-
-      $("#renameCharacterBtn").addEventListener("click", () => {
-        const name = $("#characterNameInput").value.trim();
-        if (!name) { setStatusT("enterCharacterName", {}, true); return; }
-        activeCharacter().name = name;
-        renderCharacterControls();
-        setStatusT("characterRenamed");
-      });
-
-      $("#deleteCharacterBtn").addEventListener("click", () => {
-        if (state.characters.length <= 1) { setStatusT("cannotDeleteLastCharacter", {}, true); return; }
-        if (!confirm(t("deleteCharacterConfirm"))) return;
-        const id = state.activeCharacterId;
-        state.characters = state.characters.filter((character) => character.id !== id);
-        state.activeCharacterId = state.characters[0].id;
-        imageCache.clear();
-        renderAll();
-        setStatusT("characterDeleted");
-      });
-
-      $("#savePresetBtn").addEventListener("click", () => {
-        const name = $("#presetNameInput").value.trim();
-        if (!name) { setStatusT("enterPresetName", {}, true); return; }
-        const character = activeCharacter();
-        character.presets.push({ id: uid(), name, selection: createSelectionSnapshot(character) });
-        $("#presetNameInput").value = "";
-        renderPresetControls();
-        setStatusT("presetSaved");
-      });
-
-      $("#applyPresetBtn").addEventListener("click", applySelectedPreset);
-      $("#presetSelect").addEventListener("change", applySelectedPreset);
-
-      $("#deletePresetBtn").addEventListener("click", () => {
-        const character = activeCharacter();
-        const presetId = $("#presetSelect").value;
-        if (!presetId) { setStatusT("selectPresetDelete", {}, true); return; }
-        character.presets = character.presets.filter((preset) => preset.id !== presetId);
-        renderPresetControls();
-        setStatusT("presetDeleted");
-      });
-
-      $("#previewBgSelect").addEventListener("change", (event) => {
-        state.settings.previewBg = event.target.value;
-        updatePreviewTransform();
-      });
-
-      $("#previewScale").addEventListener("input", (event) => {
-        state.settings.previewScale = Number(event.target.value);
-        updatePreviewTransform();
-      });
-
-      $("#previewX").addEventListener("input", (event) => {
-        state.settings.previewX = Number(event.target.value);
-        updatePreviewTransform();
-      });
-
-      $("#previewY").addEventListener("input", (event) => {
-        state.settings.previewY = Number(event.target.value);
-        updatePreviewTransform();
-      });
-
-      $("#exportOriginalSelect").addEventListener("change", (event) => {
-        state.settings.exportMode = event.target.value;
-      });
-
-      $("#exportHeightInput").addEventListener("input", (event) => {
-        state.settings.exportHeight = Number(event.target.value || 1200);
-      });
-
-      $("#exportPngBtn").addEventListener("click", () => {
-        exportPng().catch((error) => {
-          console.error(error);
-          setStatusT("pngExportFailed", {}, true);
+      document.querySelectorAll("[data-tool-mode]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.settings.toolMode = button.dataset.toolMode || "move";
+          syncToolModeButtons();
         });
       });
-
-      $("#downloadJsonBtn").addEventListener("click", downloadJson);
-      $("#importJsonBtn").addEventListener("click", () => $("#jsonFileInput").click());
-
-      $("#jsonFileInput").addEventListener("change", async (event) => {
-        const file = event.target.files?.[0];
-        if (file) await importJsonFile(file);
-        event.target.value = "";
-      });
-
-      $("#saveCacheBtn").addEventListener("click", async () => {
-        try { await saveToCache(); setStatusT("cacheSaved"); }
-        catch (error) { console.error(error); setStatusT("cacheSaveFailed", {}, true); }
-      });
-
-      $("#loadCacheBtn").addEventListener("click", async () => {
-        try {
-          const cached = await loadFromCache();
-          if (!cached) { setStatusT("cacheMissing", {}, true); return; }
-          state = normalizeState(cached);
-          imageCache.clear();
-          renderAll();
-          setStatusT("cacheLoaded");
-        } catch (error) {
-          console.error(error);
-          setStatusT("cacheLoadFailed", {}, true);
-        }
-      });
-
-      $("#clearCacheBtn").addEventListener("click", async () => {
-        if (!confirm(t("cacheDeleteConfirm"))) return;
-        try { await clearCache(); setStatusT("cacheDeleted"); }
-        catch (error) { console.error(error); setStatusT("cacheDeleteFailed", {}, true); }
-      });
+      $("#previewFitBtn").addEventListener("click", () => { state.settings.previewView = "fit"; state.settings.previewPanX = 0; state.settings.previewPanY = 0; updatePreviewView(); });
+      $("#previewOriginalBtn").addEventListener("click", () => { state.settings.previewView = "zoom"; state.settings.previewZoom = 1; state.settings.previewPanX = 0; state.settings.previewPanY = 0; updatePreviewView(); });
+      $("#previewZoom").addEventListener("input", (event) => { state.settings.previewView = "zoom"; state.settings.previewZoom = Number(event.target.value || 1); updatePreviewView(); });
+      ["#targetX", "#targetY", "#targetScale", "#targetRotation"].forEach((selector) => $(selector).addEventListener("input", updateTargetFromSliders));
+      $("#exportOriginalSelect").addEventListener("change", (event) => { state.settings.exportMode = event.target.value; });
+      $("#exportHeightInput").addEventListener("input", (event) => { state.settings.exportHeight = Number(event.target.value || 1200); });
+      $("#exportPngBtn").addEventListener("click", () => { exportPng().catch((error) => { console.error(error); setStatusT("pngExportFailed", {}, true); }); });
+      $("#downloadJsonBtn").addEventListener("click", downloadJson); $("#importJsonBtn").addEventListener("click", () => $("#jsonFileInput").click());
+      $("#jsonFileInput").addEventListener("change", async (event) => { const file = event.target.files?.[0]; if (file) await importJsonFile(file); event.target.value = ""; });
+      $("#saveCacheBtn").addEventListener("click", async () => { try { await saveToCache(); setStatusT("cacheSaved"); } catch (error) { console.error(error); setStatusT("cacheSaveFailed", {}, true); } });
+      $("#loadCacheBtn").addEventListener("click", async () => { try { const cached = await loadFromCache(); if (!cached) { setStatusT("cacheMissing", {}, true); return; } state = normalizeState(cached); imageCache.clear(); registeredFonts.clear(); await registerCustomFonts(); renderAll(); setStatusT("cacheLoaded"); } catch (error) { console.error(error); setStatusT("cacheLoadFailed", {}, true); } });
+      $("#clearCacheBtn").addEventListener("click", async () => { if (!confirm(t("cacheDeleteConfirm"))) return; try { await clearCache(); setStatusT("cacheDeleted"); } catch (error) { console.error(error); setStatusT("cacheDeleteFailed", {}, true); } });
+      bindPreviewPointerEvents();
     }
 
-    function applySelectedPreset() {
-      const character = activeCharacter();
-      const presetId = $("#presetSelect").value;
-      if (!presetId) return;
-      const preset = character.presets.find((item) => item.id === presetId);
-      if (!preset) return;
-      applySelectionSnapshot(preset.selection, character);
-      renderLayers();
-      renderPreview();
-      setStatusT("presetApplied", { name: preset.name });
+    function previewPointerPoint(event) {
+      const canvas = $("#previewCanvas");
+      const rect = canvas.getBoundingClientRect();
+      const widthRatio = canvas.width / Math.max(1, rect.width);
+      const heightRatio = canvas.height / Math.max(1, rect.height);
+      return {
+        x: (event.clientX - rect.left) * widthRatio,
+        y: (event.clientY - rect.top) * heightRatio,
+        ratio: (widthRatio + heightRatio) / 2
+      };
     }
 
-    async function tryAutoLoadCache() {
-      try {
-        const cached = await loadFromCache();
-        if (cached) {
-          const currentLang = state.settings.uiLanguage;
-          state = normalizeState(cached);
-          state.settings.uiLanguage = currentLang;
-          imageCache.clear();
-          renderAll();
-          setStatusT("cacheAutoLoaded");
-        }
-      } catch (error) {
-        console.warn("cache auto load skipped:", error);
+    function transformTargetCenter(target) {
+      const canvas = $("#previewCanvas");
+      if (state.activeToolTarget === "standing") {
+        return { x: canvas.width / 2 + Number(target?.x || 0), y: canvas.height / 2 + Number(target?.y || 0) };
       }
+      return { x: Number(target?.x || 0), y: Number(target?.y || 0) };
     }
+
+    function endPreviewPointerDrag(canvas, pointerId = null) {
+      if (pointerId !== null && pointerState?.pointerId !== pointerId) return;
+      pointerState = null;
+      canvas.classList.remove("dragging");
+    }
+
+    function bindPreviewPointerEvents() {
+      const canvas = $("#previewCanvas");
+
+      canvas.addEventListener("pointerdown", (event) => {
+        const mode = state.settings.toolMode || "move";
+        if (mode === "pan") {
+          event.preventDefault();
+          pointerState = {
+            pointerId: event.pointerId,
+            mode: "pan",
+            startClientX: event.clientX,
+            startClientY: event.clientY,
+            startPanX: Number(state.settings.previewPanX || 0),
+            startPanY: Number(state.settings.previewPanY || 0)
+          };
+          canvas.setPointerCapture(event.pointerId);
+          canvas.classList.add("dragging");
+          return;
+        }
+
+        const target = selectedTransformTarget();
+        if (!target) return;
+        event.preventDefault();
+        const startPoint = previewPointerPoint(event);
+        const center = transformTargetCenter(target);
+        pointerState = {
+          pointerId: event.pointerId,
+          mode,
+          startPoint,
+          center,
+          startDistance: Math.max(1, Math.hypot(startPoint.x - center.x, startPoint.y - center.y)),
+          x: Number(target.x || 0),
+          y: Number(target.y || 0),
+          scale: Number(target.scale || 1),
+          rotation: Number(target.rotation || 0)
+        };
+        canvas.setPointerCapture(event.pointerId);
+        canvas.classList.add("dragging");
+      });
+
+      canvas.addEventListener("pointermove", (event) => {
+        if (!pointerState || pointerState.pointerId !== event.pointerId) return;
+        event.preventDefault();
+
+        if (pointerState.mode === "pan") {
+          state.settings.previewPanX = Math.round(pointerState.startPanX + (event.clientX - pointerState.startClientX));
+          state.settings.previewPanY = Math.round(pointerState.startPanY + (event.clientY - pointerState.startClientY));
+          updatePreviewView();
+          return;
+        }
+
+        const target = selectedTransformTarget();
+        if (!target) return;
+
+        const point = previewPointerPoint(event);
+        const dx = point.x - pointerState.startPoint.x;
+        const dy = point.y - pointerState.startPoint.y;
+        const mode = state.settings.toolMode || "move";
+
+        if (mode === "move") {
+          target.x = Math.round(pointerState.x + dx);
+          target.y = Math.round(pointerState.y + dy);
+        } else if (mode === "scale") {
+          const distance = Math.max(1, Math.hypot(point.x - pointerState.center.x, point.y - pointerState.center.y));
+          const distanceScale = distance / pointerState.startDistance;
+          target.scale = clamp(pointerState.scale * distanceScale, 0.05, 4);
+        } else if (mode === "rotate") {
+          const startAngle = Math.atan2(pointerState.startPoint.y - pointerState.center.y, pointerState.startPoint.x - pointerState.center.x);
+          const currentAngle = Math.atan2(point.y - pointerState.center.y, point.x - pointerState.center.x);
+          const deltaDeg = (currentAngle - startAngle) * 180 / Math.PI;
+          target.rotation = clamp(pointerState.rotation + deltaDeg, -180, 180);
+        }
+
+        syncTargetSliders();
+        renderPreview();
+      });
+
+      canvas.addEventListener("pointerup", (event) => endPreviewPointerDrag(canvas, event.pointerId));
+      canvas.addEventListener("pointercancel", (event) => endPreviewPointerDrag(canvas, event.pointerId));
+      canvas.addEventListener("lostpointercapture", () => endPreviewPointerDrag(canvas));
+      canvas.addEventListener("wheel", (event) => { const target = selectedTransformTarget(); if (!target) return; event.preventDefault(); if (event.shiftKey) target.rotation = clamp((target.rotation || 0) + (event.deltaY > 0 ? 2 : -2), -180, 180); else target.scale = clamp((target.scale || 1) + (event.deltaY > 0 ? -0.03 : 0.03), 0.05, 4); syncTargetSliders(); renderPreview(); }, { passive: false });
+    }
+
+    function applySelectedPreset() { const character = activeCharacter(); const presetId = $("#presetSelect").value; if (!presetId) return; const preset = character.presets.find((item) => item.id === presetId); if (!preset) return; applySelectionSnapshot(preset.selection, character); renderLayers(); renderPreview(); setStatusT("presetApplied", { name: preset.name }); }
+    async function tryAutoLoadCache() { try { const cached = await loadFromCache(); if (cached) { const currentLang = state.settings.uiLanguage; state = normalizeState(cached); state.settings.uiLanguage = currentLang; imageCache.clear(); registeredFonts.clear(); await registerCustomFonts(); renderAll(); setStatusT("cacheAutoLoaded"); } } catch (error) { console.warn("cache auto load skipped:", error); } }
 
     bindEvents();
     state = normalizeState(state);
-    renderAll();
-    tryAutoLoadCache();
+    registerCustomFonts().then(() => { renderAll(); tryAutoLoadCache(); });
   </script>
 </body>
 </html>
