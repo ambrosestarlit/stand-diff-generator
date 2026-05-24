@@ -603,6 +603,8 @@
             <button type="button" class="tool-btn small" data-tool-mode="move" data-i18n="toolMove">ドラッグ移動</button>
             <button type="button" class="tool-btn small" data-tool-mode="scale" data-i18n="toolScale">ドラッグでサイズ</button>
             <button type="button" class="tool-btn small" data-tool-mode="rotate" data-i18n="toolRotate">ドラッグで回転</button>
+            <button type="button" id="undoBtn" class="small secondary" data-i18n="undoButton" title="Ctrl+Z">戻る</button>
+            <button type="button" id="redoBtn" class="small secondary" data-i18n="redoButton" title="Ctrl+Shift+Z">やり直す</button>
           </div>
         </div>
       </div>
@@ -754,7 +756,7 @@
         appTitle: "立ち絵の差分ジェネレーター",
         appSubtitle: "カテゴリごとに画像を登録し、背景・テキスト・立ち絵を重ねてPNGを書き出します。",
         languageLabel: "Language",
-        layerPresetLabel: "レイヤー構成プリセット", layerPresetNameLabel: "プリセット名", layerPresetNamePlaceholder: "例：画像差分セット", newCreateButton: "新規作成", defaultLayerPresetName: "キャラクター差分セット", categorySection: "カテゴリ管理", categoryNameLabel: "カテゴリ名", categoryNamePlaceholder: "例：髪の毛(前)", addLayerButton: "レイヤー追加", categoryTypeMulti: "組み合わせレイヤー", categoryTypeSingle: "単独レイヤー", categoryTypeHint: "追加前にカテゴリの種類を選ぶと、複数組み合わせ可能か、1つだけ反映かを切り替えられます。", categoryOrderHint: "カテゴリパネルの ↑ / ↓ で並び替えると、描画順も同じ構成で更新されます。", moveUpButton: "↑", moveDownButton: "↓", bgImageDisabledHint: "このプリセットでは背景画像レイヤーは使わず、背景パネルのみ使えます。",
+        layerPresetLabel: "レイヤー構成プリセット", layerPresetNameLabel: "プリセット名", layerPresetNamePlaceholder: "例：画像差分セット", newCreateButton: "新規作成", defaultLayerPresetName: "キャラクター差分セット", categorySection: "カテゴリ管理", categoryNameLabel: "カテゴリ名", categoryNamePlaceholder: "例：髪の毛(前)", addLayerButton: "レイヤー追加", categoryTypeMulti: "組み合わせレイヤー", categoryTypeSingle: "単独レイヤー", categoryTarget: "カテゴリ", categoryTypeHint: "追加前にカテゴリの種類を選ぶと、複数組み合わせ可能か、1つだけ反映かを切り替えられます。", categoryOrderHint: "カテゴリパネルの ↑ / ↓ で並び替えると、描画順も同じ構成で更新されます。", moveUpButton: "↑", moveDownButton: "↓", bgImageDisabledHint: "このプリセットでは背景画像レイヤーは使わず、背景パネルのみ使えます。",
         characterLabel: "キャラクター", characterNameLabel: "キャラクター名", characterNamePlaceholder: "キャラクター名", addButton: "追加", renameButton: "名前変更", deleteButton: "削除",
         presetLabel: "プリセット", presetNameLabel: "プリセット名", presetNamePlaceholder: "例：通常笑顔 / 照れ / 怒り", savePresetButton: "現在の組み合わせを保存", applyButton: "適用",
         basicSettings: "基本設定", canvasHeightLabel: "縦幅", canvasWidthLabel: "横幅", canvasSizePresetLabel: "キャンバスサイズプリセット", canvasPresetNameLabel: "プリセット名", canvasPresetNamePlaceholder: "例：配信用サムネ / DLsite用", canvasPresetRegister: "プリセット登録", canvasPresetImageSize: "画像サイズ", canvasPresetSaved: "キャンバスサイズプリセットを登録しました。", selectCanvasPresetDelete: "削除するキャンバスサイズプリセットを選択してください。", canvasPresetDeleted: "キャンバスサイズプリセットを削除しました。", canvasPresetApplied: "キャンバスサイズを適用しました。",
@@ -762,7 +764,7 @@
         previewBgLabel: "プレビュー背景", bgTransparent: "透明確認", bgWhite: "白", bgMint: "くすみミント", exportHeightLabel: "書き出し縦幅(px)", sizeLabel: "サイズ", sizeOriginal: "原寸", sizeHeight: "縦幅指定", exportPngButton: "PNG書き出し", exportSettingsButton: "書き出し", exportSettingsTitle: "書き出し設定", closeButton: "閉じる",
         jsonSaveButton: "JSON保存", jsonLoadButton: "JSON読込", cacheSaveButton: "キャッシュ保存", cacheLoadButton: "キャッシュ読込", cacheDeleteButton: "キャッシュ削除",
         backgroundSection: "背景レイヤー", textSection: "テキストレイヤー", textDetailSection: "選択中テキスト詳細", commonFontSection: "共通フォント一覧", customFontSection: "任意フォント", registerFont: "フォント登録", commonFontHint: "登録したフォントはすべてのテキストレイヤーで共通利用できます。フォントのプルダウンには default の後に登録フォントが追加されます。", fontHint: "登録したフォントはテキストレイヤーと文字部分指定で選択できます。", transformSection: "選択対象の位置・サイズ・角度", transformHint: "操作対象をチェックで選び、表示移動 / 移動 / サイズ / 回転を選んでプレビュー上でドラッグできます。細かい数値調整はここで行います。",
-        addTextLayer: "テキスト追加", duplicateButton: "複製", toolTargetLabel: "操作対象", toolModeLabel: "プレビュー操作", toolPan: "表示移動", toolMove: "ドラッグ移動", toolScale: "ドラッグでサイズ", toolRotate: "ドラッグで回転", standingTarget: "立ち絵", textTarget: "テキスト", previewFit: "全体表示", previewOriginal: "原寸表示", previewZoom: "倍率",
+        addTextLayer: "テキスト追加", duplicateButton: "複製", toolTargetLabel: "操作対象", toolModeLabel: "プレビュー操作", toolPan: "表示移動", toolMove: "ドラッグ移動", toolScale: "ドラッグでサイズ", toolRotate: "ドラッグで回転", undoButton: "戻る", redoButton: "やり直す", undoDone: "操作を戻しました。", redoDone: "操作をやり直しました。", standingTarget: "立ち絵", textTarget: "テキスト", previewFit: "全体表示", previewOriginal: "原寸表示", previewZoom: "倍率",
         scaleLabel: "スケール", xMoveLabel: "X移動", yMoveLabel: "Y移動", rotationLabel: "角度",
         hintText: "背景1→背景2→背面テキスト→立ち絵→前面テキストの順に描画します。プレビュー操作の変更はPNG書き出しにも反映されます。",
         bg1: "背景1", bg2: "背景2", bgVisible: "表示", bgRegister: "背景画像登録", bgClear: "背景削除", bgNotLoaded: "未登録", bgLoaded: "登録済み：{name}", bgScale: "背景スケール", bgX: "背景X", bgY: "背景Y", bgPanel: "背景パネル", bgPanelColor: "背景色", bgPanelVisible: "プレビューに表示", bgPanelExport: "背景パネルを書き出す", browsAboveHairFront: "眉毛を髪の毛(手前)より前に表示", browsYOffset: "眉毛Y",
@@ -778,10 +780,10 @@
     };
 
     I18N.en = { ...I18N.ja,
-      appTitle: "Standing Image Variant Generator", appSubtitle: "Register image parts, add backgrounds and text layers, then export as PNG.", layerPresetLabel: "Layer Structure Preset", layerPresetNameLabel: "Preset name", layerPresetNamePlaceholder: "Example: Image Variant Set", newCreateButton: "New", defaultLayerPresetName: "Character Variant Set", categorySection: "Category Management", categoryNameLabel: "Category name", categoryNamePlaceholder: "Example: Front Hair", addLayerButton: "Add Layer", categoryTypeMulti: "Combinable layer", categoryTypeSingle: "Single layer", categoryTypeHint: "Choose the category type before adding to control whether multiple items can be combined or only one can be active.", categoryOrderHint: "Use ↑ / ↓ on category panels to reorder; drawing order follows the same structure.", moveUpButton: "↑", moveDownButton: "↓", bgImageDisabledHint: "This preset uses only the background panel. Background image layers are disabled.", characterLabel: "Character", characterNameLabel: "Character name", characterNamePlaceholder: "Character name", addButton: "Add", renameButton: "Rename", deleteButton: "Delete", presetLabel: "Preset", presetNameLabel: "Preset name", presetNamePlaceholder: "Example: Normal smile / Shy / Angry", savePresetButton: "Save current combination", applyButton: "Apply",
+      appTitle: "Standing Image Variant Generator", appSubtitle: "Register image parts, add backgrounds and text layers, then export as PNG.", layerPresetLabel: "Layer Structure Preset", layerPresetNameLabel: "Preset name", layerPresetNamePlaceholder: "Example: Image Variant Set", newCreateButton: "New", defaultLayerPresetName: "Character Variant Set", categorySection: "Category Management", categoryNameLabel: "Category name", categoryNamePlaceholder: "Example: Front Hair", addLayerButton: "Add Layer", categoryTypeMulti: "Combinable layer", categoryTypeSingle: "Single layer", categoryTarget: "Category", categoryTypeHint: "Choose the category type before adding to control whether multiple items can be combined or only one can be active.", categoryOrderHint: "Use ↑ / ↓ on category panels to reorder; drawing order follows the same structure.", moveUpButton: "↑", moveDownButton: "↓", bgImageDisabledHint: "This preset uses only the background panel. Background image layers are disabled.", characterLabel: "Character", characterNameLabel: "Character name", characterNamePlaceholder: "Character name", addButton: "Add", renameButton: "Rename", deleteButton: "Delete", presetLabel: "Preset", presetNameLabel: "Preset name", presetNamePlaceholder: "Example: Normal smile / Shy / Angry", savePresetButton: "Save current combination", applyButton: "Apply",
       basicSettings: "Basic Settings", canvasHeightLabel: "Height", canvasWidthLabel: "Width", canvasSizePresetLabel: "Canvas Size Preset", canvasPresetNameLabel: "Preset name", canvasPresetNamePlaceholder: "Example: Thumbnail / DLsite", canvasPresetRegister: "Save preset", canvasPresetImageSize: "Image size", canvasPresetSaved: "Canvas size preset saved.", selectCanvasPresetDelete: "Select a canvas size preset to delete.", canvasPresetDeleted: "Canvas size preset deleted.", canvasPresetApplied: "Canvas size applied.",
       previewTitle: "Preview / Export", previewSubtitle: "Move, rotate, and scale the whole standing image or text layers on the preview. Backgrounds use their own sliders.", previewBgLabel: "Preview background", bgTransparent: "Transparency check", bgWhite: "White", bgMint: "Muted mint", exportHeightLabel: "Export height (px)", sizeLabel: "Size", sizeOriginal: "Original", sizeHeight: "Custom height", exportPngButton: "Export PNG", exportSettingsButton: "Export", exportSettingsTitle: "Export Settings", closeButton: "Close", jsonSaveButton: "Save JSON", jsonLoadButton: "Load JSON", cacheSaveButton: "Save cache", cacheLoadButton: "Load cache", cacheDeleteButton: "Delete cache",
-      backgroundSection: "Background Layers", textSection: "Text Layers", textDetailSection: "Selected Text Details", commonFontSection: "Shared Font List", registerFont: "Add Font", commonFontHint: "Registered fonts are shared by all text layers. The font dropdown shows default first, then added custom fonts.", transformSection: "Selected Target Position / Size / Rotation", transformHint: "Choose the target with checkboxes, select Move / Size / Rotate, then drag on the preview. Fine adjustment is here.", addTextLayer: "Add Text", duplicateButton: "Duplicate", toolTargetLabel: "Target", toolModeLabel: "Preview Tool", toolPan: "Pan view", toolMove: "Move", toolScale: "Scale", toolRotate: "Rotate", standingTarget: "Standing image", textTarget: "Text", previewFit: "Fit", previewOriginal: "Original", previewZoom: "Zoom", scaleLabel: "Scale", xMoveLabel: "X Move", yMoveLabel: "Y Move", rotationLabel: "Rotation", hintText: "Draw order: Background 1 → Background 2 → Back Text → Standing Image → Front Text. Preview edits are applied to PNG export.", noteExclusive: "Selecting one item automatically clears the previous selection in this category.", noteParts: "Multiple items can be combined in this category.", noteDiff: "Click a completed variant to switch. Multiple selection is not allowed.",
+      backgroundSection: "Background Layers", textSection: "Text Layers", textDetailSection: "Selected Text Details", commonFontSection: "Shared Font List", registerFont: "Add Font", commonFontHint: "Registered fonts are shared by all text layers. The font dropdown shows default first, then added custom fonts.", transformSection: "Selected Target Position / Size / Rotation", transformHint: "Choose the target with checkboxes, select Move / Size / Rotate, then drag on the preview. Fine adjustment is here.", addTextLayer: "Add Text", duplicateButton: "Duplicate", toolTargetLabel: "Target", toolModeLabel: "Preview Tool", toolPan: "Pan view", toolMove: "Move", toolScale: "Scale", toolRotate: "Rotate", undoButton: "Undo", redoButton: "Redo", undoDone: "Undid the last operation.", redoDone: "Redid the operation.", standingTarget: "Standing image", textTarget: "Text", previewFit: "Fit", previewOriginal: "Original", previewZoom: "Zoom", scaleLabel: "Scale", xMoveLabel: "X Move", yMoveLabel: "Y Move", rotationLabel: "Rotation", hintText: "Draw order: Background 1 → Background 2 → Back Text → Standing Image → Front Text. Preview edits are applied to PNG export.", noteExclusive: "Selecting one item automatically clears the previous selection in this category.", noteParts: "Multiple items can be combined in this category.", noteDiff: "Click a completed variant to switch. Multiple selection is not allowed.",
       bg1: "Background 1", bg2: "Background 2", bgVisible: "Visible", bgRegister: "Add background", bgClear: "Clear background", bgNotLoaded: "Not loaded", bgLoaded: "Loaded: {name}", bgScale: "BG Scale", bgX: "BG X", bgY: "BG Y", bgPanel: "Background Panel", bgPanelColor: "Background color", bgPanelVisible: "Show in preview", bgPanelExport: "Export background panel", browsAboveHairFront: "Show brows above front hair", browsYOffset: "Brows Y",
       textName: "Layer name", textBody: "Text", textBodyPlaceholder: "Enter text", textVisible: "Visible", textPlacement: "Position", textBack: "Behind standing image", textFront: "In front of standing image", textAlign: "Alignment", alignLeft: "Left", alignCenter: "Center", alignRight: "Right", writingMode: "Writing direction", writingHorizontal: "Horizontal", writingVertical: "Vertical", verticalLatinRotate: "Rotate Latin/numbers sideways", verticalColumnGap: "Vertical column gap", wrapWidth: "Wrap width", wrapHeight: "Wrap height", font: "Font", fontSize: "Font size", textColor: "Text color", lineHeight: "Line height", letterSpacing: "Letter spacing", stroke: "Stroke", strokeColor: "Stroke color", strokeWidth: "Stroke width", shadow: "Drop shadow", shadowColor: "Shadow color", shadowBlur: "Shadow blur", shadowX: "Shadow X", shadowY: "Shadow Y",
       inlineStyleTitle: "Partial Text Styling", inlineStyleHint: "Change font, color, size, stroke, and shadow only for specified text. Separate multiple strings with commas.", inlineStyleEmpty: "No assignments yet.", inlineStyleItem: "Assignment {number}", inlineStyleTargets: "Target text", inlineStyleTargetsPlaceholder: "e.g. red, sea", inlineStyleFont: "Assigned font", inlineStyleColor: "Color", inlineStyleSize: "Size", inlineStyleStrokeColor: "Stroke color", inlineStyleStrokeWidth: "Stroke width", inlineStyleShadowColor: "Shadow color", inlineStyleShadowBlur: "Shadow blur", addInlineStyle: "+ Add",
@@ -789,10 +791,10 @@
     };
 
     I18N.ko = { ...I18N.ja,
-      appTitle: "스탠딩 이미지 표정 차분 생성기", appSubtitle: "이미지 파츠, 배경, 텍스트 레이어를 겹쳐 PNG로 내보냅니다.", layerPresetLabel: "레이어 구성 프리셋", layerPresetNameLabel: "프리셋 이름", layerPresetNamePlaceholder: "예: 이미지 차분 세트", newCreateButton: "새로 만들기", defaultLayerPresetName: "캐릭터 차분 세트", categorySection: "카테고리 관리", categoryNameLabel: "카테고리명", categoryNamePlaceholder: "예: 앞머리", addLayerButton: "레이어 추가", categoryTypeMulti: "조합 레이어", categoryTypeSingle: "단독 레이어", categoryTypeHint: "추가 전에 카테고리 종류를 선택하면, 여러 항목 조합 가능 여부와 1개만 활성화할지를 정할 수 있습니다.", categoryOrderHint: "카테고리 패널의 ↑ / ↓로 순서를 바꾸면 그리기 순서도 함께 변경됩니다.", moveUpButton: "↑", moveDownButton: "↓", bgImageDisabledHint: "이 프리셋에서는 배경 이미지 레이어를 사용하지 않고 배경 패널만 사용할 수 있습니다.", characterLabel: "캐릭터", characterNameLabel: "캐릭터 이름", characterNamePlaceholder: "캐릭터 이름", addButton: "추가", renameButton: "이름 변경", deleteButton: "삭제", presetLabel: "프리셋", presetNameLabel: "프리셋 이름", presetNamePlaceholder: "예: 기본 미소 / 부끄러움 / 화남", savePresetButton: "현재 조합 저장", applyButton: "적용",
+      appTitle: "스탠딩 이미지 표정 차분 생성기", appSubtitle: "이미지 파츠, 배경, 텍스트 레이어를 겹쳐 PNG로 내보냅니다.", layerPresetLabel: "레이어 구성 프리셋", layerPresetNameLabel: "프리셋 이름", layerPresetNamePlaceholder: "예: 이미지 차분 세트", newCreateButton: "새로 만들기", defaultLayerPresetName: "캐릭터 차분 세트", categorySection: "카테고리 관리", categoryNameLabel: "카테고리명", categoryNamePlaceholder: "예: 앞머리", addLayerButton: "레이어 추가", categoryTypeMulti: "조합 레이어", categoryTypeSingle: "단독 레이어", categoryTarget: "카테고리", categoryTypeHint: "추가 전에 카테고리 종류를 선택하면, 여러 항목 조합 가능 여부와 1개만 활성화할지를 정할 수 있습니다.", categoryOrderHint: "카테고리 패널의 ↑ / ↓로 순서를 바꾸면 그리기 순서도 함께 변경됩니다.", moveUpButton: "↑", moveDownButton: "↓", bgImageDisabledHint: "이 프리셋에서는 배경 이미지 레이어를 사용하지 않고 배경 패널만 사용할 수 있습니다.", characterLabel: "캐릭터", characterNameLabel: "캐릭터 이름", characterNamePlaceholder: "캐릭터 이름", addButton: "추가", renameButton: "이름 변경", deleteButton: "삭제", presetLabel: "프리셋", presetNameLabel: "프리셋 이름", presetNamePlaceholder: "예: 기본 미소 / 부끄러움 / 화남", savePresetButton: "현재 조합 저장", applyButton: "적용",
       basicSettings: "기본 설정", canvasHeightLabel: "세로", canvasWidthLabel: "가로", canvasSizePresetLabel: "캔버스 크기 프리셋", canvasPresetNameLabel: "프리셋 이름", canvasPresetNamePlaceholder: "예: 썸네일 / DLsite", canvasPresetRegister: "프리셋 등록", canvasPresetImageSize: "이미지 크기", canvasPresetSaved: "캔버스 크기 프리셋을 등록했습니다.", selectCanvasPresetDelete: "삭제할 캔버스 크기 프리셋을 선택해 주세요.", canvasPresetDeleted: "캔버스 크기 프리셋을 삭제했습니다.", canvasPresetApplied: "캔버스 크기를 적용했습니다.",
       previewTitle: "미리보기 / 내보내기", previewSubtitle: "미리보기에서 스탠딩 이미지 전체 또는 텍스트를 이동, 회전, 크기 조절할 수 있습니다. 배경은 전용 슬라이더로 조정합니다.", previewBgLabel: "미리보기 배경", bgTransparent: "투명 확인", bgWhite: "흰색", bgMint: "차분한 민트", exportHeightLabel: "내보내기 세로(px)", sizeLabel: "크기", sizeOriginal: "원본", sizeHeight: "세로 지정", exportPngButton: "PNG 내보내기", exportSettingsButton: "내보내기", exportSettingsTitle: "내보내기 설정", closeButton: "닫기", jsonSaveButton: "JSON 저장", jsonLoadButton: "JSON 불러오기", cacheSaveButton: "캐시 저장", cacheLoadButton: "캐시 불러오기", cacheDeleteButton: "캐시 삭제",
-      backgroundSection: "배경 레이어", textSection: "텍스트 레이어", textDetailSection: "선택한 텍스트 상세", commonFontSection: "공통 폰트 목록", registerFont: "폰트 등록", commonFontHint: "등록한 폰트는 모든 텍스트 레이어에서 공통으로 사용됩니다. 폰트 드롭다운에는 default 다음에 사용자 폰트가 추가됩니다.", transformSection: "선택 대상 위치 / 크기 / 각도", transformHint: "조작 대상을 체크로 선택하고 이동 / 크기 / 회전 버튼을 고른 뒤 미리보기에서 드래그하세요. 세부 조정은 여기서 합니다.", addTextLayer: "텍스트 추가", duplicateButton: "복제", toolTargetLabel: "조작 대상", toolModeLabel: "미리보기 조작", toolPan: "표시 이동", toolMove: "이동", toolScale: "크기", toolRotate: "회전", standingTarget: "스탠딩 이미지", textTarget: "텍스트", previewFit: "전체 표시", previewOriginal: "원본 표시", previewZoom: "배율", scaleLabel: "스케일", xMoveLabel: "X 이동", yMoveLabel: "Y 이동", rotationLabel: "각도", hintText: "배경1→배경2→뒤 텍스트→스탠딩 이미지→앞 텍스트 순서로 그립니다. 미리보기 조작은 PNG 내보내기에 반영됩니다.", noteExclusive: "하나를 선택하면 같은 카테고리의 이전 선택은 자동으로 해제됩니다.", noteParts: "같은 카테고리 안에서 여러 항목을 겹칠 수 있습니다.", noteDiff: "완성된 차분을 클릭해 전환합니다. 복수 선택은 불가능합니다.",
+      backgroundSection: "배경 레이어", textSection: "텍스트 레이어", textDetailSection: "선택한 텍스트 상세", commonFontSection: "공통 폰트 목록", registerFont: "폰트 등록", commonFontHint: "등록한 폰트는 모든 텍스트 레이어에서 공통으로 사용됩니다. 폰트 드롭다운에는 default 다음에 사용자 폰트가 추가됩니다.", transformSection: "선택 대상 위치 / 크기 / 각도", transformHint: "조작 대상을 체크로 선택하고 이동 / 크기 / 회전 버튼을 고른 뒤 미리보기에서 드래그하세요. 세부 조정은 여기서 합니다.", addTextLayer: "텍스트 추가", duplicateButton: "복제", toolTargetLabel: "조작 대상", toolModeLabel: "미리보기 조작", toolPan: "표시 이동", toolMove: "이동", toolScale: "크기", toolRotate: "회전", undoButton: "되돌리기", redoButton: "다시 실행", undoDone: "작업을 되돌렸습니다.", redoDone: "작업을 다시 실행했습니다.", standingTarget: "스탠딩 이미지", textTarget: "텍스트", previewFit: "전체 표시", previewOriginal: "원본 표시", previewZoom: "배율", scaleLabel: "스케일", xMoveLabel: "X 이동", yMoveLabel: "Y 이동", rotationLabel: "각도", hintText: "배경1→배경2→뒤 텍스트→스탠딩 이미지→앞 텍스트 순서로 그립니다. 미리보기 조작은 PNG 내보내기에 반영됩니다.", noteExclusive: "하나를 선택하면 같은 카테고리의 이전 선택은 자동으로 해제됩니다.", noteParts: "같은 카테고리 안에서 여러 항목을 겹칠 수 있습니다.", noteDiff: "완성된 차분을 클릭해 전환합니다. 복수 선택은 불가능합니다.",
       bg1: "배경1", bg2: "배경2", bgVisible: "표시", bgRegister: "배경 이미지 등록", bgClear: "배경 삭제", bgNotLoaded: "미등록", bgLoaded: "등록됨: {name}", bgScale: "배경 스케일", bgX: "배경 X", bgY: "배경 Y", bgPanel: "배경 패널", bgPanelColor: "배경색", bgPanelVisible: "미리보기에 표시", bgPanelExport: "배경 패널 내보내기", browsAboveHairFront: "눈썹을 앞머리보다 위에 표시", browsYOffset: "눈썹 Y",
       textName: "레이어 이름", textBody: "텍스트", textBodyPlaceholder: "표시할 텍스트 입력", textVisible: "표시", textPlacement: "표시 위치", textBack: "스탠딩 이미지 뒤", textFront: "스탠딩 이미지 앞", textAlign: "문자 정렬", alignLeft: "왼쪽", alignCenter: "가운데", alignRight: "오른쪽", writingMode: "문자 방향", writingHorizontal: "가로쓰기", writingVertical: "세로쓰기", verticalLatinRotate: "영문/숫자 옆으로 회전", verticalColumnGap: "세로 열 간격", wrapWidth: "줄바꿈 폭", wrapHeight: "줄바꿈 높이", font: "폰트", fontSize: "폰트 크기", textColor: "문자색", lineHeight: "줄 간격", letterSpacing: "자간", stroke: "외곽선", strokeColor: "외곽선 색", strokeWidth: "외곽선 두께", shadow: "드롭 섀도", shadowColor: "그림자 색", shadowBlur: "그림자 흐림", shadowX: "그림자 X", shadowY: "그림자 Y",
       inlineStyleTitle: "부분 텍스트 지정", inlineStyleHint: "지정한 문자열에만 폰트, 색상, 크기, 외곽선, 그림자를 변경할 수 있습니다. 여러 항목은 쉼표로 구분하세요.", inlineStyleEmpty: "아직 지정이 없습니다.", inlineStyleItem: "지정 {number}", inlineStyleTargets: "지정할 문자열", inlineStyleTargetsPlaceholder: "예: 빨간, 바다", inlineStyleFont: "지정 폰트", inlineStyleColor: "색상", inlineStyleSize: "크기", inlineStyleStrokeColor: "외곽선 색", inlineStyleStrokeWidth: "외곽선 두께", inlineStyleShadowColor: "그림자 색", inlineStyleShadowBlur: "그림자 흐림", addInlineStyle: "+ 추가",
@@ -830,6 +832,11 @@
     let previewRenderToken = 0;
     let pointerState = null;
     let state;
+    const undoStack = [];
+    const redoStack = [];
+    const MAX_HISTORY = 80;
+    let isRestoringHistory = false;
+    let sliderHistoryArmed = false;
 
     function safeStorageGet(key) { try { return window.localStorage?.getItem(key) || null; } catch (error) { return null; } }
     function safeStorageSet(key, value) { try { window.localStorage?.setItem(key, value); } catch (error) {} }
@@ -854,6 +861,55 @@
     function safeArray(value) { return Array.isArray(value) ? value : []; }
     function clone(value) { return JSON.parse(JSON.stringify(value)); }
 
+    function snapshotState() { return JSON.stringify(state); }
+    function pushUndoSnapshot() {
+      if (!state || isRestoringHistory) return;
+      const snapshot = snapshotState();
+      if (undoStack[undoStack.length - 1] === snapshot) return;
+      undoStack.push(snapshot);
+      if (undoStack.length > MAX_HISTORY) undoStack.shift();
+      redoStack.length = 0;
+      syncUndoRedoButtons();
+    }
+    async function restoreHistorySnapshot(snapshot) {
+      isRestoringHistory = true;
+      try {
+        state = normalizeState(JSON.parse(snapshot));
+        pointerState = null;
+        imageCache.clear();
+        registeredFonts.clear();
+        await registerCustomFonts();
+        renderAll();
+      } finally {
+        isRestoringHistory = false;
+        syncUndoRedoButtons();
+      }
+    }
+    async function undoAction() {
+      if (!undoStack.length || !state) return;
+      const current = snapshotState();
+      const previous = undoStack.pop();
+      redoStack.push(current);
+      if (redoStack.length > MAX_HISTORY) redoStack.shift();
+      await restoreHistorySnapshot(previous);
+      setStatusT("undoDone");
+    }
+    async function redoAction() {
+      if (!redoStack.length || !state) return;
+      const current = snapshotState();
+      const next = redoStack.pop();
+      undoStack.push(current);
+      if (undoStack.length > MAX_HISTORY) undoStack.shift();
+      await restoreHistorySnapshot(next);
+      setStatusT("redoDone");
+    }
+    function syncUndoRedoButtons() {
+      const undoBtn = $("#undoBtn");
+      const redoBtn = $("#redoBtn");
+      if (undoBtn) undoBtn.disabled = !undoStack.length;
+      if (redoBtn) redoBtn.disabled = !redoStack.length;
+    }
+
     function applyLanguage() {
       const lang = currentLanguage();
       document.documentElement.lang = lang;
@@ -869,10 +925,10 @@
     function createBackgroundLayer(index) { return { id: `bg${index}`, nameKey: `bg${index}`, visible: false, dataUrl: "", fileName: "", width: 0, height: 0, x: 0, y: 0, scale: 1 }; }
     function createBackgroundPanel() { return { visible: false, color: "#ffffff", exportEnabled: false }; }
     function createDefaultCanvasPresets() { return DEFAULT_CANVAS_PRESETS.map((preset) => ({ ...preset })); }
-    function createLayerCategory(id, name, exclusive = false) { return { id: id || uid("category"), name: String(name || t("unnamed")), exclusive: Boolean(exclusive) }; }
+    function createLayerCategory(id, name, exclusive = false, transform = null) { return { id: id || uid("category"), name: String(name || t("unnamed")), exclusive: Boolean(exclusive), transform: normalizeTransform(transform || defaultTransform()) }; }
     function createDefaultLayerPreset() { return { id: "layerPreset-character-default", name: t("defaultLayerPresetName"), useBackgroundImages: true, categories: DEFAULT_LAYER_CATEGORIES.map((layer) => createLayerCategory(layer.id, layer.name, layer.exclusive)) }; }
     function createLayerPreset(name) { return { id: uid("layerPreset"), name: String(name || t("unnamed")), useBackgroundImages: false, categories: [] }; }
-    function normalizeLayerCategory(category, index = 0) { return createLayerCategory(category?.id || uid("category"), category?.name || I18N.ja[`layer_${category?.id}`] || `${t("categoryNameLabel")} ${index + 1}`, Boolean(category?.exclusive)); }
+    function normalizeLayerCategory(category, index = 0) { return createLayerCategory(category?.id || uid("category"), category?.name || I18N.ja[`layer_${category?.id}`] || `${t("categoryNameLabel")} ${index + 1}`, Boolean(category?.exclusive), category?.transform); }
     function normalizeLayerPreset(preset) { const fallback = createDefaultLayerPreset(); return { id: preset?.id || uid("layerPreset"), name: String(preset?.name || fallback.name), useBackgroundImages: typeof preset?.useBackgroundImages === "boolean" ? preset.useBackgroundImages : (preset?.id === "layerPreset-character-default"), categories: safeArray(preset?.categories || preset?.layers).map(normalizeLayerCategory) }; }
     function activeLayerPreset() { return (state.layerPresets || []).find((preset) => preset.id === state.settings.activeLayerPresetId) || state.layerPresets?.[0] || createDefaultLayerPreset(); }
     function getLayerName(layer) { return layer?.name || I18N.ja[`layer_${layer?.id}`] || String(layer?.id || t("unnamed")); }
@@ -985,7 +1041,9 @@
       if (!normalized.activeTextLayerId || !normalized.textLayers.some((layer) => layer.id === normalized.activeTextLayerId)) normalized.activeTextLayerId = normalized.textLayers[0]?.id || "";
       normalized.customFonts = safeArray(normalized.customFonts).map((font) => ({ id: font.id || uid("font"), name: font.name || font.fileName || "Custom Font", family: font.family || `CustomFont_${uid("f")}`, dataUrl: font.dataUrl || "", fileName: font.fileName || font.name || "Custom Font" })).filter((font) => font.dataUrl);
       normalized.activeToolTarget = normalized.activeToolTarget || "standing";
-      if (normalized.activeToolTarget !== "standing" && !normalized.textLayers.some((layer) => `text:${layer.id}` === normalized.activeToolTarget)) normalized.activeToolTarget = normalized.activeTextLayerId ? `text:${normalized.activeTextLayerId}` : "standing";
+      const validTextTarget = normalized.textLayers.some((layer) => `text:${layer.id}` === normalized.activeToolTarget);
+      const validLayerTarget = safeArray(normalized.layerPresets).some((preset) => safeArray(preset.categories).some((category) => `layer:${category.id}` === normalized.activeToolTarget));
+      if (normalized.activeToolTarget !== "standing" && !validTextTarget && !validLayerTarget) normalized.activeToolTarget = normalized.activeTextLayerId ? `text:${normalized.activeTextLayerId}` : "standing";
       return normalized;
     }
 
@@ -994,10 +1052,19 @@
     function getActiveMode() { return "parts"; }
     function getActiveLayers() { return activeLayerPreset().categories || []; }
     function getLayerStore(character = activeCharacter()) { return character.layers; }
+    function activeTransformLayer() {
+      const match = String(state.activeToolTarget || "").match(/^layer:(.+)$/);
+      if (!match) return null;
+      const layer = getActiveLayers().find((item) => item.id === match[1]) || null;
+      if (layer && !layer.transform) layer.transform = defaultTransform();
+      return layer;
+    }
     function selectedTransformTarget() {
       if (state.activeToolTarget === "standing") return activeCharacter().transform;
-      const match = String(state.activeToolTarget || "").match(/^text:(.+)$/);
-      if (match) return state.textLayers.find((layer) => layer.id === match[1]) || null;
+      const textMatch = String(state.activeToolTarget || "").match(/^text:(.+)$/);
+      if (textMatch) return state.textLayers.find((layer) => layer.id === textMatch[1]) || null;
+      const layer = activeTransformLayer();
+      if (layer) return layer.transform;
       return activeCharacter().transform;
     }
 
@@ -1047,7 +1114,7 @@
 
     function renderAll() {
       ensureAllCharacterLayerKeys();
-      renderLayerPresetControls(); renderCharacterControls(); renderCanvasSettingsControls(); renderPresetControls(); renderBackgroundControls(); renderTextLayerList(); renderCustomFontList(); renderTextDetailEditor(); renderLayers(); renderToolTargetOptions(); syncSettingsControls(); updatePreviewStageBg(); syncTargetSliders(); renderPreview(); applyLanguage();
+      renderLayerPresetControls(); renderCharacterControls(); renderCanvasSettingsControls(); renderPresetControls(); renderBackgroundControls(); renderTextLayerList(); renderCustomFontList(); renderTextDetailEditor(); renderLayers(); renderToolTargetOptions(); syncSettingsControls(); updatePreviewStageBg(); syncTargetSliders(); renderPreview(); applyLanguage(); syncUndoRedoButtons();
     }
     function renderLayerPresetControls() {
       const select = $("#layerPresetSelect");
@@ -1401,9 +1468,9 @@
             const meta = document.createElement("div"); meta.className = "part-meta"; const nameInput = document.createElement("input"); nameInput.type = "text"; nameInput.value = part.name; nameInput.placeholder = t("partNamePlaceholder"); nameInput.addEventListener("input", () => { part.name = nameInput.value.trim() || t("unnamed"); }); const size = document.createElement("div"); size.className = "part-size"; size.textContent = `${part.width || "-"} × ${part.height || "-"} px${part.selected ? ` / ${t("displaying")}` : ""}`; meta.append(nameInput, size);
             const removeBtn = document.createElement("button"); removeBtn.className = "small danger"; removeBtn.textContent = t("deleteButton");
             const checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = part.selected; checkbox.title = t("applyDisplay");
-            const toggle = () => { setPartSelection(layer.id, part.id, !part.selected); renderLayers(); renderPreview(); };
+            const toggle = () => { setPartSelection(layer.id, part.id, !part.selected); if (!activeLayerPreset()?.useBackgroundImages) state.activeToolTarget = `layer:${layer.id}`; renderLayers(); renderToolTargetOptions(); syncTargetSliders(); renderPreview(); };
             row.addEventListener("click", (event) => { const tag = event.target.tagName.toLowerCase(); if (tag === "input" || tag === "button") return; toggle(); });
-            checkbox.addEventListener("change", () => { setPartSelection(layer.id, part.id, checkbox.checked); renderLayers(); renderPreview(); }); row.append(checkbox, img, meta, removeBtn);
+            checkbox.addEventListener("change", () => { setPartSelection(layer.id, part.id, checkbox.checked); if (!activeLayerPreset()?.useBackgroundImages) state.activeToolTarget = `layer:${layer.id}`; renderLayers(); renderToolTargetOptions(); syncTargetSliders(); renderPreview(); }); row.append(checkbox, img, meta, removeBtn);
             removeBtn.addEventListener("click", () => { store[layer.id] = parts.filter((item) => item.id !== part.id); imageCache.delete(part.dataUrl); renderLayers(); renderPreview(); }); list.appendChild(row);
           }
         }
@@ -1420,6 +1487,16 @@
     function setToolTarget(target) {
       if (target === "standing") {
         state.activeToolTarget = "standing";
+      } else if (target === "layer" || String(target || "").startsWith("layer:")) {
+        const requestedId = String(target || "").replace(/^layer:/, "");
+        const layers = getActiveLayers();
+        const layer = layers.find((item) => item.id === requestedId) || layers[0];
+        if (layer && !activeLayerPreset()?.useBackgroundImages) {
+          if (!layer.transform) layer.transform = defaultTransform();
+          state.activeToolTarget = `layer:${layer.id}`;
+        } else {
+          state.activeToolTarget = "standing";
+        }
       } else {
         const layerId = target?.replace(/^text:/, "") || state.activeTextLayerId || state.textLayers[0]?.id || "";
         const layer = state.textLayers.find((item) => item.id === layerId) || state.textLayers[0];
@@ -1442,15 +1519,22 @@
       if (!root) return;
 
       const currentTextLayer = state.textLayers.find((layer) => layer.id === state.activeTextLayerId) || state.textLayers[0] || null;
-      if (state.activeToolTarget !== "standing") {
-        const match = String(state.activeToolTarget || "").match(/^text:(.+)$/);
-        const matchedLayer = match ? state.textLayers.find((layer) => layer.id === match[1]) : null;
+      const layers = getActiveLayers();
+      const layerTargetEnabled = !activeLayerPreset()?.useBackgroundImages && layers.length > 0;
+      const currentLayerId = String(state.activeToolTarget || "").replace(/^layer:/, "");
+      const currentLayer = layers.find((layer) => layer.id === currentLayerId) || layers[0] || null;
+
+      if (String(state.activeToolTarget || "").startsWith("text:")) {
+        const matchedLayer = currentTextLayer ? state.textLayers.find((layer) => `text:${layer.id}` === state.activeToolTarget) : null;
         if (matchedLayer) state.activeTextLayerId = matchedLayer.id;
         else state.activeToolTarget = currentTextLayer ? `text:${currentTextLayer.id}` : "standing";
+      } else if (String(state.activeToolTarget || "").startsWith("layer:")) {
+        if (!layerTargetEnabled || !currentLayer) state.activeToolTarget = "standing";
       }
 
       const isStanding = state.activeToolTarget === "standing";
       const isText = String(state.activeToolTarget || "").startsWith("text:");
+      const isLayer = String(state.activeToolTarget || "").startsWith("layer:");
       root.innerHTML = "";
 
       const standingLabel = document.createElement("label");
@@ -1470,19 +1554,41 @@
       textCheck.addEventListener("change", () => setToolTarget("text"));
       textLabel.append(textCheck, document.createTextNode(` ${t("textTarget")}`));
 
-      const select = document.createElement("select");
-      select.className = "target-text-select";
-      select.disabled = state.textLayers.length === 0;
+      const textSelect = document.createElement("select");
+      textSelect.className = "target-text-select";
+      textSelect.disabled = state.textLayers.length === 0;
       for (const layer of state.textLayers) {
         const option = document.createElement("option");
         option.value = layer.id;
         option.textContent = getToolTextLayerLabel(layer);
         option.selected = layer.id === state.activeTextLayerId;
-        select.appendChild(option);
+        textSelect.appendChild(option);
       }
-      select.addEventListener("change", () => setToolTarget(`text:${select.value}`));
+      textSelect.addEventListener("change", () => setToolTarget(`text:${textSelect.value}`));
 
-      root.append(standingLabel, textLabel, select);
+      root.append(standingLabel, textLabel, textSelect);
+
+      if (layerTargetEnabled) {
+        const layerLabel = document.createElement("label");
+        layerLabel.className = `target-check${isLayer ? " active" : ""}`;
+        const layerCheck = document.createElement("input");
+        layerCheck.type = "checkbox";
+        layerCheck.checked = isLayer;
+        layerCheck.addEventListener("change", () => setToolTarget("layer"));
+        layerLabel.append(layerCheck, document.createTextNode(` ${t("categoryTarget")}`));
+
+        const layerSelect = document.createElement("select");
+        layerSelect.className = "target-text-select";
+        for (const layer of layers) {
+          const option = document.createElement("option");
+          option.value = layer.id;
+          option.textContent = getLayerName(layer);
+          option.selected = layer.id === (activeTransformLayer()?.id || currentLayer?.id);
+          layerSelect.appendChild(option);
+        }
+        layerSelect.addEventListener("change", () => setToolTarget(`layer:${layerSelect.value}`));
+        root.append(layerLabel, layerSelect);
+      }
     }
     function syncCanvasSizeInputs() {
       const size = getCanvasBaseSize();
@@ -1603,8 +1709,15 @@
       $("#targetX").value = target.x || 0; $("#targetY").value = target.y || 0; $("#targetScale").value = target.scale || 1; $("#targetRotation").value = target.rotation || 0;
       $("#targetXValue").textContent = `${Math.round(target.x || 0)}px`; $("#targetYValue").textContent = `${Math.round(target.y || 0)}px`; $("#targetScaleValue").textContent = Number(target.scale || 1).toFixed(2); $("#targetRotationValue").textContent = `${Math.round(target.rotation || 0)}°`;
     }
+    function armSliderHistory() {
+      if (sliderHistoryArmed) return;
+      sliderHistoryArmed = true;
+      pushUndoSnapshot();
+    }
+    function disarmSliderHistory() { sliderHistoryArmed = false; }
     function updateTargetFromSliders() {
       const target = selectedTransformTarget(); if (!target) return;
+      armSliderHistory();
       target.x = Number($("#targetX").value || 0); target.y = Number($("#targetY").value || 0); target.scale = Number($("#targetScale").value || 1); target.rotation = Number($("#targetRotation").value || 0);
       syncTargetSliders(); renderPreview(); if (state.activeToolTarget?.startsWith("text:")) renderTextDetailTransformOnly();
     }
@@ -1695,6 +1808,28 @@
       const contentSize = getNaturalContentSize(character);
       const contentWidth = contentSize.width;
       const contentHeight = contentSize.height;
+
+      if (!activeLayerPreset()?.useBackgroundImages) {
+        const groupTr = character.transform || defaultTransform();
+        for (const layer of drawLayers) {
+          const parts = (store[layer.id] || []).filter((part) => part.selected);
+          const tr = layer.transform || defaultTransform();
+          for (const part of parts) {
+            const img = await loadImage(part.dataUrl);
+            ctx.save();
+            ctx.translate(width / 2 + Number(groupTr.x || 0), height / 2 + Number(groupTr.y || 0));
+            ctx.rotate(Number(groupTr.rotation || 0) * Math.PI / 180);
+            ctx.scale(Number(groupTr.scale || 1), Number(groupTr.scale || 1));
+            ctx.translate(Number(tr.x || 0), Number(tr.y || 0));
+            ctx.rotate(Number(tr.rotation || 0) * Math.PI / 180);
+            ctx.scale(Number(tr.scale || 1), Number(tr.scale || 1));
+            ctx.drawImage(img, -contentWidth / 2, -contentHeight / 2, contentWidth, contentHeight);
+            ctx.restore();
+          }
+        }
+        return;
+      }
+
       const off = document.createElement("canvas"); off.width = contentWidth; off.height = contentHeight; const offCtx = off.getContext("2d", { alpha: true }); offCtx.clearRect(0, 0, contentWidth, contentHeight);
       let hasAny = false;
       for (const layer of drawLayers) {
@@ -1859,10 +1994,30 @@
           syncToolModeButtons();
         });
       });
-      $("#previewFitBtn").addEventListener("click", () => { state.settings.previewView = "fit"; state.settings.previewPanX = 0; state.settings.previewPanY = 0; updatePreviewView(); });
-      $("#previewOriginalBtn").addEventListener("click", () => { state.settings.previewView = "zoom"; state.settings.previewZoom = 1; state.settings.previewPanX = 0; state.settings.previewPanY = 0; updatePreviewView(); });
-      $("#previewZoom").addEventListener("input", (event) => { state.settings.previewView = "zoom"; state.settings.previewZoom = Number(event.target.value || 1); updatePreviewView(); });
-      ["#targetX", "#targetY", "#targetScale", "#targetRotation"].forEach((selector) => $(selector).addEventListener("input", updateTargetFromSliders));
+      $("#undoBtn").addEventListener("click", () => { undoAction().catch(console.error); });
+      $("#redoBtn").addEventListener("click", () => { redoAction().catch(console.error); });
+      document.addEventListener("keydown", (event) => {
+        const key = String(event.key || "").toLowerCase();
+        const modifier = event.ctrlKey || event.metaKey;
+        if (!modifier || key !== "z") return;
+        event.preventDefault();
+        if (event.shiftKey) redoAction().catch(console.error);
+        else undoAction().catch(console.error);
+      });
+      $("#previewFitBtn").addEventListener("click", () => { pushUndoSnapshot(); state.settings.previewView = "fit"; state.settings.previewPanX = 0; state.settings.previewPanY = 0; updatePreviewView(); });
+      $("#previewOriginalBtn").addEventListener("click", () => { pushUndoSnapshot(); state.settings.previewView = "zoom"; state.settings.previewZoom = 1; state.settings.previewPanX = 0; state.settings.previewPanY = 0; updatePreviewView(); });
+      $("#previewZoom").addEventListener("input", (event) => { if (!sliderHistoryArmed) armSliderHistory(); state.settings.previewView = "zoom"; state.settings.previewZoom = Number(event.target.value || 1); updatePreviewView(); });
+      ["#targetX", "#targetY", "#targetScale", "#targetRotation"].forEach((selector) => {
+        const input = $(selector);
+        input.addEventListener("pointerdown", armSliderHistory);
+        input.addEventListener("focus", armSliderHistory);
+        input.addEventListener("keydown", (event) => {
+          if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "PageUp", "PageDown", "Home", "End"].includes(event.key)) armSliderHistory();
+        });
+        input.addEventListener("input", updateTargetFromSliders);
+        input.addEventListener("change", disarmSliderHistory);
+        input.addEventListener("blur", disarmSliderHistory);
+      });
       $("#exportOriginalSelect").addEventListener("change", (event) => { state.settings.exportMode = event.target.value; });
       $("#exportHeightInput").addEventListener("input", (event) => { state.settings.exportHeight = Number(event.target.value || 1200); });
       $("#exportPngBtn").addEventListener("click", () => { exportPng().catch((error) => { console.error(error); setStatusT("pngExportFailed", {}, true); }); });
@@ -1903,7 +2058,7 @@
 
     function transformTargetCenter(target) {
       const canvas = $("#previewCanvas");
-      if (state.activeToolTarget === "standing") {
+      if (state.activeToolTarget === "standing" || String(state.activeToolTarget || "").startsWith("layer:")) {
         return { x: canvas.width / 2 + Number(target?.x || 0), y: canvas.height / 2 + Number(target?.y || 0) };
       }
       return { x: Number(target?.x || 0), y: Number(target?.y || 0) };
@@ -1922,6 +2077,7 @@
         const mode = state.settings.toolMode || "move";
         if (mode === "pan") {
           event.preventDefault();
+          pushUndoSnapshot();
           pointerState = {
             pointerId: event.pointerId,
             mode: "pan",
@@ -1938,6 +2094,7 @@
         const target = selectedTransformTarget();
         if (!target) return;
         event.preventDefault();
+        pushUndoSnapshot();
         const startPoint = previewPointerPoint(event);
         const center = transformTargetCenter(target);
         pointerState = {
@@ -1995,7 +2152,7 @@
       canvas.addEventListener("pointerup", (event) => endPreviewPointerDrag(canvas, event.pointerId));
       canvas.addEventListener("pointercancel", (event) => endPreviewPointerDrag(canvas, event.pointerId));
       canvas.addEventListener("lostpointercapture", () => endPreviewPointerDrag(canvas));
-      canvas.addEventListener("wheel", (event) => { const target = selectedTransformTarget(); if (!target) return; event.preventDefault(); if (event.shiftKey) target.rotation = clamp((target.rotation || 0) + (event.deltaY > 0 ? 2 : -2), -180, 180); else target.scale = clamp((target.scale || 1) + (event.deltaY > 0 ? -0.03 : 0.03), 0.05, 4); syncTargetSliders(); renderPreview(); }, { passive: false });
+      canvas.addEventListener("wheel", (event) => { const target = selectedTransformTarget(); if (!target) return; event.preventDefault(); pushUndoSnapshot(); if (event.shiftKey) target.rotation = clamp((target.rotation || 0) + (event.deltaY > 0 ? 2 : -2), -180, 180); else target.scale = clamp((target.scale || 1) + (event.deltaY > 0 ? -0.03 : 0.03), 0.05, 4); syncTargetSliders(); renderPreview(); }, { passive: false });
     }
 
     function applySelectedPreset() { const character = activeCharacter(); const presetId = $("#presetSelect").value; if (!presetId) return; const preset = character.presets.find((item) => item.id === presetId); if (!preset) return; applySelectionSnapshot(preset.selection, character); renderLayers(); renderPreview(); setStatusT("presetApplied", { name: preset.name }); }
